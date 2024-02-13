@@ -107,7 +107,7 @@ export function Navbar() {
                 <div className="mt-6">
                   <nav className="grid gap-y-4">
                     {menuItems.map((item) => (
-                      <a
+                      <NavLink
                         key={item.name}
                         to={item.to}
                         className="-m-3 flex items-center rounded-md p-3 text-sm font-semibold hover:bg-gray-50"
@@ -115,7 +115,7 @@ export function Navbar() {
                         <span className="ml-3 text-base font-medium text-gray-900">
                           {item.name}
                         </span>
-                      </a>
+                      </NavLink>
                     ))}
                   </nav>
                 </div>

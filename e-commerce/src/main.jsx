@@ -5,20 +5,25 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import { SignInOne } from './components/login.jsx'
 import SignUpOne from './components/registration.jsx'
+import Home from './components/Home/home.jsx'
 
 const router = createBrowserRouter(
   [
     {
       path:"/",
-      to:<Layout />,
+      element:<Layout />,
       children:[
         {
+          path:"",
+          element:<Home />
+        },
+        {
           path:"/signin",
-          to:<SignInOne />
+          element:<SignInOne />
         },
         {
           path:"/signup",
-          to:<SignUpOne />
+          element:<SignUpOne />
         }
       ]
     }
