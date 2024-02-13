@@ -1,13 +1,23 @@
-
 import SignUpOne from "./components/registration";
 import { SignInOne } from "./components/login";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useParams
+} from "react-router-dom";
 
 function App() {
-  
-
   return (
     <>
-      <SignInOne />
+    <Router>
+      <Route exact path="/">
+        <SignUpOne/>
+      </Route>
+      <Route path="/login">
+        <SignInOne/>
+      </Route>
+  </Router>
       <SignUpOne />
     </>
   );
