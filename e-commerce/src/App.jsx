@@ -1,24 +1,14 @@
+/* eslint-disable no-unused-vars */
 import SignUpOne from "./components/registration";
 import { SignInOne } from "./components/login";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
+import { Navbar } from "./components/navbar";
 
 function App() {
   return (
     <>
-    <Router>
-      <Route exact path="/">
-        <SignUpOne/>
-      </Route>
-      <Route path="/login">
-        <SignInOne/>
-      </Route>
-  </Router>
-      <SignUpOne />
+   
+    <Navbar />
+       
     </>
   );
 }

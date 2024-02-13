@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "lucide-react";
+import {Link} from 'react-router-dom';
 
 export default function SignUpOne() {
   return (
@@ -14,8 +15,8 @@ export default function SignUpOne() {
             <p className="mt-2 text-base text-gray-600">
               Already have an account?{" "}
               <Link
-                to="../components/login.jsx"
-                title=""
+                to="/signin"
+                title="Sign"
                 className="font-medium text-black transition-all duration-200 hover:underline"
               >
                 Sign In
