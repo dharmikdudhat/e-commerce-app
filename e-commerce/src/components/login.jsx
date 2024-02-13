@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import { ArrowRight } from 'lucide-react'
+import React from "react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function SignInOne() {
   return (
@@ -8,23 +9,28 @@ export function SignInOne() {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">Sign in</h2>
+            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
+              Sign in
+            </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Don&apos;t have an account?{' '}
-              <a
-                href="#"
+              Don&apos;t have an account?{" "}
+              <Link
+                to="/signup"
                 title=""
                 className="font-semibold text-black transition-all duration-200 hover:underline"
               >
                 Create a free account
-              </a>
+              </Link>
             </p>
             <form action="#" method="POST" className="mt-8">
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
-                    {' '}
-                    Email address{' '}
+                  <label
+                    htmlFor=""
+                    className="text-base font-medium text-gray-900"
+                  >
+                    {" "}
+                    Email address{" "}
                   </label>
                   <div className="mt-2">
                     <input
@@ -36,17 +42,20 @@ export function SignInOne() {
                 </div>
                 <div>
                   <div className="flex items-center justify-between">
-                    <label htmlFor="" className="text-base font-medium text-gray-900">
-                      {' '}
-                      Password{' '}
+                    <label
+                      htmlFor=""
+                      className="text-base font-medium text-gray-900"
+                    >
+                      {" "}
+                      Password{" "}
                     </label>
                     <a
                       href="#"
                       title=""
                       className="text-sm font-semibold text-black hover:underline"
                     >
-                      {' '}
-                      Forgot password?{' '}
+                      {" "}
+                      Forgot password?{" "}
                     </a>
                   </div>
                   <div className="mt-2">
@@ -56,6 +65,21 @@ export function SignInOne() {
                       placeholder="Password"
                     ></input>
                   </div>
+                </div>
+                <div className="flex items-center me-4">
+                  <input
+                    id="admin"
+                    type="radio"
+                    value=""
+                    name="inline-radio-group"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  ></input>
+                  <label
+                    
+                    className="ms-2 text-sm font-medium text-gray-900"
+                  >
+                    Are You Admin ?
+                  </label>
                 </div>
                 <div>
                   <button
@@ -112,5 +136,5 @@ export function SignInOne() {
         </div>
       </div>
     </section>
-  )
+  );
 }

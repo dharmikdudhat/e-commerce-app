@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { ArrowRight } from "lucide-react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function SignUpOne() {
   return (
@@ -30,7 +30,7 @@ export default function SignUpOne() {
                     className="text-base font-medium text-gray-900"
                   >
                     {" "}
-                    Full Name{" "}
+                    User Name{" "}
                   </label>
                   <div className="mt-2">
                     <input
@@ -43,11 +43,28 @@ export default function SignUpOne() {
                 </div>
                 <div>
                   <label
+                    htmlFor="age"
+                    className="text-base font-medium text-gray-900"
+                  >
+                    {" "}
+                    Age{" "}
+                  </label>
+                  <div className="mt-2">
+                    <input
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      type="number"
+                      placeholder="Age"
+                      id="age"
+                    ></input>
+                  </div>
+                </div>
+                <div>
+                  <label
                     htmlFor="email"
                     className="text-base font-medium text-gray-900"
                   >
                     {" "}
-                    Email address{" "}
+                    Email{" "}
                   </label>
                   <div className="mt-2">
                     <input
