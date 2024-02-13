@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/auth-login.dto';
+
 
 @Injectable()
 export class AuthService {
@@ -11,9 +13,9 @@ export class AuthService {
   ) {}
 
   // Login
-  async signIn(username: string, password: string): Promise<LoginUserDto> {
-    const user = await this.usersService.findOneUser(username);
-
+  async signIn(email: string, password: string): Promise<LoginUserDto> {
+    const user = await this.usersService.findOneUser(email);
+console.log(user)
     if (user?.password !== password) {
       throw new UnauthorizedException({
         message: 'Please check your credentials',

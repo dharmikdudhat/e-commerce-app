@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 
 import {
     Body,
@@ -20,7 +21,7 @@ import { LoginUserDto } from './dto/auth-login.dto';
     @Post('login')
     @HttpCode(HttpStatus.OK)
     signIn(@Body() signInDto: any): Promise<LoginUserDto> {
-      return this.authService.signIn(signInDto.username, signInDto.password);
+      return this.authService.signIn(signInDto.email, signInDto.password);
     }
   
     @UseGuards(AuthGuard)
