@@ -2,9 +2,8 @@
 
 import React from 'react'
 import { Menu, X } from 'lucide-react'
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import SignUpOne from './registration';
-import { SignInOne } from './login';
+import { NavLink } from 'react-router-dom';
+
 
 const menuItems = [
   {
@@ -26,7 +25,7 @@ export function Navbar() {
   }
 
   return (
-    <Router>
+ 
     
     <div className="relative w-full bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
@@ -51,12 +50,12 @@ export function Navbar() {
           <ul className="inline-flex space-x-8">
             {menuItems.map((item) => (
               <li key={item.name}>
-                <Link
+                <NavLink
                   to={item.to}
-                  className="text-sm font-semibold text-gray-800 hover:text-gray-900"
+                  className={ ({isActive}) => `text-sm font-semibold ${isActive ? "text-orange-700" : "text-gray-700"} text-gray-800 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`}
                 >
                   {item.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -132,12 +131,8 @@ export function Navbar() {
         )}
       </div>
     </div>
-    <Routes>
-    <Route path="/signin" element={<SignInOne />} />
-    <Route path="/signup" element={<SignUpOne />} />
+    
    
-  </Routes>
-    </Router>
   
   )
 }
