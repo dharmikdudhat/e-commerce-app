@@ -7,19 +7,19 @@ import { NavLink } from "react-router-dom";
 const menuItems = [
   {
     name: "Home",
-    to: "/signin",
+    to: "/login",
   },
   {
     name: "About",
-    to: "/signup",
+    to: "/registration",
   },
   {
     name: "Contact Us",
-    to: "/contactus",
+    to: "/contact",
   },
 ];
 
-export function Navbar() {
+export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const toggleMenu = () => {
@@ -136,4 +136,4 @@ export function Navbar() {
       </div>
     </div>
   );
-}
+};
