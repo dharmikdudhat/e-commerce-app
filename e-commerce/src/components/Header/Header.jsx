@@ -1,32 +1,32 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { Menu, X } from 'lucide-react'
-import { NavLink } from 'react-router-dom';
-
+import React from "react";
+import { Menu, X } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const menuItems = [
   {
-    name: 'Sign In',
-    to: '/signin',
+    name: "Home",
+    to: "/login",
   },
   {
-    name: 'Sign Up',
-    to: '/signup',
+    name: "About",
+    to: "/registration",
   },
-  
-]
+  {
+    name: "Contact Us",
+    to: "/contact",
+  },
+];
 
-export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+export const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
- 
-    
     <div className="relative w-full bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex items-center space-x-2">
@@ -52,7 +52,11 @@ export function Navbar() {
               <li key={item.name}>
                 <NavLink
                   to={item.to}
-                  className={ ({isActive}) => `text-sm font-semibold ${isActive ? "text-orange-700" : "text-gray-700"} text-gray-800 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`}
+                  className={({ isActive }) =>
+                    `text-sm font-semibold ${
+                      isActive ? "text-orange-700" : "text-gray-700"
+                    } text-gray-800 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                  }
                 >
                   {item.name}
                 </NavLink>
@@ -131,8 +135,5 @@ export function Navbar() {
         )}
       </div>
     </div>
-    
-   
-  
-  )
-}
+  );
+};
