@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React from "react";
 
-export function Footer() {
+export const Footer = () => {
   return (
     <section className="relative overflow-hidden bg-white py-8">
       <div className="container relative z-10 mx-auto px-4">
@@ -28,22 +28,34 @@ export function Footer() {
           <div className="w-auto p-8">
             <ul className="-m-5 flex flex-wrap items-center">
               <li className="p-5">
-                <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                <a
+                  className="font-medium text-gray-600 hover:text-gray-700"
+                  href="#"
+                >
                   Privacy Policy
                 </a>
               </li>
               <li className="p-5">
-                <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                <a
+                  className="font-medium text-gray-600 hover:text-gray-700"
+                  href="#"
+                >
                   Terms of Service
                 </a>
               </li>
               <li className="p-5">
-                <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                <a
+                  className="font-medium text-gray-600 hover:text-gray-700"
+                  href="#"
+                >
                   Return Policy
                 </a>
               </li>
               <li className="p-5">
-                <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
+                <a
+                  className="font-medium text-gray-600 hover:text-gray-700"
+                  href="#"
+                >
                   Contact Us
                 </a>
               </li>
@@ -110,5 +122,5 @@ export function Footer() {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
