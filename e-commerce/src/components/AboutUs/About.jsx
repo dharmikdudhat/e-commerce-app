@@ -3,7 +3,7 @@
 
 import React from "react";
 import { Menu, X, MapPin } from "lucide-react";
-
+import { NavLink } from "react-router-dom";
 
 const locations = [
   {
@@ -158,7 +158,7 @@ export function AboutPageOne() {
               type="button"
               className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
-              Join Now
+              <NavLink to="/contact">Join Now</NavLink>
             </button>
           </div>
           <div className="md:mt-o mt-10 w-full">

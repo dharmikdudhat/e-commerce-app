@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Home } from "../Home/Home";
 
 export const SignInOne = () => {
   const [loginFormData, setLoginFormData] = useState({
@@ -30,8 +31,9 @@ export const SignInOne = () => {
 
       if (login.ok) {
         const res = await login.json();
-        
+
         alert("You have Logged In");
+        <Home />;
       } else {
         alert("Enter Correct Credentials", loginUser.statusText);
       }
