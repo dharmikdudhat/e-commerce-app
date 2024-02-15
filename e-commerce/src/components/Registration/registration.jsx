@@ -1,9 +1,45 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const SignUpOne = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    age: 0,
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const createUser = async (e) => {
+    e.preventDefault();
+
+    try{
+      const user =await  fetch("http://localhost:3000/user", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    })
+
+    if (user.ok) {
+      alert("User Created Succesfully !!!")
+    }else{
+      alert("Not Able to Craete User" , user.statusText)
+    }
+  }catch(error){
+    alert("Error Creating Item : ", error)
+  }
+};
+
   return (
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -22,7 +58,7 @@ export const SignUpOne = () => {
                 Sign In
               </Link>
             </p>
-            <form action="#" method="POST" className="mt-8">
+            <form onSubmit={createUser} method="POST" className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label
@@ -38,6 +74,10 @@ export const SignUpOne = () => {
                       type="text"
                       placeholder="Full Name"
                       id="name"
+                      name="username"
+                      required
+                      value={formData.username}
+                      onChange={handleInputChange}
                     ></input>
                   </div>
                 </div>
@@ -55,6 +95,10 @@ export const SignUpOne = () => {
                       type="number"
                       placeholder="Age"
                       id="age"
+                      name="age"
+                      value={formData.age}
+                      onChange={handleInputChange}
+                      required
                     ></input>
                   </div>
                 </div>
@@ -72,6 +116,10 @@ export const SignUpOne = () => {
                       type="email"
                       placeholder="Email"
                       id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
                     ></input>
                   </div>
                 </div>
@@ -91,12 +139,16 @@ export const SignUpOne = () => {
                       type="password"
                       placeholder="Password"
                       id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      required
                     ></input>
                   </div>
                 </div>
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Create Account <ArrowRight className="ml-2" size={16} />

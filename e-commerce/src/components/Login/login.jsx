@@ -1,9 +1,44 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const SignInOne = () => {
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    setLoginFormData({
+      ...loginFormData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
+  const loginUser = async (e) => {
+    e.preventDefault();
+
+    try{
+      const login = await fetch("http://localhost:3000/auth/login",{
+        method:'POST',
+        header:{
+          'content-type' : 'application/json',
+        },
+        body:JSON.stringify(loginFormData)
+      
+      }
+  );
+  if (login.ok) {
+    alert("You have Logged In");
+  }else{
+    alert("Enter Correct Credentials" , loginUser.statusText)
+  }
+    }catch(error){
+      alert("Error ")
+    }
+  }
   return (
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -22,7 +57,7 @@ export const SignInOne = () => {
                 Create a free account
               </Link>
             </p>
-            <form action="#" method="POST" className="mt-8">
+            <form onSubmit={loginUser} method="POST" className="mt-8">
               <div className="space-y-5">
                 <div>
                   <label
@@ -37,6 +72,10 @@ export const SignInOne = () => {
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
                       placeholder="Email"
+                      name="email"
+                      value={loginFormData.email}
+                      required
+                      onChange={(handleInputChange)}
                     ></input>
                   </div>
                 </div>
@@ -63,6 +102,10 @@ export const SignInOne = () => {
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
                       placeholder="Password"
+                      name="password"
+                      value={loginFormData.password}
+                      required
+                      onChange={handleInputChange}
                     ></input>
                   </div>
                 </div>
@@ -80,7 +123,7 @@ export const SignInOne = () => {
                 </div>
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Get started <ArrowRight className="ml-2" size={16} />
