@@ -9,6 +9,8 @@ import { SignUpOne } from "./components/Registration/registration";
 import Contact from "./components/ContactUs/Contact";
 import { Home } from "./components/Home/Home";
 import { AboutPageOne } from "./components/AboutUs/About";
+import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
+import Terms from "./components/Terms/Terms";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,8 @@ const router = createBrowserRouter(
       <Route path="login" element={<SignInOne />} />
       <Route path="registration" element={<SignUpOne />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="privacypolicy" element={<PrivacyPolicy />} />
+      <Route path="terms" element={<Terms />} />
     </Route>
   )
 );

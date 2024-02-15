@@ -29,7 +29,7 @@ export const SignUpOne = () => {
         },
         body: JSON.stringify(formData),
       });
-
+      console.log(user, "user");
       if (user.ok) {
         alert("User Created Succesfully !!!");
       } else {

@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 const menuItems = [
   {
     name: "Home",
-    to: "/login",
+    to: "/",
   },
   {
     name: "About",
@@ -52,7 +52,7 @@ export const Navbar = () => {
               />
             </svg>
           </span>
-          <span className="font-bold">DevUI</span>
+          <span className="font-bold">DDProject</span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">

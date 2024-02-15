@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <section className="relative overflow-hidden bg-white py-8">
+    <section className="relative overflow-hidden bg-white py-8 fixed">
       <div className="container relative z-10 mx-auto px-4">
         <div className="-m-8 flex flex-wrap items-center justify-between">
           <div className="w-auto p-8">
@@ -21,27 +22,27 @@ export const Footer = () => {
                     fill="black"
                   />
                 </svg>
-                <span className="ml-4 text-lg font-bold">DevUI</span>
+                <span className="ml-4 text-lg font-bold">DDProject</span>
               </div>
             </a>
           </div>
           <div className="w-auto p-8">
             <ul className="-m-5 flex flex-wrap items-center">
               <li className="p-5">
-                <a
+                <NavLink
                   className="font-medium text-gray-600 hover:text-gray-700"
-                  href="#"
+                  to="/privacypolicy"
                 >
                   Privacy Policy
-                </a>
+                </NavLink>
               </li>
               <li className="p-5">
-                <a
+                <NavLink
                   className="font-medium text-gray-600 hover:text-gray-700"
-                  href="#"
+                  to="/terms"
                 >
                   Terms of Service
-                </a>
+                </NavLink>
               </li>
               <li className="p-5">
                 <a
