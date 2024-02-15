@@ -23,13 +23,15 @@ export class AuthService {
       });
     }
 
-    const payload = { sub: user.id, username: user.username };
+    const payload = {role: user.role, email: user.email, name: user.username};
     const token = await this.jwtService.signAsync(payload);
 
     return {
-      isError: "false", message: "Successfully Login", data: {
-        username: payload.username,
-        accessToken: token
+      accessToken: token,
+      user: {
+        email: user.email,
+        username: user.username,
+        role: user.role
       }
     }
   };

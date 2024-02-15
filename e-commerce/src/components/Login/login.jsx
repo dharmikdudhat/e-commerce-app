@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export const SignInOne = () => {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     setLoginFormData({
@@ -28,9 +30,13 @@ export const SignInOne = () => {
         body: JSON.stringify(loginFormData),
       });
 
+      const response = await login.json();
+
+      dispatch(login(response.accessToken));
+
       if (login.ok) {
         const res = await login.json();
-        
+
         alert("You have Logged In");
       } else {
         alert("Enter Correct Credentials", loginUser.statusText);
