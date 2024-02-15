@@ -39,7 +39,6 @@ export const SignInOne = () => {
 
       if (loginData.ok) {
         alert("You have Logged In");
-        <Home />;
       } else {
         alert("Enter Correct Credentials", loginUser.statusText);
       }
