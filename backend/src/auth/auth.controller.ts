@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 
 import {
     Body,
@@ -11,7 +14,8 @@ import {
   } from '@nestjs/common';
   import { AuthGuard } from './auth.guards';
   import { AuthService } from './auth.service';
-import { LoginUserDto } from './dto/auth-login.dto';
+import { RoleGuard } from 'src/user/role.guard';
+
   
   @Controller('auth')
   export class AuthController {
@@ -19,13 +23,19 @@ import { LoginUserDto } from './dto/auth-login.dto';
   
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    signIn(@Body() signInDto: any): Promise<LoginUserDto> {
-      return this.authService.signIn(signInDto.username, signInDto.password);
+    signIn(@Body() signInDto: any): Promise<string> {
+      return this.authService.signIn(signInDto.email, signInDto.password);
     }
   
-    @UseGuards(AuthGuard)
-    @Get('profile')
-    getProfile(@Request() req) {
-      return req.user;
-    }
+    // @Get("/Admin")
+    // @UseGuards( AuthGuard('jwt'), new RoleGuard('ADMIN'))
+    // androidDeveloperData(@Request() req): string {
+    //   return "this is private data for ADMIN" ;
+    // }
+  
+    // @Get("/web-developer")
+    // @UseGuards( AuthGuard('jwt'), new RoleGuard(CONSTANTS.ROLES.WEB_DEVELOPER))
+    // webDeveloperData(@Request() req): string {
+    //   return "this is private data for web developer" + JSON.stringify(req.user);
+    // }
   }

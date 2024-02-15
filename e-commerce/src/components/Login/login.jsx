@@ -15,7 +15,7 @@ export const SignInOne = () => {
             <p className="mt-2 text-sm text-gray-600">
               Don&apos;t have an account?{" "}
               <Link
-                to="/signup"
+                to="/registration"
                 title=""
                 className="font-semibold text-black transition-all duration-200 hover:underline"
               >
