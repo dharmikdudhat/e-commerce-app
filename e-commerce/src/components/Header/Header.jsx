@@ -11,11 +11,19 @@ const menuItems = [
   },
   {
     name: "About",
-    to: "/registration",
+    to: "/aboutus",
   },
   {
     name: "Contact Us",
     to: "/contact",
+  },
+  {
+    name: "Sign In",
+    to: "/login",
+  },
+  {
+    name: "Sign Up",
+    to: "/registration",
   },
 ];
 

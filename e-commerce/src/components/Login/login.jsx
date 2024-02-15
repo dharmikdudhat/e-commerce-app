@@ -16,29 +16,26 @@ export const SignInOne = () => {
     });
   };
 
-
   const loginUser = async (e) => {
     e.preventDefault();
 
-    try{
-      const login = await fetch("http://localhost:3000/auth/login",{
-        method:'POST',
-        header:{
-          'content-type' : 'application/json',
+    try {
+      const login = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        header: {
+          "content-type": "application/json",
         },
-        body:JSON.stringify(loginFormData)
-      
+        body: JSON.stringify(loginFormData),
+      });
+      if (login.ok) {
+        alert("You have Logged In");
+      } else {
+        alert("Enter Correct Credentials", loginUser.statusText);
       }
-  );
-  if (login.ok) {
-    alert("You have Logged In");
-  }else{
-    alert("Enter Correct Credentials" , loginUser.statusText)
-  }
-    }catch(error){
-      alert("Error ")
+    } catch (error) {
+      alert("Error ");
     }
-  }
+  };
   return (
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -75,7 +72,7 @@ export const SignInOne = () => {
                       name="email"
                       value={loginFormData.email}
                       required
-                      onChange={(handleInputChange)}
+                      onChange={handleInputChange}
                     ></input>
                   </div>
                 </div>

@@ -21,24 +21,24 @@ export const SignUpOne = () => {
   const createUser = async (e) => {
     e.preventDefault();
 
-    try{
-      const user =await  fetch("http://localhost:3000/user", {
+    try {
+      const user = await fetch("http://localhost:3000/user", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-    })
+      });
 
-    if (user.ok) {
-      alert("User Created Succesfully !!!")
-    }else{
-      alert("Not Able to Craete User" , user.statusText)
+      if (user.ok) {
+        alert("User Created Succesfully !!!");
+      } else {
+        alert("Not Able to Craete User", user.statusText);
+      }
+    } catch (error) {
+      alert("Error Creating Item : ", error);
     }
-  }catch(error){
-    alert("Error Creating Item : ", error)
-  }
-};
+  };
 
   return (
     <section>

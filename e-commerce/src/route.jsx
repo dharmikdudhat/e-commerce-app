@@ -8,11 +8,13 @@ import { SignInOne } from "./components/Login/login";
 import { SignUpOne } from "./components/Registration/registration";
 import Contact from "./components/ContactUs/Contact";
 import { Home } from "./components/Home/Home";
+import { AboutPageOne } from "./components/AboutUs/About";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="" element={<Home />} />
+      <Route path="aboutus" element={<AboutPageOne />} />
       <Route path="login" element={<SignInOne />} />
       <Route path="registration" element={<SignUpOne />} />
       <Route path="contact" element={<Contact />} />
