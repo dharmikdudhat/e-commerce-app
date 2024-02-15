@@ -16,7 +16,7 @@ export class AuthService {
   // Login
   async signIn(email: string, password: string): Promise<string> {
     const user = await this.usersService.findOneUser(email);
-    console.log(user)
+   
     if (user?.password !== password) {
       throw new UnauthorizedException({
         message: 'Please check your credentials',
