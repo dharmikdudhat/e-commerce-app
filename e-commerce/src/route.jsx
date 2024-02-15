@@ -9,8 +9,7 @@ import { SignUpOne } from "./components/Registration/registration";
 import Contact from "./components/ContactUs/Contact";
 import { Home } from "./components/Home/Home";
 import { AboutPageOne } from "./components/AboutUs/About";
-import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
-import Terms from "./components/Terms/Terms";
+// import { Home } from "./components/Home/Home";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

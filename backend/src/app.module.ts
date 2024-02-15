@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
       password: '12345',
       database: 'ecommerce',
       entities: [User],
-      synchronize: true,
+      synchronize: true
     }),
 
     UserModule,

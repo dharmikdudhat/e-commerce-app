@@ -22,14 +22,14 @@ export const SignUpOne = () => {
     e.preventDefault();
 
     try {
-      const user = await fetch("http://localhost:3000/user", {
+      const user = await fetch("http://localhost:3000/user/registration", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      console.log(user, "user");
+      console.log(await user.json());
       if (user.ok) {
         alert("User Created Succesfully !!!");
       } else {

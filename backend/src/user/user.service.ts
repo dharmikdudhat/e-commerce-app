@@ -27,12 +27,12 @@ export class UserService {
     // return this.userRepository.save(user);
   }
 
-  findAll():Promise<User[]> {
+  findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
   findOneUser(email: string) {
-    return this.userRepository.findOneBy({email}) ;
+    return this.userRepository.findOneBy({ email });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
@@ -43,7 +43,7 @@ export class UserService {
     user.age = UpdateUserDto.age;
     user.id = id;
     user.password = UpdateUserDto.password;
-    
+
     return this.userRepository.save(user);
   }
 

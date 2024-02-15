@@ -14,19 +14,24 @@ export class AuthService {
   ) { }
 
   // Login
-  async signIn(email: string, password: string): Promise<string> {
+  async signIn(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOneUser(email);
-   
+
     if (user?.password !== password) {
       throw new UnauthorizedException({
         message: 'Please check your credentials',
       });
-    } 
-      
-      const payload = { sub: user.id, username: user.username };
-      return await this.jwtService.signAsync(payload
-      )
-    
+    }
+
+    const payload = { sub: user.id, username: user.username };
+    const token = await this.jwtService.signAsync(payload);
+
+    return {
+      isError: "false", message: "Successfully Login", data: {
+        username: payload.username,
+        accessToken: token
+      }
+    }
   };
 }
 
