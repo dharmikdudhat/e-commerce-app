@@ -1,15 +1,11 @@
 /* eslint-disable no-unused-vars */
-import ProductCard from "./components/ProductCard/ProductCard";
-import { Navbar } from "./components/navbar";
-
+import React from "react";
+import "./index.css";
+import router from "./route";
+import { RouterProvider } from "react-router-dom";
 function App() {
   return (
-    <>
-   
-    <Navbar />
-    <ProductCard /> 
-       
-    </>
+    <RouterProvider router={router} />
   );
 }
 

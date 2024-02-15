@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { login } from "../../features/authSlice";
 
 export const SignInOne = () => {
   const [loginFormData, setLoginFormData] = useState({
@@ -10,6 +11,7 @@ export const SignInOne = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const navigation = useNavigate()
 
   const handleInputChange = (e) => {
     setLoginFormData({
@@ -22,7 +24,7 @@ export const SignInOne = () => {
     e.preventDefault();
 
     try {
-      const login = await fetch("http://localhost:3000/auth/login", {
+      const loginData = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,13 +32,12 @@ export const SignInOne = () => {
         body: JSON.stringify(loginFormData),
       });
 
-      const response = await login.json();
+      const response = await loginData.json();
 
       dispatch(login(response.accessToken));
+      navigation('/aboutus')
 
-      if (login.ok) {
-        const res = await login.json();
-
+      if (loginData.ok) {
         alert("You have Logged In");
       } else {
         alert("Enter Correct Credentials", loginUser.statusText);

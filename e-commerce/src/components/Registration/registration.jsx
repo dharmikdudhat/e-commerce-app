@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const SignUpOne = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,7 @@ export const SignUpOne = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -29,9 +30,10 @@ export const SignUpOne = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(await user.json());
+
       if (user.ok) {
         alert("User Created Succesfully !!!");
+        navigate("/contact");
       } else {
         alert("Not Able to Craete User", user.statusText);
       }
