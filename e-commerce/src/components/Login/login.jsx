@@ -22,18 +22,22 @@ export const SignInOne = () => {
     try {
       const login = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
-        header: {
-          "content-type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(loginFormData),
       });
+
       if (login.ok) {
+        const res = await login.json();
+        
         alert("You have Logged In");
       } else {
         alert("Enter Correct Credentials", loginUser.statusText);
       }
     } catch (error) {
-      alert("Error ");
+      console.log(error);
+      alert("Error ", error);
     }
   };
   return (
