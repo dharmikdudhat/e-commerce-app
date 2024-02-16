@@ -11,6 +11,7 @@ import { Home } from "./components/Home/Home";
 import { AboutPageOne } from "./components/AboutUs/About";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./components/Terms/Terms";
+import { Details } from "./components/DetailedProductCard/DetailedProductCard";
 // import { Home } from "./components/Home/Home";
 
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="contact" element={<Contact />} />
       <Route path="privacypolicy" element={<PrivacyPolicy />} />
       <Route path="terms" element={<Terms />} />
+      <Route path="details" element={<Details />} />
     </Route>
   )
 );

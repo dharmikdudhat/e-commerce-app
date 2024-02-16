@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/authSlice";
+import { AlertBanner } from "../Banners/AlertBanner";
 
 export const SignInOne = () => {
   const [loginFormData, setLoginFormData] = useState({
@@ -12,6 +13,7 @@ export const SignInOne = () => {
   });
   const dispatch = useDispatch();
   const navigation = useNavigate();
+  const isError = false;
 
   const handleInputChange = (e) => {
     setLoginFormData({
@@ -37,11 +39,9 @@ export const SignInOne = () => {
       dispatch(login(response.accessToken));
 
       if (loginData.ok) {
-        alert("You have Logged In");
-        navigation("/");
+        isError = false;
       } else {
-        alert("Enter Correct Credentials", loginUser.statusText);
-        navigation('/login')
+        isError = true;
       }
     } catch (error) {
       console.log(error);
@@ -52,6 +52,7 @@ export const SignInOne = () => {
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+          {isError && <AlertBanner />}
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Sign in
