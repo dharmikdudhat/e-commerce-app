@@ -8,6 +8,7 @@ import { SignInOne } from "./components/Login/login";
 import { SignUpOne } from "./components/Registration/registration";
 import Contact from "./components/ContactUs/Contact";
 import { Home } from "./components/Home/Home";
+import NoMatch from "./components/NoMatch/NoMatch";
 import { AboutPageOne } from "./components/AboutUs/About";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./components/Terms/Terms";
