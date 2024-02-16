@@ -11,7 +11,7 @@ export const SignInOne = () => {
     password: "",
   });
   const dispatch = useDispatch();
-  const navigation = useNavigate()
+  const navigation = useNavigate();
 
   const handleInputChange = (e) => {
     setLoginFormData({
@@ -35,12 +35,13 @@ export const SignInOne = () => {
       const response = await loginData.json();
 
       dispatch(login(response.accessToken));
-      navigation('/')
 
       if (loginData.ok) {
         alert("You have Logged In");
+        navigation("/");
       } else {
         alert("Enter Correct Credentials", loginUser.statusText);
+        navigation('/login')
       }
     } catch (error) {
       console.log(error);
