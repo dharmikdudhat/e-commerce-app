@@ -13,7 +13,7 @@ export const SignInOne = () => {
   });
   const dispatch = useDispatch();
   const navigation = useNavigate();
-  const isError = false;
+  let isError = false;
 
   const handleInputChange = (e) => {
     setLoginFormData({
@@ -37,7 +37,7 @@ export const SignInOne = () => {
       const response = await loginData.json();
 
       dispatch(login(response.accessToken));
-      navigation('/')
+      navigation("/");
 
       if (loginData.ok) {
         isError = false;

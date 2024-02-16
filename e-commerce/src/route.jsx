@@ -12,6 +12,8 @@ import { AboutPageOne } from "./components/AboutUs/About";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./components/Terms/Terms";
 import { Details } from "./components/DetailedProductCard/DetailedProductCard";
+import { AdminDashboard } from "./components/AdminDashboard/AdminDashboard";
+import AddProduct from "./components/AddProduct/AddProduct";
 // import { Home } from "./components/Home/Home";
 
 const router = createBrowserRouter(
@@ -25,6 +27,8 @@ const router = createBrowserRouter(
       <Route path="privacypolicy" element={<PrivacyPolicy />} />
       <Route path="terms" element={<Terms />} />
       <Route path="details" element={<Details />} />
+      <Route path="admin" element={<AdminDashboard />} />
+      <Route path="add" element={<AddProduct />} />
     </Route>
   )
 );

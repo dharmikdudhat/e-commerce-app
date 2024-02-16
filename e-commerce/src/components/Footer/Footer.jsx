@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <section className="overflow-hidden relative bg-white py-8">
-      <div className="container relative z-10 mx-auto px-4">
+    <div className="overflow-hidden relative bg-white py-8">
+      <div className="container relative  h-16 mx-auto ">
         <div className="-m-8 flex flex-wrap items-center justify-between">
           <div className="w-auto p-8">
             <ul className="-m-5 flex flex-wrap items-center">
@@ -103,6 +103,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
