@@ -12,6 +12,8 @@ export const SignUpOne = () => {
   });
 
   const navigate = useNavigate();
+  
+  // Handle form data changes
   const handleInputChange = (e) => {
     setFormData({
       ...formData,

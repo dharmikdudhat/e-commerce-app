@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { ContactModule } from './contact/contact.module';
+import { ContactEntity } from './contact/entities/contact.entity';
 
 @Module({
   imports: [
@@ -14,14 +16,15 @@ import { AuthModule } from './auth/auth.module';
       username: 'postgres',
       password: '55305530',
       database: 'typeorm_db',
-      entities: [User],
+      entities: [User, ContactEntity],
       synchronize: true
     }),
 
     UserModule,
     AuthModule,
+    ContactModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
