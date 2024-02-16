@@ -8,11 +8,11 @@ import { SignInOne } from "./components/Login/login";
 import { SignUpOne } from "./components/Registration/registration";
 import Contact from "./components/ContactUs/Contact";
 import { Home } from "./components/Home/Home";
+import NoMatch from "./components/NoMatch/NoMatch";
 import { AboutPageOne } from "./components/AboutUs/About";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./components/Terms/Terms";
 import { Details } from "./components/DetailedProductCard/DetailedProductCard";
-// import { Home } from "./components/Home/Home";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="privacypolicy" element={<PrivacyPolicy />} />
       <Route path="terms" element={<Terms />} />
       <Route path="details" element={<Details />} />
+      <Route path="*" element={<NoMatch />} />
     </Route>
   )
 );

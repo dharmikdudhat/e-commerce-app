@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { logout } from "../../features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const menuItems = [
+const menuBeforeLogin = [
   {
     name: "Home",
     to: "/",
@@ -27,19 +29,43 @@ const menuItems = [
   },
 ];
 
+const menuAfterLogin = [
+  {
+    name: "Home",
+    to: "/",
+  },
+  {
+    name: "About",
+    to: "/aboutus",
+  },
+  {
+    name: "Contact Us",
+    to: "/contact",
+  },
+];
+
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [menuItems, setMenuItems] = React.useState(menuBeforeLogin);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const token = useSelector((state) => state.auth.token);
+
+  useEffect(() => {
+    if (token) {
+      setMenuItems(menuAfterLogin);
+    } else {
+      setMenuItems(menuBeforeLogin);
+    }
+  }, [token, menuItems]);
+
+  const dispatch = useDispatch();
+
   return (
-<<<<<<< HEAD
-    <div className="relative w-full h-14 overflow-hidden justify-between bg-white">
-=======
     <div className=" py-2 sticky w-full h-14 overflow-hidden justify-between bg-white">
->>>>>>> d05f793926c8d3e2504d743df9f4355e03a4378c
       <div className="mx-auto relative  flex flex-wrap max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex  items-center space-x-2">
           <span>
@@ -80,8 +106,9 @@ export const Navbar = () => {
           <button
             type="button"
             className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            onClick={() => dispatch(logout())}
           >
-            Button text
+            Sign Out
           </button>
         </div>
         <div className="lg:hidden">
@@ -139,7 +166,7 @@ export const Navbar = () => {
                   type="button"
                   className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
-                  Button text
+                  Sign Out
                 </button>
               </div>
             </div>
