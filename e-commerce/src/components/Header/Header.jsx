@@ -35,7 +35,11 @@ export const Navbar = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="relative w-full h-14 overflow-hidden justify-between bg-white">
+=======
+    <div className=" py-2 sticky w-full h-14 overflow-hidden justify-between bg-white">
+>>>>>>> d05f793926c8d3e2504d743df9f4355e03a4378c
       <div className="mx-auto relative  flex flex-wrap max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex  items-center space-x-2">
           <span>

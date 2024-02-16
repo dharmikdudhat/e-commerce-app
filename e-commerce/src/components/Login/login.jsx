@@ -37,7 +37,7 @@ export const SignInOne = () => {
       const response = await loginData.json();
 
       dispatch(login(response.accessToken));
-      navigation("/aboutus");
+      navigation('/')
 
       if (loginData.ok) {
         isError = false;

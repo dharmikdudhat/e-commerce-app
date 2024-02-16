@@ -1,6 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const Contact = () => {
+  const [contactData, setContactData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    setContactData({
+      ...contactData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const CONTACT_DATA = async (e) => {
+    e.preventDefault();
+
+    try {
+      const user = await fetch("http://localhost:3000/contact/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactData),
+      });
+
+      if (user.ok) {
+        alert("Thank You!! We'll reach you in short time");
+        
+      } else {
+        alert("Not Able to Craete User", user.statusText);
+      }
+    } catch (error) {
+      alert("Error Creating Item : ", error);
+    }
+  };
+
   return (
     <section>
       <div className="mx-auto max-w-7xl px-4">
@@ -31,7 +69,7 @@ export const Contact = () => {
                 <p className="mt-4 text-lg text-gray-600">
                   Our friendly team would love to hear from you.
                 </p>
-                <form action="" className="mt-8 space-y-4">
+                <form onSubmit={CONTACT_DATA} className="mt-8 space-y-4">
                   <div className="grid w-full gap-y-4 md:gap-x-4 lg:grid-cols-2">
                     <div className="grid w-full  items-center gap-1.5">
                       <label
@@ -43,8 +81,12 @@ export const Contact = () => {
                       <input
                         className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                         type="text"
-                        id="first_name"
                         placeholder="First Name"
+                        id="firstName"
+                        name="firstName"
+                        required
+                        value={contactData.firstName}
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div className="grid w-full  items-center gap-1.5">
@@ -57,8 +99,12 @@ export const Contact = () => {
                       <input
                         className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                         type="text"
-                        id="last_name"
                         placeholder="Last Name"
+                        id="lastName"
+                        name="lastName"
+                        required
+                        value={contactData.lastName}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -74,6 +120,10 @@ export const Contact = () => {
                       type="text"
                       id="email"
                       placeholder="Email"
+                      name="email"
+                      required
+                      value={contactData.email}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="grid w-full  items-center gap-1.5">
@@ -86,8 +136,12 @@ export const Contact = () => {
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                       type="tel"
-                      id="phone_number"
                       placeholder="Phone number"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      required
+                      value={contactData.phoneNumber}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="grid w-full  items-center gap-1.5">
@@ -102,10 +156,14 @@ export const Contact = () => {
                       id="message"
                       placeholder="Leave us a message"
                       cols={3}
+                      name="message"
+                      required
+                      value={contactData.message}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <button
-                    type="button"
+                    type="submit"
                     className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     Send Message
