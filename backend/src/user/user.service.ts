@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { validate } from 'class-validator';
 
 
 @Injectable()
@@ -25,6 +26,11 @@ export class UserService {
 
     // const user = this.userRepository.create(createUserDto)
     // return this.userRepository.save(user);
+  }
+
+  async validateUser(createUserDto: CreateUserDto): Promise<string[]> {
+    const errors = await validate(createUserDto);
+    return errors.map(error => Object.values(error.constraints)).flat();
   }
 
   findAll(): Promise<User[]> {

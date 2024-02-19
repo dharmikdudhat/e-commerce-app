@@ -11,8 +11,10 @@ export const SignUpOne = () => {
     password: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
-  
+
   // Handle form data changes
   const handleInputChange = (e) => {
     setFormData({
@@ -21,8 +23,39 @@ export const SignUpOne = () => {
     });
   };
 
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
+
+    if (!formData.email) {
+      newErrors.email = "Email is Mandatory";
+      valid = false;
+    }
+
+    if (!formData.username) {
+      newErrors.username = "User name is Mandatory";
+      valid = false;
+    }
+
+    if (!formData.age) {
+      newErrors.age = "Age is Mandatory";
+      valid = false;
+    }
+
+    if (!formData.password || formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const createUser = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       const user = await fetch("http://localhost:3000/user/registration", {
@@ -74,15 +107,21 @@ export const SignUpOne = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className={`flex h-10 w-full rounded-md border ${
+                        errors.username ? "border-red-500" : "border-gray-300"
+                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="text"
                       placeholder="Full Name"
                       id="name"
                       name="username"
-                      required
                       value={formData.username}
                       onChange={handleInputChange}
                     ></input>
+                    {errors.username && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.username}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -95,15 +134,19 @@ export const SignUpOne = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className={`flex h-10 w-full rounded-md border ${
+                        errors.age ? "border-red-500" : "border-gray-300"
+                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="number"
                       placeholder="Age"
                       id="age"
                       name="age"
                       value={formData.age}
                       onChange={handleInputChange}
-                      required
                     ></input>
+                    {errors.age && (
+                      <p className="text-red-500 text-sm mt-1">{errors.age}</p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -116,15 +159,21 @@ export const SignUpOne = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className={`flex h-10 w-full rounded-md border ${
+                        errors.email ? "border-red-500" : "border-gray-300"
+                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="email"
                       placeholder="Email"
                       id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      required
                     ></input>
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -139,15 +188,21 @@ export const SignUpOne = () => {
                   </div>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className={`flex h-10 w-full rounded-md border ${
+                        errors.password ? "border-red-500" : "border-gray-300"
+                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="password"
                       placeholder="Password"
                       id="password"
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      required
                     ></input>
+                    {errors.password && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.password}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div>

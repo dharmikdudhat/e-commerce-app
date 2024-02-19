@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,7 +9,11 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('registration')
-  create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto) {
+    const validationErrors = await this.userService.validateUser(createUserDto);
+    if (validationErrors.length > 0) {
+      throw new BadRequestException(validationErrors);
+    }
     return this.userService.create(createUserDto);
   }
 
