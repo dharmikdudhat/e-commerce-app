@@ -3,18 +3,15 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 
-
-
-
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UserService,
     private jwtService: JwtService,
-  ) { }
+  ) {}
 
   // Login
-  async signIn(email: string, password: string): Promise<any> {
+  async signIn(email: string, password: string, role: string): Promise<any> {
     const user = await this.usersService.findOneUser(email);
 
     if (user?.password !== password) {
@@ -22,8 +19,13 @@ export class AuthService {
         message: 'Please check your credentials',
       });
     }
+    if (user?.role !== role && role !== 'admin') {
+      throw new UnauthorizedException({
+        message: `You don't have permission to perform this action`,
+      });
+    }
 
-    const payload = {role: user.role, email: user.email, name: user.username};
+    const payload = { role: user.role, email: user.email, name: user.username };
     const token = await this.jwtService.signAsync(payload);
 
     return {
@@ -31,9 +33,8 @@ export class AuthService {
       user: {
         email: user.email,
         username: user.username,
-        role: user.role
-      }
-    }
-  };
+        role: user.role,
+      },
+    };
+  }
 }
-
