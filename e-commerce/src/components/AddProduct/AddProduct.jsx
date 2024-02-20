@@ -20,17 +20,19 @@ function AddProduct() {
         method: "POST",
         body: formData,
       });
-      console.log("Image added successfully:", response1.data.json().filename);
+      console.log("Image added successfully:", response1.data)
 
-      const response2 = await fetch("http://localhost:3000/product/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData,response1.data),
-      });
-      const responseData = await response2.json();
-      console.log("Product added successfully:", response2.data);
+     
+
+      // const response2 = await fetch("http://localhost:3000/product/add", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(requestData),
+      // });
+      
+      // console.log("Product added successfully:", response2.data);
     } catch (error) {
       console.error("Error adding product:", error);
     }
