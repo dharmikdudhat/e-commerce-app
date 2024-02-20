@@ -2,7 +2,7 @@ import React from "react";
 
 function Terms() {
   return (
-    <div>
+    <div className="h-screen">
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem
       necessitatibus quaerat, et illum deserunt doloribus fuga doloremque
       voluptatibus sint quam harum vel modi aut exercitationem temporibus dicta

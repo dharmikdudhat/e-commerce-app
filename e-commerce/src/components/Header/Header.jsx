@@ -65,7 +65,7 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className=" py-2 sticky w-full h-14 overflow-hidden justify-between bg-white">
+    <div className=" sticky top-0 w-screen z-10  justify-between bg-black">
       <div className="mx-auto relative  flex flex-wrap max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex  items-center space-x-2">
           <span>
@@ -82,7 +82,7 @@ export const Navbar = () => {
               />
             </svg>
           </span>
-          <span className="font-bold">DDProject</span>
+          <span className="font-bold text-slate-50">DDProject</span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
@@ -92,8 +92,8 @@ export const Navbar = () => {
                   to={item.to}
                   className={({ isActive }) =>
                     `text-sm font-semibold ${
-                      isActive ? "text-orange-700" : "text-gray-700"
-                    } text-gray-800 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                      isActive ? "text-orange-700" : "text-slate-50"
+                    } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                   }
                 >
                   {item.name}
@@ -112,11 +112,14 @@ export const Navbar = () => {
           </button>
         </div>
         <div className="lg:hidden">
-          <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
+          <Menu
+            onClick={toggleMenu}
+            className="text-slate-50 h-6 w-6 cursor-pointer"
+          />
         </div>
         {isMenuOpen && (
           <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
-            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-50">
               <div className="px-5 pb-6 pt-5">
                 <div className="flex items-center justify-between">
                   <div className="inline-flex items-center space-x-2">
@@ -140,7 +143,7 @@ export const Navbar = () => {
                     <button
                       type="button"
                       onClick={toggleMenu}
-                      className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                      className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black "
                     >
                       <span className="sr-only">Close menu</span>
                       <X className="h-6 w-6" aria-hidden="true" />

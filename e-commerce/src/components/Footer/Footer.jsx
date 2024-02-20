@@ -4,38 +4,38 @@ import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="overflow-hidden relative bg-white py-8">
-      <div className="container relative  h-16 mx-auto ">
-        <div className="-m-8 flex flex-wrap items-center justify-between">
-          <div className="w-auto p-8">
-            <ul className="-m-5 flex flex-wrap items-center">
-              <li className="p-5">
+    <div className="overflow-hidden  bg-black py-8 bottom-0 sticky w-screen">
+      <div className="container relative z-10  px-4 justify-center align-middle flex">
+        <div className="-m-8 flex flex-wrap items-center justify-center">
+          <div className="w-full justify-center p-2">
+            <ul className="-mt-5 flex justify-center items-center">
+              <li className="pr-4 pl-4 m-2">
                 <NavLink
-                  className="font-medium text-gray-600 hover:text-gray-700"
+                  className="font-medium text-slate-50 hover:text-blue-500"
                   to="/privacypolicy"
                 >
                   Privacy Policy
                 </NavLink>
               </li>
-              <li className="p-5">
+              <li className="pr-4 pl-4 m-2">
                 <NavLink
-                  className="font-medium text-gray-600 hover:text-gray-700"
+                  className="font-medium text-slate-50 hover:text-blue-500"
                   to="/terms"
                 >
                   Terms of Service
                 </NavLink>
               </li>
-              <li className="p-5">
+              <li className="pr-4 pl-4 m-2">
                 <a
-                  className="font-medium text-gray-600 hover:text-gray-700"
+                  className="font-medium text-slate-50 hover:text-blue-500"
                   href="#"
                 >
                   Return Policy
                 </a>
               </li>
-              <li className="p-5">
+              <li className="pr-4 pl-4 m-2">
                 <a
-                  className="font-medium text-gray-600 hover:text-gray-700"
+                  className="font-medium text-slate-50 hover:text-blue-500"
                   href="#"
                 >
                   Contact Us
@@ -43,7 +43,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="w-auto p-8">
+          {/* <div className="w-auto p-8">
             <div className="-m-1.5 flex flex-wrap">
               <div className="w-auto p-1.5">
                 <a href="#">
@@ -83,7 +83,7 @@ export const Footer = () => {
               </div>
               <div className="w-auto p-1.5">
                 <a href="#">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-50 hover:border-blue-500">
                     <svg
                       width="16"
                       height="15"
@@ -100,7 +100,7 @@ export const Footer = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -1,27 +1,35 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/authSlice";
 import { AlertBanner } from "../Banners/AlertBanner";
-import history from "../../History/history";
 
 export const SignInOne = () => {
+  //State to handle form data
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
+
+  //State to handle error data
   const [isError, setIsError] = useState(false);
   const dispatch = useDispatch();
+
+  //for navigation
   const navigation = useNavigate();
 
   const token = useSelector((state) => state.auth.token);
 
-  if (token) {
-    history.push("/");
-  }
+  // Redirect to home page if user is already logged in
+  useEffect(() => {
+    if (token) {
+      navigation("/");
+    }
+  }, [navigation, token]);
 
+  //Used to handle input changes at every input area in the form
   const handleInputChange = (e) => {
     setLoginFormData({
       ...loginFormData,
@@ -29,6 +37,7 @@ export const SignInOne = () => {
     });
   };
 
+  //Function to check user credentials and log them in
   const loginUser = async (e) => {
     e.preventDefault();
 
@@ -56,6 +65,7 @@ export const SignInOne = () => {
     }
   };
 
+  //Function to handle checkbox changes for role selection
   const updateRole = (e) => {
     const newRole = e.target.checked ? "ADMIN" : "USER";
     setLoginFormData({
@@ -66,7 +76,7 @@ export const SignInOne = () => {
 
   return (
     <section>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {isError && <AlertBanner text={"Invalid Credentials"} />}
@@ -158,7 +168,7 @@ export const SignInOne = () => {
                 </div>
               </div>
             </form>
-            <div className="mt-3 space-y-3">
+            {/* <div className="mt-3 space-y-3">
               <button
                 type="button"
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
@@ -191,7 +201,7 @@ export const SignInOne = () => {
                 </span>
                 Sign in with Facebook
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="h-full w-full">
