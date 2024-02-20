@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
+
 import React from "react";
 import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="overflow-hidden  bg-black py-8 bottom-0 sticky w-screen">
-      <div className="container relative z-10  px-4 justify-center align-middle flex">
-        <div className="-m-8 flex flex-wrap items-center justify-center">
-          <div className="w-full justify-center p-2">
-            <ul className="-mt-5 flex justify-center items-center">
-              <li className="pr-4 pl-4 m-2">
+    <div className="overflow-hidden  bg-black py-6 bottom-0 sticky w-full items-center justify-between">
+      <div className="container relative z-10  px-4 justify-center align-middle inline-flex">
+        <div className="-m-8 flex flex-wrap items-center">
+          <div className="p-2">
+            <ul className="-mt-5 flex ">
+              <li className="pr-4 pl-4 m-2 flex flex-col">
                 <NavLink
                   className="font-medium text-slate-50 hover:text-blue-500"
                   to="/privacypolicy"
