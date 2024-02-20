@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   Res,
   UploadedFile,
+  StreamableFile,
   Req,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
@@ -21,6 +22,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
 import { extname } from 'path';
+import { createReadStream } from 'fs';
 
 @Controller('product')
 export class ProductController {
@@ -62,6 +64,12 @@ export class ProductController {
   @Get(':name')
   findOneByName(@Param('name') name: string) {
     return this.productService.findOneByName(name);
+  }
+
+  @Get()
+  getFile(): StreamableFile {
+    const file = createReadStream(path.join(process.cwd(), './upload'));
+    return new StreamableFile(file);
   }
 
   @Patch(':name')
