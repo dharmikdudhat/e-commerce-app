@@ -10,7 +10,7 @@ export class ProductEntity {
 
     @Column()
     name: string;
- 
+
     @Column()
     description: string;
 
@@ -19,6 +19,9 @@ export class ProductEntity {
 
     @Column()
     quantity: number;
+
+    @Column({ type: 'bytea' })
+    data: string
 
     // Relationships
     @Column({ nullable: true })
