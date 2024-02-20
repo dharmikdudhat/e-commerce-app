@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 
 function AddProduct() {
@@ -6,6 +8,7 @@ function AddProduct() {
     description: "",
     price: "",
     quantity: "",
+    image: ""
   });
 
   const handleChange = (e) => {
@@ -27,6 +30,7 @@ function AddProduct() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result);
+        setProductData({ ...productData, image:imageSrc });
       };
       reader.readAsDataURL(file);
     }
