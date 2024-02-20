@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UUID } from "typeorm/driver/mongodb/bson.typings";
+import { ProductEntity } from '../../product/entities/product.entity';
 
 @Entity()
 export class User {
@@ -26,6 +27,8 @@ export class User {
     @Column()
     password: string;
 
+    @OneToMany(() => ProductEntity, (product) => product.user)
+    products: ProductEntity[]
 }
 
 
