@@ -10,7 +10,7 @@ function AddProduct() {
     const formData = new FormData(formRef.current);
     try {
       const response = await fetch("http://localhost:3000/product/upload", {
-        method:"POST",
+        method: "POST",
         body: formData,
       });
       console.log("Product added successfully:", response.data);
@@ -18,16 +18,17 @@ function AddProduct() {
       console.error("Error adding product:", error);
     }
   };
-  const formRef= useRef();
+  const formRef = useRef();
 
-  const [imageResult, setImageResult] = useState(null)
+  const [imageResult, setImageResult] = useState(null);
 
   const handlePreviewOnChange = (path) => {
-    const reader = new FileReader()
-    reader.addEventListener('load',(e) => { setImageResult(e.target.result)})
+    const reader = new FileReader();
+    reader.addEventListener("load", (e) => {
+      setImageResult(e.target.result);
+    });
     reader.readAsDataURL(path);
-  }
-  
+  };
 
   return (
     <div className=" bg-slate-600 p-10">

@@ -8,41 +8,41 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
+  constructor(
+    @InjectRepository(ProductEntity)
+    private readonly ProductRepository: Repository<any>,
+  ) {}
 
-  constructor(@InjectRepository(ProductEntity) private readonly ProductRepository: Repository<any>) { }
-
-  create(createProductDto: CreateProductDto) {
+  uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {
     try {
       const product: ProductEntity = new ProductEntity();
       product.name = createProductDto.name;
       product.description = createProductDto.description;
       product.price = createProductDto.price;
       product.quantity = createProductDto.quantity;
-      product.imagePath = createProductDto.image;
-      console.log(product)
+      product.imagePath = file.path;
+      console.log(product);
       this.ProductRepository.save(product);
-      return "Success"
+      return 'Success';
     } catch (error) {
-      console.log("Error in Product:", error)
-      throw new BadRequestException()
+      console.log('Error in Product:', error);
+      throw new BadRequestException();
     }
-
   }
 
   findAll() {
     return this.ProductRepository.find();
   }
 
-  uploadFile(file: Express.Multer.File) {
-    try {
-      console.log(file)
-      return { filename: file.filename };
-    } catch (error) {
-      console.log("Error in UploadFiie:", error)
-      throw new BadRequestException()
-    }
-  }
-
+  // uploadFile(file: Express.Multer.File) {
+  //   try {
+  //     console.log(file);
+  //     return { filename: file.path };
+  //   } catch (error) {
+  //     console.log('Error in UploadFiie:', error);
+  //     throw new BadRequestException();
+  //   }
+  // }
 
   findOneByName(name: string) {
     return this.ProductRepository.findOneBy({ name });
