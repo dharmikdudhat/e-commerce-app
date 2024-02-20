@@ -1,25 +1,27 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { CheckSquare } from "lucide-react";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-export function ProductCard() {
+export function ProductCard(props) {
   return (
     <div className="w-full align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black">
       <img
-        src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+        src={props.imagePath}
         alt="Laptop"
         className="h-[200px] w-full rounded-md object-cover"
       />
       <div className="p-4">
-        <h1 className="text-lg font-semibold">Filter Name</h1>
+        <h1 className="text-lg font-semibold">{props.name}</h1>
         <p className="mt-3 text-sm text-gray-600">
           {" "}
-          Filter Small Detail Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Excepturi, debitis?
+          {props.description}
         </p>
+        <h2 className="text-lg font-semibold"> {props.price}</h2>
         <div className="flex justify-start">
           <CheckSquare className="size-6 pt-1 pr-1 ml-0 text-green-500" />{" "}
-          <label> InStock</label>
+          <label> InStock {props.quantity}</label>
         </div>
         <button
           type="button"
