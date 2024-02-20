@@ -18,7 +18,7 @@ export class ProductService {
       product.description = createProductDto.description;
       product.price = createProductDto.price;
       product.quantity = createProductDto.quantity;
-      product.imagePath = createProductDto.image;
+      product.imagePath = createProductDto.file;
       console.log(product)
       this.ProductRepository.save(product);
       return "Success"

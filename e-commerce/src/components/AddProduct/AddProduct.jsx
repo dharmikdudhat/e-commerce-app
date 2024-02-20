@@ -8,26 +8,45 @@ function AddProduct() {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
+    const requestData = {};
+
+    // Iterate over form elements and extract their names and values
+    formData.forEach((value, key) => {
+      requestData[key] = value;
+    });
+
     try {
-      const response = await fetch("http://localhost:3000/product/upload", {
-        method:"POST",
+      const response1 = await fetch("http://localhost:3000/product/upload", {
+        method: "POST",
         body: formData,
       });
-      console.log("Product added successfully:", response.data);
+      console.log("Image added successfully:", response1.data.json().filename);
+
+      const response2 = await fetch("http://localhost:3000/product/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData,response1.data),
+      });
+      const responseData = await response2.json();
+      console.log("Product added successfully:", response2.data);
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
-  const formRef= useRef();
 
-  const [imageResult, setImageResult] = useState(null)
+  const formRef = useRef();
 
-  const handlePreviewOnChange = (path) => {
-    const reader = new FileReader()
-    reader.addEventListener('load',(e) => { setImageResult(e.target.result)})
-    reader.readAsDataURL(path);
-  }
-  
+  const [imageResult, setImageResult] = useState(null);
+
+  const handlePreviewOnChange = (file) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", (e) => {
+      setImageResult(e.target.result);
+    });
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div className=" bg-slate-600 p-10">
@@ -109,13 +128,13 @@ function AddProduct() {
             </label>
             <input
               name="file"
-              class="block w-full text-sm  border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none  dark:border-gray-600 dark:placeholder-gray-400 mb-3"
+              className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:border-gray-600 dark:placeholder-gray-400 mb-3"
               aria-describedby="user_avatar_help"
               id="user_avatar"
               type="file"
               accept="image/*"
               onChange={(e) => handlePreviewOnChange(e.target.files[0])}
-            ></input>
+            />
           </div>
           <div>
             {imageResult && (
