@@ -13,13 +13,21 @@ export class ProductService {
   constructor(@InjectRepository(ProductEntity) private readonly ProductRepository: Repository<any>) { }
 
   create(createProductDto: CreateProductDto) {
-    const product: ProductEntity = new ProductEntity();
-    product.name = createProductDto.name;
-    product.description = createProductDto.description;
-    product.price = createProductDto.price;
-    product.quantity = createProductDto.quantity;
-    product.imagePath = createProductDto.image;
-    return this.ProductRepository.save(product);
+    try {
+      const product: ProductEntity = new ProductEntity();
+      product.name = createProductDto.name;
+      product.description = createProductDto.description;
+      product.price = createProductDto.price;
+      product.quantity = createProductDto.quantity;
+      product.imagePath = createProductDto.image;
+      console.log(product)
+      this.ProductRepository.save(product);
+      return "Success"
+    } catch (error) {
+      console.log("Error in Product:", error)
+      throw new BadRequestException()
+    }
+
   }
 
   findAll() {
@@ -31,7 +39,7 @@ export class ProductService {
       console.log(file)
       return { filename: file.filename };
     } catch (error) {
-      console.log(error)
+      console.log("Error in UploadFiie:", error)
       throw new BadRequestException()
     }
   }
