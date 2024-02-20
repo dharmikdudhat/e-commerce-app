@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 export class CreateProductDto {
     name: string;
-    description : string;
-    price : number;
-    quantity : number;
+    description: string;
+    price: number;
+    quantity: number;
+    image: string
 
 }

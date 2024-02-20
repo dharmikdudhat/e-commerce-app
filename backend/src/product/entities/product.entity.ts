@@ -20,12 +20,8 @@ export class ProductEntity {
     @Column()
     quantity: number;
 
-    @Column({ type: 'bytea' })
-    data: string
-
-    // Relationships
-    @Column({ nullable: true })
-    userId?: string;
+    @Column()
+    imagePath: string
 
     @ManyToOne(() => User, (user) => user.products)
     user?: User;

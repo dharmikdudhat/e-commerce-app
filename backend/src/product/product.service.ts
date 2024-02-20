@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductEntity } from './entities/product.entity';
@@ -18,13 +18,24 @@ export class ProductService {
     product.description = createProductDto.description;
     product.price = createProductDto.price;
     product.quantity = createProductDto.quantity;
-
+    product.imagePath = createProductDto.image;
     return this.ProductRepository.save(product);
   }
 
   findAll() {
     return this.ProductRepository.find();
   }
+
+  uploadFile(file: Express.Multer.File) {
+    try {
+      console.log(file)
+      return { filename: file.filename };
+    } catch (error) {
+      console.log(error)
+      throw new BadRequestException()
+    }
+  }
+
 
   findOneByName(name: string) {
     return this.ProductRepository.findOneBy({ name });

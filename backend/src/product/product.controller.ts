@@ -1,4 +1,3 @@
-import { Response, Request } from 'express';
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, Res, UploadedFile, Req } from '@nestjs/common';
 import { ProductService } from './product.service';
@@ -8,7 +7,6 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer'
 import * as path from 'path';
 import { extname } from 'path';
-import * as fs from 'fs';
 
 
 
@@ -17,7 +15,7 @@ import * as fs from 'fs';
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
-  @Post()
+  @Post('add')
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
@@ -34,49 +32,9 @@ export class ProductController {
     }),
   }))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    // const fileBuffer: Buffer = req.file.buffer;
-    // console.log(fileBuffer);
-    try {
-      console.log(file)
-
-      return { filename: file.filename };
-    } catch (error) {
-      console.log(error)
-    }
-
+    return this.productService.uploadFile(file)
   }
-
-
- /*  @Get()
-  async streamFile(@Res() res: Response) {
-    const filePath = 'C:/Users/HP/Desktop/task_with_dhruvik/backend/uploads/dbc16585a5e89e7431eb351067d6954e5.jpg'; // Path to your file
-    const fileStream = fs.createReadStream(filePath);
-
-    // Set appropriate headers
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Disposition', 'attachment; filename=file.txt');
-
-    // Pipe the file stream to the response
-    fileStream.pipe(res);
-  }
-
-  @Post('new')
-  uploadFiles(@Req() req: Request) {
-    const fileBuffer: Buffer = req.file.buffer;
-    // Now you have the file buffer, you can use it as needed
-    return { message: fileBuffer };
-  } */
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFiles(@UploadedFile() file) {
-    /* const image = new Image();
-    image.data = file.buffer;
-    await this.imageRepository.save(image); */
-    const image = file.buffer;
-    console.log(file)
-    return { id: image };
-  }
-
+  
   @Get()
   findAll() {
     return this.productService.findAll();
