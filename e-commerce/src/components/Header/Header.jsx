@@ -65,7 +65,7 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className=" sticky top-0 w-screen z-10  justify-between bg-black">
+    <div className="sticky top-0 w-full   justify-between bg-black z-10">
       <div className="mx-auto relative  flex flex-wrap max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex  items-center space-x-2">
           <span>
@@ -93,7 +93,7 @@ export const Navbar = () => {
                   className={({ isActive }) =>
                     `text-sm font-semibold ${
                       isActive ? "text-orange-700" : "text-slate-50"
-                    } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                    } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
                   }
                 >
                   {item.name}
@@ -105,7 +105,7 @@ export const Navbar = () => {
         <div className="hidden lg:block">
           <button
             type="button"
-            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             onClick={() => dispatch(logout())}
           >
             Sign Out

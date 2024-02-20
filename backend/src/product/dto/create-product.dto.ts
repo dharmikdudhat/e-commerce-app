@@ -4,6 +4,6 @@ export class CreateProductDto {
     description: string;
     price: number;
     quantity: number;
-    file: string
+    imagePath: string
 
 }
