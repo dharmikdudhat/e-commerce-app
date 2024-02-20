@@ -39,7 +39,7 @@ function AddProduct() {
   const formRef = useRef();
 
   const [imageResult, setImageResult] = useState(null);
-  const [imageResult, setImageResult] = useState(null);
+ 
 
   const handlePreviewOnChange = (file) => {
     const reader = new FileReader();
