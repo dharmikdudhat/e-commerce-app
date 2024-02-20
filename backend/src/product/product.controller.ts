@@ -54,7 +54,7 @@ export class ProductController {
     return this.productService.uploadFile(file, createProductDto);
   }
 
-  @Get()
+  @Get('getAll')
   findAll() {
     return this.productService.findAll();
   }

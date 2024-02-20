@@ -8,6 +8,9 @@ export class ProductEntity {
     @PrimaryGeneratedColumn("uuid")
     productId: string
 
+    @PrimaryGeneratedColumn()
+    id: string
+
     @Column()
     name: string;
 
