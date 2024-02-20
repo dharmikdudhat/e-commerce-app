@@ -10,6 +10,11 @@ export const Home = () => {
       try {
         const response = await fetch("http://localhost:3000/product/getAll"); // Assuming endpoint to fetch products
         const data = await response.json();
+        data.map((item) => {
+          const name = item.imagePath.split("\\")[1];
+          item.imagePath = `http://localhost:3000/${name}`;
+          console.log(name);
+        });
         setProducts(data); // Set products state with fetched data
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -50,7 +55,7 @@ export const Home = () => {
               description={product.description}
               price={product.price}
               quantity={product.quantity}
-              imagepath={product.imagepath} // Assuming the image path is provided in the product data
+              imagePath={product.imagePath} // Assuming the image path is provided in the product data
             />
           ))}
         </div>

@@ -11,7 +11,7 @@ export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly ProductRepository: Repository<any>,
-  ) {}
+  ) { }
 
   uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {
     try {
@@ -22,8 +22,7 @@ export class ProductService {
       product.quantity = createProductDto.quantity;
       product.imagePath = file.path;
       console.log(product);
-      this.ProductRepository.save(product);
-      return 'Success';
+      return this.ProductRepository.save(product);
     } catch (error) {
       console.log('Error in Product:', error);
       throw new BadRequestException();
