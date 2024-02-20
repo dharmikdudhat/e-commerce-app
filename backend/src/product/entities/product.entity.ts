@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "../../user/entities/user.entity"
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
 
 @Entity()
 export class ProductEntity {
@@ -26,8 +26,7 @@ export class ProductEntity {
     @Column()
     imagePath: string
 
-    @ManyToOne(() => User, (user) => user.products)
-    user?: User;
+
 
 
 }

@@ -27,8 +27,7 @@ export class User {
     @Column()
     password: string;
 
-    @OneToMany(() => ProductEntity, (product) => product.user)
-    products: ProductEntity[]
+    
 }
 
 
