@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
@@ -37,6 +38,19 @@ export const SignInOne = () => {
     });
   };
 
+   // Redirect to home page or admin page based on user role
+  //  useEffect(() => {
+  //   if (token) {
+  //     const userRole = response.user.role; // Assuming the role is available in the response
+  //     if (userRole === "Admin") {
+  //       navigation("/admin");
+  //     } else {
+  //       navigation("/");
+  //     }
+  //   }
+  // }, [token, navigation]);
+
+
   //Function to check user credentials and log them in
   const loginUser = async (e) => {
     e.preventDefault();
@@ -52,14 +66,11 @@ export const SignInOne = () => {
 
       const response = await loginData.json();
 
-      dispatch(login(response.accessToken));
-
-      if (response.accessToken && response.user.role === "Admin") {
-        navigation("/admin");
-      } else if (response.accessToken) {
+      if (response.ok) {
+        dispatch(login(response.accessToken));
         navigation("/");
-      }else {
-        setIsError(true)
+      } else {
+        setIsError(true);
       }
     } catch (error) {
       console.log(error);
@@ -68,19 +79,19 @@ export const SignInOne = () => {
   };
 
   //Function to handle checkbox changes for role selection
-  // const updateRole = (e) => {
-  //   const newRole = e.target.checked ? "ADMIN" : "USER";
-  //   setLoginFormData({
-  //     ...loginFormData,
-  //     role: newRole,
-  //   });
-  // };
+  const updateRole = (e) => {
+    const newRole = e.target.checked ? "ADMIN" : "USER";
+    setLoginFormData({
+      ...loginFormData,
+      role: newRole,
+    });
+  };
+
+  // urvas code
 
   return (
     <section>
-      
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
-        
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {isError && <AlertBanner text={"Invalid Credentials"} />}
@@ -149,7 +160,7 @@ export const SignInOne = () => {
                     ></input>
                   </div>
                 </div>
-                {/* <div className="flex items-center me-4">
+                <div className="flex items-center me-4">
                   <input
                     id="admin"
                     type="checkbox"
@@ -161,7 +172,7 @@ export const SignInOne = () => {
                   <label className="ms-2 text-sm font-medium text-gray-900">
                     I Am Admin
                   </label>
-                </div> */}
+                </div>
                 <div>
                   <button
                     type="submit"

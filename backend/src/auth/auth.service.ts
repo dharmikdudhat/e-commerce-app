@@ -29,6 +29,8 @@ export class AuthService {
     const token = await this.jwtService.signAsync(payload);
 
     return {
+      isError: false,
+      message: "Succes",
       accessToken: token,
       user: {
         email: user.email,

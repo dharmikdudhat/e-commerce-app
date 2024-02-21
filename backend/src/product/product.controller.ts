@@ -27,7 +27,7 @@ import { Roles } from 'src/RBAC/role.decorator';
 import { Role } from 'src/RBAC/role.enum';
 
 @Controller('product')
-@Roles(Role.Admin)
+
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -37,6 +37,7 @@ export class ProductController {
   // }
 
   @Post('upload')
+  @Roles(Role.Admin)
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
