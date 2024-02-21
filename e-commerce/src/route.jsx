@@ -8,13 +8,14 @@ import { SignInOne } from "./components/Login/login";
 import { SignUpOne } from "./components/Registration/registration";
 import Contact from "./components/ContactUs/Contact";
 import { Home } from "./components/Home/Home";
-import NoMatch from "./components/NoMatch/NoMatch";
+
 import { AboutPageOne } from "./components/AboutUs/About";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import Terms from "./components/Terms/Terms";
 import { Details } from "./components/DetailedProductCard/DetailedProductCard";
 import { AdminDashboard } from "./components/AdminDashboard/AdminDashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
+import ReturnPolicy from "./components/ReturnPolicy/ReturnPolicy";
 // import { Home } from "./components/Home/Home";
 
 const router = createBrowserRouter(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path="details" element={<Details />} />
       <Route path="admin" element={<AdminDashboard />} />
       <Route path="add" element={<AddProduct />} />
+      <Route path="returnpolicy" element={<ReturnPolicy />} />
     </Route>
   )
 );

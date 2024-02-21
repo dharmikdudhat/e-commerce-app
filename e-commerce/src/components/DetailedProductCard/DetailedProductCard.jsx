@@ -1,4 +1,3 @@
-import React from "react";
 import { ChevronLeft, ChevronRight, Heart, Share } from "lucide-react";
 
 export function Details() {

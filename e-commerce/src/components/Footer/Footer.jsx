@@ -5,11 +5,11 @@ import { NavLink } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <div className="overflow-hidden  bg-black py-6 bottom-0 sticky w-full items-center justify-between">
-      <div className="container relative z-10  px-4 justify-center align-middle inline-flex">
+    <div className="overflow-hidden bg-black py-6 bottom-0 relative w-full items-center justify-between">
+      <div className="container relative z-10  px-4 justify-center align-middle inline-flex  ">
         <div className="-m-8 flex flex-wrap items-center">
           <div className="p-2">
-            <ul className="-mt-5 flex ">
+            <ul className="-mt-5 flex flex-wrap ">
               <li className="pr-4 pl-4 m-2 flex flex-col">
                 <NavLink
                   className="font-medium text-slate-50 hover:text-blue-500"
@@ -29,19 +29,19 @@ export const Footer = () => {
               <li className="pr-4 pl-4 m-2">
                 <a
                   className="font-medium text-slate-50 hover:text-blue-500"
-                  href="#"
+                  href="/returnpolicy"
                 >
                   Return Policy
                 </a>
               </li>
-              <li className="pr-4 pl-4 m-2">
+              {/* <li className="pr-4 pl-4 m-2">
                 <a
                   className="font-medium text-slate-50 hover:text-blue-500"
                   href="#"
                 >
                   Contact Us
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           {/* <div className="w-auto p-8">

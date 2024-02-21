@@ -1,32 +1,46 @@
-import React from "react";
+// TermsOfService.js
 
-function Terms() {
+
+const Terms = () => {
   return (
-    <div className="h-screen">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem
-      necessitatibus quaerat, et illum deserunt doloribus fuga doloremque
-      voluptatibus sint quam harum vel modi aut exercitationem temporibus dicta
-      rerum provident officia minus iste iure laboriosam? Maiores atque
-      delectus, dolorum sunt accusamus consequatur natus vitae, assumenda ipsam
-      corrupti, voluptatibus architecto numquam odio. Sed officia alias unde
-      quibusdam velit expedita! Aperiam architecto dolorem porro fugiat,
-      distinctio ut quibusdam eius accusamus cum a quam, itaque sequi voluptates
-      iusto, minima libero inventore. Vel atque odio harum placeat quis
-      provident temporibus molestiae, odit possimus ex rem ullam quae culpa
-      sapiente. Maiores nisi iste exercitationem nulla incidunt, possimus non
-      nobis mollitia architecto excepturi alias maxime quam perferendis
-      obcaecati dolorem quibusdam sed nesciunt. Quos accusamus repellat magni
-      excepturi deserunt magnam, iusto ratione error atque eum maxime saepe,
-      eligendi, mollitia optio sequi dolorem quas at architecto modi aspernatur
-      corrupti consequatur ut alias sint. Voluptates harum laborum optio rem eos
-      neque, vitae dolorum facere, perspiciatis tempora id at ut est, excepturi
-      laboriosam! Saepe sed magnam facere praesentium numquam in nostrum
-      doloribus facilis aspernatur magni porro sint autem commodi explicabo
-      quidem, sunt est, voluptates itaque laborum repellat rem delectus.
-      Laboriosam dolore soluta itaque explicabo modi dignissimos fugit odit aut
-      tempore dolorum?
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
+      {/* Assuming you have a common Layout component */}
+      {/* Include your header here if you have one */}
+
+      <div className="container mx-auto p-8 bg-white shadow-lg mt-8">
+        <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
+        <p className="mb-4">
+          Welcome to our Terms of Service. Please read these terms carefully
+          before using our website.
+        </p>
+        <p className="mb-4">
+          By accessing or using the Service, you agree to be bound by these
+          Terms. If you disagree with any part of the terms, then you may not
+          access the Service.
+        </p>
+        {/* Add more content for your Terms of Service page */}
+
+        {/* Example section */}
+        <h2 className="text-2xl font-bold mt-6 mb-4">Section 1: Usage</h2>
+        <p className="mb-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+
+        {/* Example section */}
+        <h2 className="text-2xl font-bold mt-6 mb-4">Section 2: Restrictions</h2>
+        <p className="mb-4">
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
+        </p>
+
+        {/* Add more sections and content as needed */}
+      </div>
+
+      {/* Assuming you have a common Layout component */}
+      {/* Include your footer here if you have one */}
     </div>
   );
-}
+};
 
 export default Terms;

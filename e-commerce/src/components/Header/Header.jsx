@@ -82,7 +82,7 @@ export const Navbar = () => {
               />
             </svg>
           </span>
-          <span className="font-bold text-slate-50">DDProject</span>
+          <span className="font-bold text-slate-50">Dhruvik Filter Shop</span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">

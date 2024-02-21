@@ -66,17 +66,19 @@ export const SignInOne = () => {
   };
 
   //Function to handle checkbox changes for role selection
-  const updateRole = (e) => {
-    const newRole = e.target.checked ? "ADMIN" : "USER";
-    setLoginFormData({
-      ...loginFormData,
-      role: newRole,
-    });
-  };
+  // const updateRole = (e) => {
+  //   const newRole = e.target.checked ? "ADMIN" : "USER";
+  //   setLoginFormData({
+  //     ...loginFormData,
+  //     role: newRole,
+  //   });
+  // };
 
   return (
     <section>
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
+        
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {isError && <AlertBanner text={"Invalid Credentials"} />}
@@ -145,7 +147,7 @@ export const SignInOne = () => {
                     ></input>
                   </div>
                 </div>
-                <div className="flex items-center me-4">
+                {/* <div className="flex items-center me-4">
                   <input
                     id="admin"
                     type="checkbox"
@@ -157,7 +159,7 @@ export const SignInOne = () => {
                   <label className="ms-2 text-sm font-medium text-gray-900">
                     I Am Admin
                   </label>
-                </div>
+                </div> */}
                 <div>
                   <button
                     type="submit"

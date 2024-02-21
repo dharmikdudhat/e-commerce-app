@@ -6,11 +6,11 @@ import { Link, NavLink } from "react-router-dom";
 
 export function ProductCard(props) {
   return (
-    <div className="w-full align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black">
+    <div className=" w-16 align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black">
       <img
         src={props.imagePath}
         alt="Laptop"
-        className="h-[200px] w-full rounded-md object-cover"
+        className="h-[220px] w-full rounded-md object-cover"
       />
       <div className="p-4">
         <h1 className="text-lg font-semibold">{props.name}</h1>
