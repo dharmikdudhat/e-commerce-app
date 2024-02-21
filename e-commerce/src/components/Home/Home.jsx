@@ -13,7 +13,7 @@ export const Home = () => {
         data.map((item) => {
           const name = item.imagePath.split("\\")[1];
           item.imagePath = `http://localhost:3000/${name}`;
-          console.log(name);
+          
         });
         setProducts(data); // Set products state with fetched data
       } catch (error) {
