@@ -8,8 +8,9 @@ import { ContactModule } from './contact/contact.module';
 import { ContactEntity } from './contact/entities/contact.entity';
 import { ProductModule } from './product/product.module';
 import { ProductEntity } from './product/entities/product.entity';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ImageInterceptor } from './GlobalInterceptor/response.interceptor';
+import { AllExceptionsFilter } from './filters/all-exceptions.filters';
 // import { MulterMiddleware } from './product/product.middleware';
 // import { MulterModule } from '@nestjs/platform-express';
 
@@ -35,6 +36,10 @@ import { ImageInterceptor } from './GlobalInterceptor/response.interceptor';
     {
       provide: APP_INTERCEPTOR,
       useClass: ImageInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
     },
   ],
 })

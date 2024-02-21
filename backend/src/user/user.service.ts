@@ -10,27 +10,29 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { validate } from 'class-validator';
 
-
 @Injectable()
 export class UserService {
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<any>,
+  ) {}
 
-  constructor(@InjectRepository(User) private readonly userRepository: Repository<any>) { }
   create(createUserDto: CreateUserDto): Promise<User> {
-    let user: User = new User();
-    user.username = createUserDto.username;
-    user.email = createUserDto.email;
-    user.age = createUserDto.age;
-    user.role = createUserDto.role || 'USER';
-    user.password = createUserDto.password;
-    return this.userRepository.save(user);
-
-    // const user = this.userRepository.create(createUserDto)
-    // return this.userRepository.save(user);
+    try {
+      let user: User = new User();
+      user.username = createUserDto.username;
+      user.email = createUserDto.email;
+      user.age = createUserDto.age;
+      user.role = createUserDto.role || 'USER';
+      user.password = createUserDto.password;
+      return this.userRepository.save(user);
+    } catch (error) {
+      console.log('Error:', error);
+    }
   }
 
   async validateUser(createUserDto: CreateUserDto): Promise<string[]> {
     const errors = await validate(createUserDto);
-    return errors.map(error => Object.values(error.constraints)).flat();
+    return errors.map((error) => Object.values(error.constraints)).flat();
   }
 
   findAll(): Promise<User[]> {
