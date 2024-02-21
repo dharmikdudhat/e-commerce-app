@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
-    private readonly ProductRepository: Repository<any>,
+    private readonly ProductRepository: Repository<ProductEntity>,
   ) { }
 
   uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {

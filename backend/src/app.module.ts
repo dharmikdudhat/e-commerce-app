@@ -8,6 +8,8 @@ import { ContactModule } from './contact/contact.module';
 import { ContactEntity } from './contact/entities/contact.entity';
 import { ProductModule } from './product/product.module';
 import { ProductEntity } from './product/entities/product.entity';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ImageInterceptor } from './GlobalInterceptor/response.interceptor';
 // import { MulterMiddleware } from './product/product.middleware';
 // import { MulterModule } from '@nestjs/platform-express';
 
@@ -21,7 +23,7 @@ import { ProductEntity } from './product/entities/product.entity';
       password: '55305530',
       database: 'typeorm_db',
       entities: [User, ContactEntity, ProductEntity],
-      synchronize: true
+      synchronize: true,
     }),
     UserModule,
     AuthModule,
@@ -29,10 +31,15 @@ import { ProductEntity } from './product/entities/product.entity';
     ProductModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ImageInterceptor,
+    },
+  ],
 })
 export class AppModule {
   /*  configure(consumer: MiddlewareConsumer) {
     consumer.apply(MulterMiddleware).forRoutes('*');
   } */
- }
+}
