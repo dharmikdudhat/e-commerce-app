@@ -14,7 +14,8 @@ import {
   } from '@nestjs/common';
   import { AuthGuard } from './auth.guards';
   import { AuthService } from './auth.service';
-import { RoleGuard } from 'src/user/role.guard';
+import { LoginResponseDto, SignInDto } from './dto/login.response.dto';
+// import { RoleGuard } from 'src/user/role.gua?rd';
 
   
   @Controller('auth')
@@ -23,7 +24,7 @@ import { RoleGuard } from 'src/user/role.guard';
   
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    signIn(@Body() signInDto: any): Promise<string> {
+    signIn(@Body() signInDto: SignInDto): Promise<LoginResponseDto> {
       return this.authService.signIn(signInDto.email, signInDto.password);
     }
   

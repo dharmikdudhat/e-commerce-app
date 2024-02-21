@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
-
+import { LoginResponseDto } from './dto/login.response.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -10,31 +9,38 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  // Login
-  async signIn(email: string, password: string): Promise<any> {
-    const user = await this.usersService.findOneUser(email);
+  async signIn(email: string, password: string): Promise<LoginResponseDto> {
+    try {
+      const user = await this.usersService.findOneUser(email);
 
-    if (user?.password !== password) {
-      throw new UnauthorizedException({
-        message: 'Please check your credentials',
-      });
-    }
-   /*  if (user?.role !== role && role !== 'admin') {
-      throw new UnauthorizedException({
-        message: `You don't have permission to perform this action`,
-      });
-    } */
+      if (!user || user.password !== password) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
 
-    const payload = { role: user.role, email: user.email, name: user.username };
-    const token = await this.jwtService.signAsync(payload);
+      const payload = {
+        role: user.role,
+        email: user.email,
+        name: user.username,
+      };
+      const token = await this.jwtService.signAsync(payload);
 
-    return {
-      accessToken: token,
-      user: {
+      const userResponse = {
         email: user.email,
         username: user.username,
         role: user.role,
-      },
-    };
+      };
+
+      return {
+        message: 'Login Successful',
+        data: { accessToken: token, user: userResponse },
+      };
+    } catch (error) {
+      // Log the error for debugging purposes
+      console.error('Error during sign-in:', error);
+
+      throw new UnauthorizedException(
+        'Authentication failed. Please try again later.',
+      );
+    }
   }
 }
