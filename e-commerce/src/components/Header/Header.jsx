@@ -29,20 +29,7 @@ const menuBeforeLogin = [
   },
 ];
 
-const menuAfterLogin = [
-  {
-    name: "Home",
-    to: "/",
-  },
-  {
-    name: "About",
-    to: "/aboutus",
-  },
-  {
-    name: "Contact Us",
-    to: "/contact",
-  },
-];
+
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -54,13 +41,19 @@ export const Navbar = () => {
 
   const token = useSelector((state) => state.auth.token);
 
+
   useEffect(() => {
+    let tempMenu = [];
     if (token) {
       console.log("token in header:", token);
-      setMenuItems(menuAfterLogin);
+      let tempArray = [...menuBeforeLogin];
+      tempArray = tempArray.splice(0,3);
+      tempMenu = tempArray
+      // setMenuItems(tempArray);
     } else {
-      setMenuItems(menuBeforeLogin);
+      tempMenu = menuBeforeLogin
     }
+    setMenuItems(tempMenu);
   }, [token, menuItems]);
 
   const dispatch = useDispatch();
@@ -104,13 +97,13 @@ export const Navbar = () => {
           </ul>
         </div>
         <div className="hidden lg:block">
-          <button
+          {token !==''&&<button
             type="button"
             className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             onClick={() => dispatch(logout())}
           >
             Sign Out
-          </button>
+          </button>}
         </div>
         <div className="lg:hidden">
           <Menu
