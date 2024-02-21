@@ -54,10 +54,12 @@ export const SignInOne = () => {
 
       dispatch(login(response.accessToken));
 
-      if (loginData.ok) {
+      if (response.accessToken && response.user.role === "Admin") {
+        navigation("/admin");
+      } else if (response.accessToken) {
         navigation("/");
-      } else {
-        setIsError(true);
+      }else {
+        setIsError(true)
       }
     } catch (error) {
       console.log(error);

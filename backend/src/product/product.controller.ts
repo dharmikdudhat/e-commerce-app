@@ -23,8 +23,11 @@ import { diskStorage } from 'multer';
 import * as path from 'path';
 import { extname } from 'path';
 import { createReadStream } from 'fs';
+import { Roles } from 'src/RBAC/role.decorator';
+import { Role } from 'src/RBAC/role.enum';
 
 @Controller('product')
+@Roles(Role.Admin)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 

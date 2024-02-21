@@ -4,13 +4,19 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { ProductEntity } from './entities/product.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from 'src/RBAC/roles.guard';
 // import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProductEntity])
-  ],
+  imports: [TypeOrmModule.forFeature([ProductEntity])],
   controllers: [ProductController],
-  providers: [ProductService],
-
+  providers: [
+    ProductService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
-export class ProductModule { }
+export class ProductModule {}
