@@ -58,6 +58,7 @@ export const SignInOne = () => {
     try {
       const loginData = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
+        mode:"no-cors",
         headers: {
           "Content-Type": "application/json",
         },

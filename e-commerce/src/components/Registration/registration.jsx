@@ -65,7 +65,7 @@ export const SignUpOne = () => {
         },
         body: JSON.stringify(formData),
       });
-
+     
       if (user.ok) {
         alert("User Created Succesfully !!!");
         navigate("/contact");
