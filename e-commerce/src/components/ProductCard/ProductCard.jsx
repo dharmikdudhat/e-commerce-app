@@ -2,7 +2,6 @@
 
 /* eslint-disable react/prop-types */
 import { CheckSquare } from "lucide-react";
-
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
