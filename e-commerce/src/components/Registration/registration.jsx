@@ -67,8 +67,8 @@ export const SignUpOne = () => {
       });
      
       if (user.ok) {
-        alert("User Created Succesfully !!!");
-        navigate("/contact");
+        // alert("User Created Succesfully !!!");
+        navigate("/login");
       } else {
         alert("Not Able to Craete User", user.statusText);
       }
@@ -78,9 +78,15 @@ export const SignUpOne = () => {
   };
 
   return (
-    <section>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+    <section
+      className="bg-cover bg-center min-h-screen"
+      style={{
+        backgroundImage:
+          "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
+      }}
+    >
+      <div className="min-h-screen w-full flex flex-col justify-center items-center">
+      <div className=" container max-w-md mx-auto p-8 bg-green-300 rounded-3xl shadow-lg mt-2">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Sign up
@@ -108,8 +114,8 @@ export const SignUpOne = () => {
                   <div className="mt-2">
                     <input
                       className={`flex h-10 w-full rounded-md border ${
-                        errors.username ? "border-red-500" : "border-gray-300"
-                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                        errors.username ? "border-red-500" : "border-gray-950"
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="text"
                       placeholder="Full Name"
                       id="name"
@@ -135,8 +141,8 @@ export const SignUpOne = () => {
                   <div className="mt-2">
                     <input
                       className={`flex h-10 w-full rounded-md border ${
-                        errors.age ? "border-red-500" : "border-gray-300"
-                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                        errors.age ? "border-red-500" : "border-gray-950"
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="number"
                       placeholder="Age"
                       id="age"
@@ -160,8 +166,8 @@ export const SignUpOne = () => {
                   <div className="mt-2">
                     <input
                       className={`flex h-10 w-full rounded-md border ${
-                        errors.email ? "border-red-500" : "border-gray-300"
-                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                        errors.email ? "border-red-500" : "border-gray-950"
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="email"
                       placeholder="Email"
                       id="email"
@@ -189,8 +195,8 @@ export const SignUpOne = () => {
                   <div className="mt-2">
                     <input
                       className={`flex h-10 w-full rounded-md border ${
-                        errors.password ? "border-red-500" : "border-gray-300"
-                      } border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                        errors.password ? "border-red-500" : "border-gray-950"
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="password"
                       placeholder="Password"
                       id="password"
@@ -251,13 +257,13 @@ export const SignUpOne = () => {
             </div> */}
           </div>
         </div>
-        <div className="h-full w-full">
+        {/* <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
             src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
             alt=""
           />
-        </div>
+        </div> */}
       </div>
     </section>
   );

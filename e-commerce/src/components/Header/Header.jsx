@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { logout } from "../../features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const menuBeforeLogin = [
+const menuItemsList = [
   {
     name: "Home",
     to: "/",
@@ -19,42 +19,26 @@ const menuBeforeLogin = [
     name: "Contact Us",
     to: "/contact",
   },
-  {
-    name: "Sign In",
-    to: "/login",
-  },
-  {
-    name: "Sign Up",
-    to: "/registration",
-  },
 ];
-
-
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [menuItems, setMenuItems] = React.useState(menuBeforeLogin);
+  const [isLogin, setisLogin] = React.useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const token = useSelector((state) => state.auth.token);
-
+  const userdata = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    let tempMenu = [];
-    if (token) {
-      console.log("token in header:", token);
-      let tempArray = [...menuBeforeLogin];
-      tempArray = tempArray.splice(0,3);
-      tempMenu = tempArray
+    if (userdata) {
+      setisLogin(true);
       // setMenuItems(tempArray);
     } else {
-      tempMenu = menuBeforeLogin
+      setisLogin(false);
     }
-    setMenuItems(tempMenu);
-  }, [token, menuItems]);
+  }, [userdata]);
 
   const dispatch = useDispatch();
 
@@ -76,11 +60,11 @@ export const Navbar = () => {
               />
             </svg>
           </span>
-          <span className="font-bold text-slate-50">Dhruvik Filter Shop</span>
+          <span className="font-bold text-slate-50">Dad&apos;s Filter Shop</span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
-            {menuItems.map((item) => (
+            {menuItemsList.map((item) => (
               <li key={item.name}>
                 <NavLink
                   to={item.to}
@@ -96,14 +80,39 @@ export const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className="hidden lg:block">
-          {token !==''&&<button
-            type="button"
-            className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={() => dispatch(logout())}
-          >
-            Sign Out
-          </button>}
+        <div>
+          <div className="hidden lg:block">
+            {!isLogin ? (
+              <div className="flex gap-2">
+                <div>
+                  <button
+                    type="button"
+                    className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    <NavLink to="/login">Sign In</NavLink>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    <NavLink to="/registration">Registration</NavLink>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <button
+                  type="button"
+                  className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  onClick={() => dispatch(logout())}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         <div className="lg:hidden">
           <Menu
@@ -131,7 +140,7 @@ export const Navbar = () => {
                         />
                       </svg>
                     </span>
-                    <span className="font-bold">DevUI</span>
+                    <span className="font-bold">Dad&apos;s</span>
                   </div>
                   <div className="-mr-2">
                     <button
@@ -146,7 +155,7 @@ export const Navbar = () => {
                 </div>
                 <div className="mt-6">
                   <nav className="grid gap-y-4">
-                    {menuItems.map((item) => (
+                    {menuItemsList.map((item) => (
                       <NavLink
                         key={item.name}
                         to={item.to}
@@ -159,13 +168,38 @@ export const Navbar = () => {
                     ))}
                   </nav>
                 </div>
-                <button
-                  type="button"
-                  className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  onClick={() => dispatch(logout())}
-                >
-                  Sign Out
-                </button>
+                <div>
+                  {!isLogin ? (
+                    <div className=" m-2">
+                      <div className="p-1">
+                        <button
+                          type="button"
+                          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        >
+                          <NavLink to="/login">Sign In</NavLink>
+                        </button>
+                      </div>
+                      <div className="p-1">
+                        <button
+                          type="button"
+                          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        >
+                          <NavLink to="/registration">Registration</NavLink>
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className=" m-2 p-1">
+                      <button
+                        type="button"
+                        className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        onClick={() => dispatch(logout())}
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

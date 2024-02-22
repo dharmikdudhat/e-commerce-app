@@ -59,7 +59,7 @@ export function AboutPageOne() {
   };
 
   return (
-    <div>
+    <div className=" bg-green-800">
       <div className="mx-auto max-w-7xl px-4">
         {/* Hero Map */}
         <div className="flex flex-col space-y-8 pb-10 pt-12 md:pt-24">
@@ -71,7 +71,7 @@ export function AboutPageOne() {
           <p className="text-3xl font-bold text-gray-900 md:text-5xl md:leading-10">
             Made with love, right here in India
           </p>
-          <p className="max-w-4xl text-base text-gray-600 md:text-xl">
+          <p className="max-w-4xl text-base text-yellow-300 md:text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
             veritatis voluptates neque itaque repudiandae sint, explicabo
             assumenda quam ratione placeat?
@@ -95,7 +95,7 @@ export function AboutPageOne() {
               <p className="w-full text-xl font-semibold  text-gray-900">
                 {location.title}
               </p>
-              <p className="w-full text-base text-gray-700">
+              <p className="w-full text-base text-yellow-300">
                 {location.timings}
               </p>
               <p className="text-sm font-medium">{location.address}</p>
@@ -114,7 +114,7 @@ export function AboutPageOne() {
             <p className="text-3xl font-bold text-gray-900 md:text-4xl">
               Meet our team
             </p>
-            <p className="max-w-4xl text-base text-gray-700 md:text-xl">
+            <p className="max-w-4xl text-base text-yellow-300 md:text-xl">
               Our philosophy is simple — hire a team of diverse, passionate
               people and foster a culture that empowers you to do your best
               work.
@@ -134,7 +134,7 @@ export function AboutPageOne() {
               <p className="mt-6 w-full px-2 text-xl  font-semibold text-gray-900">
                 {user.name}
               </p>
-              <p className="w-full px-2 pb-6 text-sm font-semibold text-gray-500">
+              <p className="w-full px-2 pb-6 text-sm font-semibold text-gray-800">
                 {user.position}
               </p>
             </div>
@@ -149,7 +149,7 @@ export function AboutPageOne() {
             <p className="text-3xl font-bold md:text-4xl">
               We&apos;re just getting started
             </p>
-            <p className="text-base text-gray-600 md:text-lg">
+            <p className="text-base text-yellow-300 md:text-lg">
               Our philosophy is simple — hire a team of diverse, passionate
               people and foster a culture that empowers you to do your best
               work.

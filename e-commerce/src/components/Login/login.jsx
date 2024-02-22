@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/authSlice";
 import { AlertBanner } from "../Banners/AlertBanner";
+import LoadingSpinner from "../../assets/LoadingSpinner";
 
 export const SignInOne = () => {
   //State to handle form data
@@ -16,19 +17,24 @@ export const SignInOne = () => {
 
   //State to handle error data
   const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   //for navigation
   const navigation = useNavigate();
 
-  const token = useSelector((state) => state.auth.token);
+  const userData = useSelector((state) => state.auth.user);
 
   // Redirect to home page if user is already logged in
   useEffect(() => {
-    if (token) {
-      navigation("/");
+    if (userData) {
+      if (userData.user.role == "Admin") {
+        navigation("/admin");
+      } else {
+        navigation("/");
+      }
     }
-  }, [navigation, token]);
+  }, [navigation, userData]);
 
   //Used to handle input changes at every input area in the form
   const handleInputChange = (e) => {
@@ -38,7 +44,7 @@ export const SignInOne = () => {
     });
   };
 
-   // Redirect to home page or admin page based on user role
+  // Redirect to home page or admin page based on user role
   //  useEffect(() => {
   //   if (token) {
   //     const userRole = response.user.role; // Assuming the role is available in the response
@@ -50,15 +56,15 @@ export const SignInOne = () => {
   //   }
   // }, [token, navigation]);
 
-
   //Function to check user credentials and log them in
   const loginUser = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const loginData = await fetch("http://localhost:3000/auth/login", {
         method: "POST",
-        mode:"no-cors",
         headers: {
           "Content-Type": "application/json",
         },
@@ -66,34 +72,43 @@ export const SignInOne = () => {
       });
 
       const response = await loginData.json();
-      console.log(response);
+      // console.log(response);
       if (!response.isError) {
-        dispatch(login(response.data.accessToken));
+        dispatch(login(response.data));
+        setLoading(false);
         navigation("/");
       } else {
         setIsError(true);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
       alert("Error ", error);
+      setLoading(false);
     }
   };
 
   //Function to handle checkbox changes for role selection
-  const updateRole = (e) => {
-    const newRole = e.target.checked ? "ADMIN" : "USER";
-    setLoginFormData({
-      ...loginFormData,
-      role: newRole,
-    });
-  };
+  // const updateRole = (e) => {
+  //   const newRole = e.target.checked ? "ADMIN" : "USER";
+  //   setLoginFormData({
+  //     ...loginFormData,
+  //     role: newRole,
+  //   });
+  // };
 
   // urvas code
 
   return (
-    <section>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
-        <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+    <section
+      className="bg-cover bg-center min-h-screen"
+      style={{
+        backgroundImage:
+          "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
+      }}
+    >
+      <div className="min-h-screen w-full flex flex-col justify-center items-center">
+        <div className=" container max-w-md mx-auto p-8 bg-green-300 rounded-3xl shadow-lg mt-8">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {isError && <AlertBanner text={"Invalid Credentials"} />}
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
@@ -121,7 +136,7 @@ export const SignInOne = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
                       placeholder="Email"
                       name="email"
@@ -151,7 +166,7 @@ export const SignInOne = () => {
                   </div>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
                       placeholder="Password"
                       name="password"
@@ -161,7 +176,7 @@ export const SignInOne = () => {
                     ></input>
                   </div>
                 </div>
-                <div className="flex items-center me-4">
+                {/* <div className="flex items-center me-4">
                   <input
                     id="admin"
                     type="checkbox"
@@ -173,13 +188,14 @@ export const SignInOne = () => {
                   <label className="ms-2 text-sm font-medium text-gray-900">
                     I Am Admin
                   </label>
-                </div>
+                </div> */}
                 <div>
                   <button
                     type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Get started <ArrowRight className="ml-2" size={16} />
+                    <div className=" text-slate-950">{loading &&   <LoadingSpinner />}</div>
                   </button>
                 </div>
               </div>
@@ -219,15 +235,18 @@ export const SignInOne = () => {
               </button>
             </div> */}
           </div>
+        
         </div>
-        <div className="h-full w-full">
+        
+        {/* <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
             src="https://images.unsplash.com/photo-1630673245362-f69d2b93880e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
             alt=""
           />
-        </div>
+        </div> */}
       </div>
+     
     </section>
   );
 };
