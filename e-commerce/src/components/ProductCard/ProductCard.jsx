@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-<<<<<<< Updated upstream
+
 /* eslint-disable react/prop-types */
 import { CheckSquare } from "lucide-react";
-=======
->>>>>>> Stashed changes
+
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 

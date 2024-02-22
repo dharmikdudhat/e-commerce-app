@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+
 import { AlertTriangle, X } from 'lucide-react'
 
 export function AlertBanner(props) {
