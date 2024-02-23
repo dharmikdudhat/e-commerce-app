@@ -108,13 +108,13 @@ export const SignInOne = () => {
       }}
     >
       <div className="min-h-screen w-full flex flex-col justify-center items-center">
-        <div className=" container max-w-md mx-auto p-8 bg-green-300 rounded-3xl shadow-lg mt-8">
+        <div className=" container max-w-md mx-auto p-8 bg-amber-500 rounded-3xl shadow-lg mt-8">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {isError && <AlertBanner text={"Invalid Credentials"} />}
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Sign in
             </h2>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-gray-800">
               Don&apos;t have an account?{" "}
               <Link
                 to="/registration"
@@ -136,7 +136,7 @@ export const SignInOne = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
                       placeholder="Email"
                       name="email"
@@ -166,7 +166,7 @@ export const SignInOne = () => {
                   </div>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="password"
                       placeholder="Password"
                       name="password"

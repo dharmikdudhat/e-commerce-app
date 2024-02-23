@@ -59,7 +59,7 @@ export function AboutPageOne() {
   };
 
   return (
-    <div className=" bg-green-800">
+    <div className=" bg-green-700">
       <div className="mx-auto max-w-7xl px-4">
         {/* Hero Map */}
         <div className="flex flex-col space-y-8 pb-10 pt-12 md:pt-24">
@@ -68,10 +68,10 @@ export function AboutPageOne() {
               About the company
             </p>
           </div>
-          <p className="text-3xl font-bold text-gray-900 md:text-5xl md:leading-10">
+          <p className="text-3xl font-bold text-blue-900 md:text-5xl md:leading-10">
             Made with love, right here in India
           </p>
-          <p className="max-w-4xl text-base text-yellow-300 md:text-xl">
+          <p className="max-w-4xl text-base text text-black md:text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
             veritatis voluptates neque itaque repudiandae sint, explicabo
             assumenda quam ratione placeat?
@@ -89,16 +89,16 @@ export function AboutPageOne() {
           {locations.map((location) => (
             <div
               key={location.title}
-              className="flex flex-col space-y-3 md:w-2/4 lg:w-1/5"
+              className="flex flex-col space-y-3 md:w-2/4 lg:w-1/5 text-blue-900"
             >
               <MapPin className="h-5 w-5" />
-              <p className="w-full text-xl font-semibold  text-gray-900">
+              <p className="w-full text-xl font-semibold text-blue-900">
                 {location.title}
               </p>
-              <p className="w-full text-base text-yellow-300">
+              <p className="w-full text-base text-black">
                 {location.timings}
               </p>
-              <p className="text-sm font-medium">{location.address}</p>
+              <p className="text-sm font-medium text-black">{location.address}</p>
             </div>
           ))}
         </div>
@@ -111,10 +111,10 @@ export function AboutPageOne() {
                 Join Us &rarr;
               </p>
             </div>
-            <p className="text-3xl font-bold text-gray-900 md:text-4xl">
+            <p className="text-3xl font-bold text-blue-900 md:text-4xl">
               Meet our team
             </p>
-            <p className="max-w-4xl text-base text-yellow-300 md:text-xl">
+            <p className="max-w-4xl text-base text-black md:text-xl">
               Our philosophy is simple — hire a team of diverse, passionate
               people and foster a culture that empowers you to do your best
               work.
@@ -123,7 +123,7 @@ export function AboutPageOne() {
           </div>
         </div>
         {/* TEAM */}
-        <div className="grid grid-cols-1 gap-4 gap-y-6 border-b border-gray-300 py-12 pb-20 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 gap-y-6 border-b border-gray-900 py-12 pb-20 md:grid-cols-2 lg:grid-cols-4">
           {users.map((user) => (
             <div className="rounded-md border" key={user.name}>
               <img
@@ -131,10 +131,10 @@ export function AboutPageOne() {
                 alt={user.name}
                 className="h-[300px] w-full rounded-lg object-cover "
               />
-              <p className="mt-6 w-full px-2 text-xl  font-semibold text-gray-900">
+              <p className="mt-6 w-full px-2 text-xl  font-semibold text-black">
                 {user.name}
               </p>
-              <p className="w-full px-2 pb-6 text-sm font-semibold text-gray-800">
+              <p className="w-full px-2 pb-6 text-sm font-semibold text-black">
                 {user.position}
               </p>
             </div>
@@ -143,13 +143,13 @@ export function AboutPageOne() {
         {/* Hiring Banner */}
         <div className="flex flex-col items-center gap-x-4 gap-y-4 py-16 md:flex-row">
           <div className="space-y-6">
-            <p className="text-sm font-semibold md:text-base">
+            <p className="text-sm font-semibold md:text-base w-fit rounded-md px-2">
               Join our team &rarr;
             </p>
-            <p className="text-3xl font-bold md:text-4xl">
+            <p className="text-3xl font-bold md:text-4xl text-blue-900">
               We&apos;re just getting started
             </p>
-            <p className="text-base text-yellow-300 md:text-lg">
+            <p className="text-base text-black md:text-lg">
               Our philosophy is simple — hire a team of diverse, passionate
               people and foster a culture that empowers you to do your best
               work.

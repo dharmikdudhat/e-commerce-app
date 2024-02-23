@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export function ProductCard(props) {
   return (
-    <div className=" w-16 align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-green-300">
+    <div className=" w-16 align-middle transition-transform transform hover:scale-x-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-amber-400">
       <img
         src={props.imagePath}
         alt="Laptop"
@@ -15,13 +15,13 @@ export function ProductCard(props) {
       />
       <div className="p-4">
         <h1 className="text-lg font-semibold">{props.name}</h1>
-        <p className="mt-3 text-sm text-gray-600">
+        <p className="mt-3 text-sm text-gray-800">
           {" "}
           {props.description}
         </p>
         <h2 className="text-lg font-semibold"> {props.price}</h2>
         <div className="flex justify-start">
-          <CheckSquare className="size-6 pt-1 pr-1 ml-0 text-green-700" />{" "}
+          <CheckSquare className="size-6 pt-1 pr-1 ml-0 text-green-900" />{" "}
           <label> InStock {props.quantity}</label>
         </div>
         <button

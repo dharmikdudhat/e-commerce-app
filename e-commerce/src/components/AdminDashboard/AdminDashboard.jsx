@@ -9,7 +9,7 @@ export function AdminDashboard() {
         "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
     }}>
       <div>
-        <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-green-500 px-5 py-8">
+        <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-amber-500 px-5 py-8">
           <div className="mt-6 flex flex-1 flex-col justify-between">
             <nav className="-mx-3 space-y-6 ">
               <div className="space-y-3 ">

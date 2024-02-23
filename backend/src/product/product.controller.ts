@@ -37,7 +37,7 @@ export class ProductController {
   // }
 
   @Post('upload')
-  @Roles(Role.Admin)
+  //@Roles(Role.Admin)
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({

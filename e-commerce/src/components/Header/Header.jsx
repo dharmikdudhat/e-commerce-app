@@ -60,7 +60,9 @@ export const Navbar = () => {
               />
             </svg>
           </span>
-          <span className="font-bold text-slate-50">Dad&apos;s Filter Shop</span>
+          <span className="font-bold text-slate-50">
+            Dad&apos;s Filter Shop
+          </span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
@@ -108,7 +110,7 @@ export const Navbar = () => {
                   className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   onClick={() => dispatch(logout())}
                 >
-                  Sign Out
+                  <NavLink to="/">Sign Out</NavLink>
                 </button>
               </div>
             )}
@@ -195,7 +197,7 @@ export const Navbar = () => {
                         className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                         onClick={() => dispatch(logout())}
                       >
-                        Sign Out
+                        <NavLink to="/">Sign Out</NavLink>
                       </button>
                     </div>
                   )}

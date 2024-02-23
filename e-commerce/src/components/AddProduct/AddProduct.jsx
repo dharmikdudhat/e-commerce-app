@@ -52,8 +52,8 @@ function AddProduct() {
   };
 
   return (
-    <div className=" bg-slate-600 p-10">
-      <div className=" mx-auto max-w-3xl  rounded-md w-full bg-white">
+    <div className=" bg-green-800 p-10">
+      <div className=" mx-auto max-w-3xl  rounded-md w-full bg-amber-400">
         <form
           ref={formRef}
           onSubmit={handleSubmit}
@@ -61,13 +61,13 @@ function AddProduct() {
         >
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-900 text-sm font-bold mb-2"
               htmlFor="name"
             >
               Product Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
               placeholder="Product Name"
@@ -77,13 +77,13 @@ function AddProduct() {
           </div>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-900 text-sm font-bold mb-2"
               htmlFor="description"
             >
               Description
             </label>
             <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
               id="description"
               placeholder="Product Description"
               name="description"
@@ -92,13 +92,13 @@ function AddProduct() {
           </div>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-900 text-sm font-bold mb-2"
               htmlFor="price"
             >
               Price
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
               id="price"
               type="number"
               placeholder="Product Price"
@@ -108,13 +108,13 @@ function AddProduct() {
           </div>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-900 text-sm font-bold mb-2"
               htmlFor="quantity"
             >
               Quantity
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
               id="quantity"
               type="number"
               placeholder="Product Quantity"
@@ -124,7 +124,7 @@ function AddProduct() {
           </div>
           <div>
             <label
-              class="block mb-2 text-sm font-semibold text-gray-700 "
+              class="block mb-2 text-sm font-semibold text-gray-900 "
               for="user_avatar"
             >
               Upload Photo

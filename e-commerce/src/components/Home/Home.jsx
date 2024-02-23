@@ -2,29 +2,39 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import LoadingPulse from "../../assets/LoadingPulse";
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [lastIndex, setLastIndex] = useState(3);
 
   useEffect(() => {
     // Fetch data from backend when component mounts
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/product/getAll"); // Assuming endpoint to fetch products
-        const data = await response.json();
-        data.map((item) => {
-          const name = item.imagePath.split("\\")[1];
-          item.imagePath = `http://localhost:3000/${name}`;
-        });
-        setProducts(data); // Set products state with fetched data
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
 
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/product/getAll"); // Assuming endpoint to fetch products
+      const data = await response.json();
+      data.map((item) => {
+        const name = item.imagePath.split("\\")[1];
+        item.imagePath = `http://localhost:3000/${name}`;
+      });
+      setProducts(data); // Set products state with fetched data
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setIsLoading(false);
+    }
+  };
+
+  const showMoreCards = () => {
+    setLastIndex((prevIndex) => prevIndex + 4);
+  };
 
   const userData = useSelector((state) => state.auth.user);
 
@@ -39,52 +49,82 @@ export const Home = () => {
   return (
     <div>
       {isLogin ? (
-        <div className=" bg-green-700">
-          <div>
+        <div className=" bg-green-900">
+          <div className=" justify-center">
             <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Trending</h1>
             </div>
             <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5">
-              {products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  quantity={product.quantity}
-                  imagePath={product.imagePath} // Assuming the image path is provided in the product data
-                />
-              ))}
+              {isLoading ? (
+                <LoadingPulse />
+              ) : (
+                products.slice(-4).map((product, index) => (
+                  <ProductCard
+                    key={index}
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    quantity={product.quantity}
+                    imagePath={product.imagePath} // Assuming the image path is provided in the product data
+                  />
+                ))
+              )}
             </div>
+            {/* <div className=" mt-4 text-center">
+              {lastIndex < products.length && (
+                <button
+                  className="text-white bg-black px-3 py-1 rounded mt-4"
+                  onClick={showMoreCards}
+                >
+                  Show More
+                </button>
+              )}
+            </div> */}
           </div>
-          <div>
-            <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100">
+          <div className=" justify-center">
+            <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Products</h1>
             </div>
-            <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5 ">
-              {products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  name={product.name}
-                  description={product.description}
-                  price={product.price}
-                  quantity={product.quantity}
-                  imagePath={product.imagePath} // Assuming the image path is provided in the product data
-                />
-              ))}
+            <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5">
+              {isLoading ? (
+                <LoadingPulse />
+              ) : (
+                products.slice(0, lastIndex + 1).map((product, index) => (
+                  <ProductCard
+                    key={index}
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    quantity={product.quantity}
+                    imagePath={product.imagePath} // Assuming the image path is provided in the product data
+                  />
+                ))
+              )}
+            </div>
+            <div className=" text-center p-4">
+              {lastIndex < products.length && (
+                <button
+                  className="text-white bg-black px-3 py-1 rounded mt-4"
+                  onClick={showMoreCards}
+                >
+                  Show More
+                </button>
+              )}
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-screen bg-green-800">
+        <div className="flex flex-col items-center justify-center h-screen bg-green-900">
           <h1 className="text-3xl font-bold mb-4 text-center">
             Welcome to the Filter Shop
           </h1>
           <p className="text-lg mb-8 text-center">
             Discover a wide range of high-quality filters for your needs!
           </p>
-          <div className="max-w-md p-6 bg-green-400 shadow-lg rounded-lg">
-            <h2 className="text-xl font-semibold mb-2">Why Choose Us?</h2>
+          <div className="max-w-md p-6 bg-amber-300 shadow-lg rounded-lg">
+            <h2 className="text-xl font-semibold mb-2 text-blue-800">
+              Why Choose Us?
+            </h2>
             <ul className="list-disc pl-6">
               <li>
                 Wide variety of filter types, including air filters, water

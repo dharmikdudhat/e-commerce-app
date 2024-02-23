@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../assets/LoadingSpinner";
 
 export const SignUpOne = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export const SignUpOne = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -58,6 +60,7 @@ export const SignUpOne = () => {
     }
 
     try {
+      setLoading(true);
       const user = await fetch("http://localhost:3000/user/registration", {
         method: "POST",
         headers: {
@@ -65,15 +68,18 @@ export const SignUpOne = () => {
         },
         body: JSON.stringify(formData),
       });
-     
+
       if (user.ok) {
         // alert("User Created Succesfully !!!");
         navigate("/login");
+        setLoading(false);
       } else {
         alert("Not Able to Craete User", user.statusText);
+        setLoading(false);
       }
     } catch (error) {
       alert("Error Creating Item : ", error);
+      setLoading(false);
     }
   };
 
@@ -86,12 +92,12 @@ export const SignUpOne = () => {
       }}
     >
       <div className="min-h-screen w-full flex flex-col justify-center items-center">
-      <div className=" container max-w-md mx-auto p-8 bg-green-300 rounded-3xl shadow-lg mt-2">
+        <div className=" container max-w-md mx-auto p-8 bg-amber-500 rounded-3xl shadow-lg mt-2">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Sign up
             </h2>
-            <p className="mt-2 text-base text-gray-600">
+            <p className="mt-2 text-base text-gray-800">
               Already have an account?{" "}
               <Link
                 to="/login"
@@ -115,7 +121,7 @@ export const SignUpOne = () => {
                     <input
                       className={`flex h-10 w-full rounded-md border ${
                         errors.username ? "border-red-500" : "border-gray-950"
-                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="text"
                       placeholder="Full Name"
                       id="name"
@@ -142,7 +148,7 @@ export const SignUpOne = () => {
                     <input
                       className={`flex h-10 w-full rounded-md border ${
                         errors.age ? "border-red-500" : "border-gray-950"
-                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="number"
                       placeholder="Age"
                       id="age"
@@ -167,7 +173,7 @@ export const SignUpOne = () => {
                     <input
                       className={`flex h-10 w-full rounded-md border ${
                         errors.email ? "border-red-500" : "border-gray-950"
-                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="email"
                       placeholder="Email"
                       id="email"
@@ -196,7 +202,7 @@ export const SignUpOne = () => {
                     <input
                       className={`flex h-10 w-full rounded-md border ${
                         errors.password ? "border-red-500" : "border-gray-950"
-                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
                       type="password"
                       placeholder="Password"
                       id="password"
@@ -217,6 +223,7 @@ export const SignUpOne = () => {
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Create Account <ArrowRight className="ml-2" size={16} />
+                    {loading && <LoadingSpinner />}
                   </button>
                 </div>
               </div>
