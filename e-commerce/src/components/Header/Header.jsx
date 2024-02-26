@@ -61,7 +61,7 @@ export const Navbar = () => {
             </svg>
           </span>
           <span className="font-bold text-slate-50">
-            Dad&apos;s Filter Shop
+            Our&apos;s Shop
           </span>
         </div>
         <div className="hidden lg:block">

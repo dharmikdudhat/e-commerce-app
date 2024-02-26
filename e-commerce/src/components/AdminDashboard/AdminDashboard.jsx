@@ -1,8 +1,8 @@
 // import React from "react";
 import { NotebookPen, BookMinus, BookPlus, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { ProductCard } from "../ProductCard/ProductCard";
 import { useEffect, useState } from "react";
+import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -28,6 +28,16 @@ export function AdminDashboard() {
     fetchData();
   }, [hostName]);
 
+  const handleUpdate = (product) => {
+    console.log("Update product:", product);
+    // Implement update functionality
+  };
+
+  const handleDelete = (productName) => {
+    console.log("Delete product:", productName);
+    // Implement delete functionality
+  };
+
   return (
     <div
       className=" bg-cover bg-no-repeat bg-fixed"
@@ -37,7 +47,7 @@ export function AdminDashboard() {
       }}
     >
       <div className="flex">
-        <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-amber-500 px-5 py-8">
+        <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-white px-5 py-8 bg-fixed">
           <div className="mt-6 flex flex-1 flex-col justify-between">
             <nav className="-mx-3 space-y-6 ">
               <div className="space-y-3 ">
@@ -82,13 +92,15 @@ export function AdminDashboard() {
         </aside>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5">
           {products.map((product, index) => (
-            <ProductCard
+            <AdminProductCard
               key={index}
               name={product.name}
               description={product.description}
               price={product.price}
               quantity={product.quantity}
-              imagePath={product.imagePath} // Assuming the image path is provided in the product data
+              imagePath={product.imagePath}
+              onUpdate={handleUpdate} // Pass the update function
+              onDelete={handleDelete} // Pass the delete function
             />
           ))}
         </div>
