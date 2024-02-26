@@ -4,7 +4,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
 function AddProduct() {
-
   const hostName = window.location.hostname;
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,19 +21,7 @@ function AddProduct() {
         method: "POST",
         body: formData,
       });
-      console.log("Image added successfully:", response1.data)
-
-     
-
-      // const response2 = await fetch("http://localhost:3000/product/add", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(requestData),
-      // });
-      
-      // console.log("Product added successfully:", response2.data);
+      console.log("Image added successfully:", response1.data);
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -43,7 +30,6 @@ function AddProduct() {
   const formRef = useRef();
 
   const [imageResult, setImageResult] = useState(null);
- 
 
   const handlePreviewOnChange = (file) => {
     const reader = new FileReader();

@@ -27,7 +27,6 @@ export class ProductService {
       product.imagePath = file.path;
       product.createdAt = new Date().toString();
       product.updatedAt = new Date().toString();
-      console.log(product);
       return this.ProductRepository.save(product);
     } catch (error) {
       console.log('Error in Product:', error);

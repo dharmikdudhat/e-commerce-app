@@ -1,21 +1,32 @@
 // import React from "react";
 import { NotebookPen, BookMinus, BookPlus, User } from "lucide-react";
-import {  useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { ProductCard } from "../ProductCard/ProductCard";
+import { useEffect, useState } from "react";
 
 export function AdminDashboard() {
+  const [products, setProducts] = useState([]);
 
-
-  const userData = useSelector((state) => state.auth.user);
-
-  const navigate = useNavigate();
+  const hostName = window.location.hostname;
 
   useEffect(() => {
-    if (!userData) {
-      navigate("/");
-    } 
-  }, [navigate, userData]);
+    // Fetch data from backend when component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://${hostName}:3000/product/getAll`); // Assuming endpoint to fetch products
+        const data = await response.json();
+        data.map((item) => {
+          const name = item.imagePath.split("\\")[1];
+          item.imagePath = `http://${hostName}:3000/${name}`;
+        });
+        setProducts(data); // Set products state with fetched data
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, [hostName]);
 
   return (
     <div
@@ -25,7 +36,7 @@ export function AdminDashboard() {
           "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
       }}
     >
-      <div>
+      <div className="flex">
         <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-amber-500 px-5 py-8">
           <div className="mt-6 flex flex-1 flex-col justify-between">
             <nav className="-mx-3 space-y-6 ">
@@ -69,8 +80,19 @@ export function AdminDashboard() {
             </nav>
           </div>
         </aside>
+        <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5">
+          {products.map((product, index) => (
+            <ProductCard
+              key={index}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              quantity={product.quantity}
+              imagePath={product.imagePath} // Assuming the image path is provided in the product data
+            />
+          ))}
+        </div>
       </div>
-      <div></div>
     </div>
   );
 }
