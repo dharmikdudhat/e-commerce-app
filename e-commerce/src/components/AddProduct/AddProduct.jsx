@@ -4,6 +4,8 @@
 import React, { useState, useRef, useEffect } from "react";
 
 function AddProduct() {
+
+  const hostName = window.location.hostname;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -16,7 +18,7 @@ function AddProduct() {
     });
 
     try {
-      const response1 = await fetch("http://localhost:3000/product/upload", {
+      const response1 = await fetch(`http://${hostName}:3000/product/upload`, {
         method: "POST",
         body: formData,
       });

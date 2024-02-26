@@ -52,6 +52,7 @@ export const SignUpOne = () => {
     setErrors(newErrors);
     return valid;
   };
+  const hostName = window.location.hostname;
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -61,7 +62,7 @@ export const SignUpOne = () => {
 
     try {
       setLoading(true);
-      const user = await fetch("http://localhost:3000/user/registration", {
+      const user = await fetch(`http://${hostName}:3000/user/registration`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

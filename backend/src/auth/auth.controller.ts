@@ -25,6 +25,8 @@ import { LoginResponseDto, SignInDto } from './dto/login.response.dto';
     @Post('login')
     @HttpCode(HttpStatus.OK)
     signIn(@Body() signInDto: SignInDto): Promise<LoginResponseDto> {
+      console.log(signInDto);
+      
       return this.authService.signIn(signInDto.email, signInDto.password);
     }
   

@@ -57,13 +57,15 @@ export const SignInOne = () => {
   // }, [token, navigation]);
 
   //Function to check user credentials and log them in
+   const hostName = window.location.hostname;
+
   const loginUser = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
 
-      const loginData = await fetch("http://localhost:3000/auth/login", {
+      const loginData = await fetch(`http://${hostName}:3000/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

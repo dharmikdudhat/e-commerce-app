@@ -2,7 +2,7 @@
 
 const PrivacyPolicy = () => {
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-8 h-screen max-h-max overscroll-none">
       <h1 className="text-3xl font-semibold mb-4">Privacy Policy</h1>
 
       <p className="mb-4">

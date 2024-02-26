@@ -8,32 +8,33 @@ export const Home = () => {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [lastIndex, setLastIndex] = useState(3);
+  const [lastIndex, setLastIndex] = useState(5);
+
+  const hostName = window.location.hostname;
 
   useEffect(() => {
     // Fetch data from backend when component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://${hostName}:3000/product/getAll`); // Assuming endpoint to fetch products
+        const data = await response.json();
+        data.map((item) => {
+          const name = item.imagePath.split("\\")[1];
+          item.imagePath = `http://${hostName}:3000/${name}`;
+        });
+        setProducts(data); // Set products state with fetched data
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setIsLoading(false);
+      }
+    };
 
     fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/product/getAll"); // Assuming endpoint to fetch products
-      const data = await response.json();
-      data.map((item) => {
-        const name = item.imagePath.split("\\")[1];
-        item.imagePath = `http://localhost:3000/${name}`;
-      });
-      setProducts(data); // Set products state with fetched data
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setIsLoading(false);
-    }
-  };
+  }, [hostName]);
 
   const showMoreCards = () => {
-    setLastIndex((prevIndex) => prevIndex + 4);
+    setLastIndex((prevIndex) => prevIndex + 6);
   };
 
   const userData = useSelector((state) => state.auth.user);
@@ -50,15 +51,18 @@ export const Home = () => {
     <div>
       {isLogin ? (
         <div className=" bg-green-900">
-          <div className=" justify-center">
+          <div className=" justify-center ">
+            {/* <div>
+              <img src="../bgImages/logo.jpg" alt="logo" />{" "}
+            </div> */}
             <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Trending</h1>
             </div>
-            <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5">
+            <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5">
               {isLoading ? (
                 <LoadingPulse />
               ) : (
-                products.slice(-4).map((product, index) => (
+                products.slice(-6).map((product, index) => (
                   <ProductCard
                     key={index}
                     name={product.name}
@@ -82,6 +86,9 @@ export const Home = () => {
             </div> */}
           </div>
           <div className=" justify-center">
+            {/* <div>
+              <img src="../bgImages/logo.jpg" alt="logo" />{" "}
+            </div> */}
             <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Products</h1>
             </div>

@@ -15,12 +15,13 @@ export const Contact = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  
+const hostName  = window.location.hostname;
   const CONTACT_DATA = async (e) => {
     e.preventDefault();
 
     try {
-      const user = await fetch("http://localhost:3000/contact/add", {
+      const user = await fetch(`http://${hostName}:3000/contact/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
