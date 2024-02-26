@@ -1,15 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import {  Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class ProductEntity {
-
     @PrimaryGeneratedColumn("uuid")
-    productId: string
-
-    @PrimaryGeneratedColumn()
-    id: string
+    id: string;
 
     @Column()
     name: string;
@@ -24,9 +19,25 @@ export class ProductEntity {
     quantity: number;
 
     @Column()
-    imagePath: string
+    imagePath: string;
 
+    @Column(/* { type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' } */)
+    createdAt?: string;
 
+    @Column(/* { type: 'timestamp', default: () => `CURRENT_TIMESTAMP`, onUpdate: `CURRENT_TIMESTAMP` } */)
+    updatedAt?: string;
 
+    @Column({ nullable: true })
+    deletedAt?: string;
 
+    /* @BeforeInsert()
+    updateTimestampsOnInsert() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    @BeforeUpdate()
+    updateTimestamp() {
+        this.updatedAt = new Date();
+    } */
 }

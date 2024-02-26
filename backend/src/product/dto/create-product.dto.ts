@@ -4,6 +4,9 @@ export class CreateProductDto {
     description: string;
     price: number;
     quantity: number;
-    imagePath: string
+    imagePath: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
 
 }

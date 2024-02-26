@@ -27,7 +27,19 @@ export class User {
     @Column()
     password: string;
 
-    
+    @Column({ nullable: true })
+    imagePath: string;
+
+    @Column(/* {type:'timestamp',default:'CURRENT_TIMESTAMP'} */)
+    createdAt?: string;
+
+    @Column(/* {type:'timestamp',default:'CURRENT_TIMESTAMP',onUpdate:'CURRENT_TIMESTAMP'} */)
+    updatedAt?: string;
+
+    @Column({ nullable: true })
+    deletedAt?: string;
+
+
 }
 
 

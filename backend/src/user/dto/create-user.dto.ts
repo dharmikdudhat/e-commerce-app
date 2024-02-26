@@ -6,4 +6,5 @@ export class CreateUserDto {
    age: number;
    role: string;
    password: string;
+   imagePath: string | null = null;
 }

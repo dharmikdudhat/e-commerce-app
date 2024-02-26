@@ -1,13 +1,30 @@
 // import React from "react";
 import { NotebookPen, BookMinus, BookPlus, User } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import {  useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export function AdminDashboard() {
+
+
+  const userData = useSelector((state) => state.auth.user);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userData) {
+      navigate("/");
+    } 
+  }, [navigate, userData]);
+
   return (
-    <div className=" bg-cover bg-no-repeat bg-fixed" style={{
-      backgroundImage:
-        "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
-    }}>
+    <div
+      className=" bg-cover bg-no-repeat bg-fixed"
+      style={{
+        backgroundImage:
+          "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
+      }}
+    >
       <div>
         <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-amber-500 px-5 py-8">
           <div className="mt-6 flex flex-1 flex-col justify-between">
@@ -53,7 +70,7 @@ export function AdminDashboard() {
           </div>
         </aside>
       </div>
-      <div ></div>
+      <div></div>
     </div>
   );
 }

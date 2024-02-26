@@ -15,7 +15,7 @@ export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly ProductRepository: Repository<ProductEntity>,
-  ) {}
+  ) { }
 
   uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {
     try {
@@ -25,6 +25,8 @@ export class ProductService {
       product.price = createProductDto.price;
       product.quantity = createProductDto.quantity;
       product.imagePath = file.path;
+      product.createdAt = new Date().toString();
+      product.updatedAt = new Date().toString();
       console.log(product);
       return this.ProductRepository.save(product);
     } catch (error) {
@@ -70,7 +72,7 @@ export class ProductService {
       return this.ProductRepository.delete(name);
     } catch (error) {
       console.log('Error:', error);
-      throw  new NotFoundException(`The product with id "${name}" was not found`)
+      throw new NotFoundException(`The product with id "${name}" was not found`)
     }
   }
 }

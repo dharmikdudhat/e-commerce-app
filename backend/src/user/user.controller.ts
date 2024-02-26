@@ -1,21 +1,49 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('registration')
-  async create(@Body() createUserDto: CreateUserDto) {
-    const validationErrors = await this.userService.validateUser(createUserDto);
-    if (validationErrors.length > 0) {
-      throw new BadRequestException(validationErrors);
-    }
-    return this.userService.create(createUserDto);
+  //@Roles(Role.Admin)
+  @UseInterceptors(
+    FileInterceptor('files', {
+      storage: diskStorage({
+        destination: './usersImage', // Destination folder for uploaded files
+        filename: (req, file, callback) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+
+          callback(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  uploadFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() createUserDto: CreateUserDto,
+  ) {
+    return this.userService.uploadFile(file, createUserDto);
   }
+
+
+  // @Post('registration')
+  // async create(@Body() createUserDto: CreateUserDto) {
+  //   const validationErrors = await this.userService.validateUser(createUserDto);
+  //   if (validationErrors.length > 0) {
+  //     throw new BadRequestException(validationErrors);
+  //   }
+  //   return this.userService.create(createUserDto);
+  // }
 
   @Get()
   findAll() {

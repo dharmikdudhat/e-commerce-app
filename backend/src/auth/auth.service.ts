@@ -29,11 +29,13 @@ export class AuthService {
         email: user.email,
         username: user.username,
         role: user.role,
+        id: user.id,
+        token,
       };
 
       return {
         message: 'Login Successful',
-        data: { accessToken: token, user: userResponse },
+        data: { user: userResponse },
       };
     } catch (error) {
       // Log the error for debugging purposes

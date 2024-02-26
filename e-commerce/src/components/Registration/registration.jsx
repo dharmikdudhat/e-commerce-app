@@ -1,64 +1,78 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../assets/LoadingSpinner";
 
 export const SignUpOne = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    age: 0,
-    password: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   email: "",
+  //   age: 0,
+  //   password: "",
+  // });
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [imageResult, setImageResult] = useState(null);
+
+  const formRef = useRef();
 
   const navigate = useNavigate();
 
-  // Handle form data changes
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // // Handle form data changes
+  // const handleInputChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const validateForm = () => {
-    let valid = true;
-    let newErrors = {};
+  // const validateForm = (user) => {
+  //   let valid = true;
+  //   let newErrors = {};
 
-    if (!formData.email) {
-      newErrors.email = "Email is Mandatory";
-      valid = false;
-    }
+  //   if (!user.email) {
+  //     newErrors.email = "Email is Mandatory";
+  //     valid = false;
+  //   }
 
-    if (!formData.username) {
-      newErrors.username = "User name is Mandatory";
-      valid = false;
-    }
+  //   if (!user.username) {
+  //     newErrors.username = "User name is Mandatory";
+  //     valid = false;
+  //   }
 
-    if (!formData.age) {
-      newErrors.age = "Age is Mandatory";
-      valid = false;
-    }
+  //   if (!user.age) {
+  //     newErrors.age = "Age is Mandatory";
+  //     valid = false;
+  //   }
 
-    if (!formData.password || formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters";
-      valid = false;
-    }
+  //   if (!user.password || user.password.length < 8) {
+  //     newErrors.password = "Password must be at least 8 characters";
+  //     valid = false;
+  //   }
 
-    setErrors(newErrors);
-    return valid;
-  };
+  //   setErrors(newErrors);
+  //   return valid;
+  // };
   const hostName = window.location.hostname;
+  console.log(hostName);
 
   const createUser = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+
+    const formData = new FormData(formRef.current);
+    const requestData = {};
+
+    // Iterate over form elements and extract their names and values
+    formData.forEach((value, key) => {
+      requestData[key] = value;
+    });
+    console.log(formData);
+
+    // if (!validateForm(formData)) {
+    //   return;
+    // }
 
     try {
       setLoading(true);
@@ -82,6 +96,14 @@ export const SignUpOne = () => {
       alert("Error Creating Item : ", error);
       setLoading(false);
     }
+  };
+
+  const handlePreviewOnChange = (files) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", (e) => {
+      setImageResult(e.target.result);
+    });
+    reader.readAsDataURL(files);
   };
 
   return (
@@ -108,8 +130,26 @@ export const SignUpOne = () => {
                 Sign In
               </Link>
             </p>
-            <form onSubmit={createUser} method="POST" className="mt-8">
+            <form
+              onSubmit={createUser}
+              ref={formRef}
+              method="POST"
+              className="mt-8"
+            >
               <div className="space-y-5">
+                <div>
+                  {imageResult && (
+                    <div>
+                      <h2>Preview:</h2>
+                      <img
+                        src={imageResult}
+                        className="w-full h-full p-2 m-2 rounded shadow-md"
+                        alt="Preview"
+                        style={{ maxWidth: "100%", maxHeight: "300px" }}
+                      />
+                    </div>
+                  )}
+                </div>
                 <div>
                   <label
                     htmlFor="name"
@@ -127,8 +167,8 @@ export const SignUpOne = () => {
                       placeholder="Full Name"
                       id="name"
                       name="username"
-                      value={formData.username}
-                      onChange={handleInputChange}
+                      // value={formData.username}
+                      // onChange={handleInputChange}
                     ></input>
                     {errors.username && (
                       <p className="text-red-500 text-sm mt-1">
@@ -154,8 +194,8 @@ export const SignUpOne = () => {
                       placeholder="Age"
                       id="age"
                       name="age"
-                      value={formData.age}
-                      onChange={handleInputChange}
+                      // value={formData.age}
+                      // onChange={handleInputChange}
                     ></input>
                     {errors.age && (
                       <p className="text-red-500 text-sm mt-1">{errors.age}</p>
@@ -179,8 +219,8 @@ export const SignUpOne = () => {
                       placeholder="Email"
                       id="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                      // value={formData.email}
+                      // onChange={handleInputChange}
                     ></input>
                     {errors.email && (
                       <p className="text-red-500 text-sm mt-1">
@@ -208,8 +248,8 @@ export const SignUpOne = () => {
                       placeholder="Password"
                       id="password"
                       name="password"
-                      value={formData.password}
-                      onChange={handleInputChange}
+                      // value={formData.password}
+                      // onChange={handleInputChange}
                     ></input>
                     {errors.password && (
                       <p className="text-red-500 text-sm mt-1">
@@ -217,6 +257,24 @@ export const SignUpOne = () => {
                       </p>
                     )}
                   </div>
+                </div>
+
+                <div>
+                  <label
+                    className="block mb-2 text-sm font-semibold text-gray-900 "
+                    htmlFor="user_avatar"
+                  >
+                    Upload Photo
+                  </label>
+                  <input
+                    name="file"
+                    className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:border-gray-600 dark:placeholder-gray-400 mb-3"
+                    aria-describedby="user_avatar_help"
+                    id="user_avatar"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handlePreviewOnChange(e.target.files[0])}
+                  />
                 </div>
                 <div>
                   <button

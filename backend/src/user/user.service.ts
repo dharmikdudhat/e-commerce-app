@@ -2,7 +2,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
@@ -14,21 +14,42 @@ import { validate } from 'class-validator';
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<any>,
-  ) {}
+  ) { }
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  uploadFile(file: Express.Multer.File, createUserDto: CreateUserDto) {
     try {
-      let user: User = new User();
+      const user: User = new User();
       user.username = createUserDto.username;
       user.email = createUserDto.email;
       user.age = createUserDto.age;
       user.role = createUserDto.role || 'USER';
       user.password = createUserDto.password;
+      user.imagePath = " file.path";
+      user.createdAt = new Date().toString();
+      user.updatedAt = new Date().toString();
+      console.log(user)
       return this.userRepository.save(user);
     } catch (error) {
-      console.log('Error:', error);
+      console.log('Error in Product:', error);
+      throw new BadRequestException("Can't upload the file");
     }
   }
+  // create(createUserDto: CreateUserDto): Promise<User> {
+  //   try {
+  //     let user: User = new User();
+  //     user.username = createUserDto.username;
+  //     user.email = createUserDto.email;
+  //     user.age = createUserDto.age;
+  //     user.role = createUserDto.role || 'USER';
+  //     user.password = createUserDto.password;
+  //     user.createdAt = new Date().toString();
+  //     user.updatedAt = new Date().toString();
+  //     console.log(user)
+  //     return this.userRepository.save(user);
+  //   } catch (error) {
+  //     console.log('Error:', error);
+  //   }
+  // }
 
   async validateUser(createUserDto: CreateUserDto): Promise<string[]> {
     const errors = await validate(createUserDto);

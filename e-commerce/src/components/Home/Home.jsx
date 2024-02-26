@@ -50,7 +50,7 @@ export const Home = () => {
   return (
     <div>
       {isLogin ? (
-        <div className=" bg-green-900">
+        <div className=" ">
           <div className=" justify-center ">
             {/* <div>
               <img src="../bgImages/logo.jpg" alt="logo" />{" "}
@@ -121,14 +121,14 @@ export const Home = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-screen bg-green-900">
+        <div className="flex flex-col items-center justify-center h-screen ">
           <h1 className="text-3xl font-bold mb-4 text-center">
             Welcome to the Filter Shop
           </h1>
           <p className="text-lg mb-8 text-center">
             Discover a wide range of high-quality filters for your needs!
           </p>
-          <div className="max-w-md p-6 bg-amber-300 shadow-lg rounded-lg">
+          <div className="max-w-md p-6 bg-gray-300 shadow-xl shadow-slate-700  rounded-lg">
             <h2 className="text-xl font-semibold mb-2 text-blue-800">
               Why Choose Us?
             </h2>

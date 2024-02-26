@@ -11,6 +11,9 @@ import { ProductEntity } from './product/entities/product.entity';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ImageInterceptor } from './GlobalInterceptor/response.interceptor';
 import { AllExceptionsFilter } from './filters/all-exceptions.filters';
+import { LogModule } from './logging/log.module';
+import { LogEntity } from './logging/entity/logging.entity';
+import { LoggingInterceptor } from './logging/logging.interceptor';
 // import { MulterMiddleware } from './product/product.middleware';
 // import { MulterModule } from '@nestjs/platform-express';
 
@@ -23,11 +26,13 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filters';
       username: 'postgres',
       password: '55305530',
       database: 'typeorm_db',
-      entities: [User, ContactEntity, ProductEntity],
+      entities: [User, ContactEntity, ProductEntity, LogEntity],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
     UserModule,
     AuthModule,
+    LogModule,
     ContactModule,
     ProductModule,
   ],
@@ -40,6 +45,10 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filters';
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
     },
   ],
 })
