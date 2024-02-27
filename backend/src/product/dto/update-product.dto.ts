@@ -7,4 +7,5 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
     description?: string;
     amount?: number;
     price?: number;
+    imagePath?: string;
 }

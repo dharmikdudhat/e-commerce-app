@@ -6,11 +6,11 @@ import { Footer } from "../Footer/Footer";
 
 const Layout = () => {
   return (
-    <>
+    <div className="relative">
       <Navbar />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 };
 

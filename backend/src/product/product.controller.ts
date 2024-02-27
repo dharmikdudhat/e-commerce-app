@@ -29,7 +29,7 @@ import { Role } from 'src/RBAC/role.enum';
 @Controller('product')
 
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService) { }
 
   // @Post('add')
   // create( @UploadedFile() files: Express.Multer.File) {
@@ -65,9 +65,9 @@ export class ProductController {
     return this.productService.findAll();
   }
 
-  @Get(':name')
-  findOneByName(@Param('name') name: string) {
-    return this.productService.findOneByName(name);
+  @Get(':id')
+  findOneByName(@Param('id') id: string) {
+    return this.productService.findOneById(id);
   }
 
   @Get()
@@ -76,12 +76,12 @@ export class ProductController {
     return new StreamableFile(file);
   }
 
-  @Patch(':name')
+  @Patch(':id')
   update(
-    @Param('name') name: string,
+    @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ) {
-    return this.productService.update(name, updateProductDto);
+    return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':name')

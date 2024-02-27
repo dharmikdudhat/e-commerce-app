@@ -43,22 +43,23 @@ export class ProductService {
     }
   }
 
-  findOneByName(name: string) {
+  findOneById(id: string) {
     try {
-      return this.ProductRepository.findOneBy({ name });
+      return this.ProductRepository.findOneBy({ id });
     } catch (error) {
       console.log('Error:', error);
-      throw new NotFoundException(`The product "${name}" is not found`);
+      throw new NotFoundException(`The product "${id}" is not found`);
     }
   }
 
-  update(name: string, updateProductDto: UpdateProductDto) {
+  update(id: string, updateProductDto: UpdateProductDto) {
     try {
       const product: ProductEntity = new ProductEntity();
       product.name = updateProductDto.name;
       product.description = updateProductDto.description;
       product.price = updateProductDto.price;
       product.quantity = updateProductDto.quantity;
+      product.updatedAt = new Date().toString();
       return this.ProductRepository.save(product);
     } catch (error) {
       console.log('Error:', error);

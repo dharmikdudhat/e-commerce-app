@@ -26,22 +26,21 @@ export function AdminProductCard(props, { onUpdate, onDelete }) {
     <div className="w-16 align-middle transition-transform transform hover:scale-x-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-slate-200 m-2">
       <img
         src={props.imagePath}
-        alt="Laptop"
+        alt="Filter"
         className="h-[220px] w-full rounded-md object-cover cursor-pointer"
         onClick={handleReadMore}
       />
       <div className="p-4">
-        <h1 className="text-lg font-semibold">{props.name}</h1>
-        <p className="mt-3 text-sm text-gray-800"> {props.description}</p>
-        <h2 className="text-lg font-semibold"> {props.price}</h2>
-        <div className="flex justify-start">
-          <CheckSquare className="size-6 pt-1 pr-1 ml-0 text-green-900" />{" "}
-          <label> InStock {props.quantity}</label>
-        </div>
         {extended && (
           <div>
             {/* Additional details to be shown when extended is true */}
-            <p>Additional details here...</p>
+            <h1 className="text-lg font-semibold ">{props.name}</h1>
+            <p className="mt-3 text-sm text-gray-800"> {props.description}</p>
+            <h2 className="text-lg font-semibold"> {props.price}</h2>
+            <div className="flex justify-start">
+              <CheckSquare className="size-6 pt-1 pr-1 ml-0 text-green-900" />{" "}
+              <label> InStock {props.quantity}</label>
+            </div>
           </div>
         )}
         <div className="grid grid-cols-3 gap-3">
