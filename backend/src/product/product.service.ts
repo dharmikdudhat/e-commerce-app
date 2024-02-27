@@ -15,7 +15,7 @@ export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly ProductRepository: Repository<ProductEntity>,
-  ) { }
+  ) {}
 
   uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {
     try {
@@ -69,10 +69,13 @@ export class ProductService {
 
   remove(name: string) {
     try {
+      console.log(name);
       return this.ProductRepository.delete(name);
     } catch (error) {
       console.log('Error:', error);
-      throw new NotFoundException(`The product with id "${name}" was not found`)
+      throw new NotFoundException(
+        `The product with id "${name}" was not found`,
+      );
     }
   }
 }

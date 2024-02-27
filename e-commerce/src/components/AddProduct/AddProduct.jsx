@@ -2,20 +2,19 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { hostName } from "../../ulits/GlobalHostName";
+
 
 function AddProduct() {
-  const hostName = window.location.hostname;
+  const params = useLocation();
+  console.log(params.pathname);
+
+  // const hostName = window.location.hostname;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
-    const requestData = {};
-
-    // Iterate over form elements and extract their names and values
-    formData.forEach((value, key) => {
-      requestData[key] = value;
-    });
 
     try {
       const response1 = await fetch(`http://${hostName}:3000/product/upload`, {

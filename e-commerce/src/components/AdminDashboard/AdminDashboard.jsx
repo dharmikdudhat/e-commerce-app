@@ -43,12 +43,20 @@ export function AdminDashboard() {
 
   const handleUpdate = (product) => {
     console.log("Update product:", product);
-    // Implement update functionality
   };
 
-  const handleDelete = (productName) => {
-    console.log("Delete product:", productName);
-    // Implement delete functionality
+  // Implement delete funcrtionality
+  const handleDelete = async (id) => {
+    console.log("Delete product:", id);
+    try {
+      const response = await fetch(`http://${hostName}:3000/product/${id}`, {
+        method: "DELETE",
+      });
+      // Assuming endpoint to fetch products
+      setProducts(products.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   return (
@@ -111,7 +119,7 @@ export function AdminDashboard() {
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
           {products.map((product, index) => (
             <AdminProductCard
-              key={index}
+              key={product.id}
               name={product.name}
               description={product.description}
               price={product.price}

@@ -31,6 +31,7 @@ const router = createBrowserRouter(
       <Route path="details" element={<Details />} />
       <Route path="admin" element={<AdminDashboard />} />
       <Route path="add" element={<AddProduct />} />
+      <Route path="edit/:id" element={<AddProduct />} />
       <Route path="returnpolicy" element={<ReturnPolicy />} />
     </Route>
   )
