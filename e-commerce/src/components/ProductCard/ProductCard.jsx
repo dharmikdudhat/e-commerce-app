@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export function ProductCard(props) {
   return (
-    <div className=" w-16 align-middle transition-transform transform hover:scale-x-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-amber-400">
+    <div className=" w-16 align-middle transition-transform transform hover:scale-x-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-slate-200">
       <img
         src={props.imagePath}
         alt="Laptop"

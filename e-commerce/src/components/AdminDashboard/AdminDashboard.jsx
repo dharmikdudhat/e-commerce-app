@@ -39,58 +39,51 @@ export function AdminDashboard() {
   };
 
   return (
-    <div
-      className=" bg-cover bg-no-repeat bg-fixed"
-      style={{
-        backgroundImage:
-          "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
-      }}
-    >
-      <div className="flex">
-        <aside className="flex h-screen w-64 flex-col overflow-y-auto border-r bg-white px-5 py-8 bg-fixed">
-          <div className="mt-6 flex flex-1 flex-col justify-between">
-            <nav className="-mx-3 space-y-6 ">
-              <div className="space-y-3 ">
-                <label className="px-3 text-sm font-semibold uppercase text-gray-950">
-                  Admin Functions :
-                </label>
-                <NavLink
-                  className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                  to="/add"
-                >
-                  <BookPlus className="h-5 w-5" aria-hidden="true" />
-                  <span className="mx-2 text-sm font-medium">Add Product</span>
-                </NavLink>
-                <NavLink
-                  className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                  to="/"
-                >
-                  <NotebookPen className="h-5 w-5" aria-hidden="true" />
-                  <span className="mx-2 text-sm font-medium">
-                    Update Product
-                  </span>
-                </NavLink>
-                <NavLink
-                  className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                  to="/"
-                >
-                  <BookMinus className="h-5 w-5" aria-hidden="true" />
-                  <span className="mx-2 text-sm font-medium">
-                    Delete Product
-                  </span>
-                </NavLink>
-                <NavLink
-                  className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                  to="/"
-                >
-                  <User className="h-5 w-5" aria-hidden="true" />
-                  <span className="mx-2 text-sm font-medium">Profile</span>
-                </NavLink>
-              </div>
-            </nav>
-          </div>
-        </aside>
-        <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5">
+    <div className="flex h-screen">
+      <aside className="w-64 h-full overflow-y-auto border-r bg-slate-200 px-5 py-8 mr-3">
+        <div className="mt-6 flex flex-1 flex-col justify-between">
+          <nav className="-mx-3 space-y-6 ">
+            <div className="space-y-3 ">
+              <label className="px-3 text-sm font-semibold uppercase text-gray-950">
+                Admin Functions :
+              </label>
+              <NavLink
+                className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/add"
+              >
+                <BookPlus className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium">Add Product</span>
+              </NavLink>
+              <NavLink
+                className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/"
+              >
+                <NotebookPen className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium">Update Product</span>
+              </NavLink>
+              <NavLink
+                className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/"
+              >
+                <BookMinus className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium">Delete Product</span>
+              </NavLink>
+              <NavLink
+                className="flex transform items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/"
+              >
+                <User className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium">Profile</span>
+              </NavLink>
+            </div>
+          </nav>
+        </div>
+      </aside>
+      <div className=" flex-1 overflow-auto ">
+        <div className="  text-center align-middle bg-black text-white mt-4 mb-4 ">
+          <h1>Product Cards</h1>
+        </div>
+        <div className="flex overflow-x-auto p-4 ">
           {products.map((product, index) => (
             <AdminProductCard
               key={index}

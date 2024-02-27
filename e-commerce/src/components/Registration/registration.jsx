@@ -93,7 +93,7 @@ export const SignUpOne = () => {
       }}
     >
       <div className="min-h-screen w-full flex flex-col justify-center items-center">
-        <div className=" container max-w-md mx-auto p-8 bg-amber-500 rounded-3xl shadow-lg mt-2">
+        <div className=" container max-w-md mx-auto p-8 bg-slate-200 rounded-3xl shadow-lg mt-2">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Sign up
