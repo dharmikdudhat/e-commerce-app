@@ -92,7 +92,7 @@ export const Home = () => {
             <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Products</h1>
             </div>
-            <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5">
+            <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5 mb-4">
               {isLoading ? (
                 <LoadingPulse />
               ) : (
