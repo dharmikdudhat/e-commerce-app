@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../assets/LoadingSpinner";
+import { hostName } from "../../ulits/GlobalHostName";
 
 export const SignUpOne = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +53,7 @@ export const SignUpOne = () => {
     setErrors(newErrors);
     return valid;
   };
-  const hostName = window.location.hostname;
+  // const hostName = window.location.hostname;
 
   const createUser = async (e) => {
     e.preventDefault();

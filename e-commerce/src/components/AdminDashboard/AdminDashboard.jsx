@@ -7,19 +7,20 @@ import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
 
-  const hostName = window.location.hostname;
+  // const hostName = window.location.hostname;
+  const hostName = "192.168.0.105";
 
   useEffect(() => {
     // Fetch data from backend when component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`); // Assuming endpoint to fetch products
+        const response = await fetch(`http://${hostName}:3000/product/getAll`);
         const data = await response.json();
         data.map((item) => {
           const name = item.imagePath.split("\\")[1];
           item.imagePath = `http://${hostName}:3000/${name}`;
         });
-        setProducts(data); // Set products state with fetched data
+        setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -28,14 +29,23 @@ export function AdminDashboard() {
     fetchData();
   }, [hostName]);
 
+  // Implement update functionality
   const handleUpdate = (product) => {
     console.log("Update product:", product);
-    // Implement update functionality
   };
 
-  const handleDelete = (productName) => {
-    console.log("Delete product:", productName);
-    // Implement delete functionality
+  // Implement delete funcrtionality
+  const handleDelete = async (id) => {
+    console.log("Delete product:", id);
+    try {
+      const response = await fetch(`http://${hostName}:3000/product/${id}`, {
+        method: "DELETE",
+      });
+      // Assuming endpoint to fetch products
+      setProducts(products.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   return (
@@ -84,16 +94,16 @@ export function AdminDashboard() {
           <h1>Product Cards</h1>
         </div>
         <div className="flex overflow-x-auto p-4 ">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <AdminProductCard
-              key={index}
+              key={product.id}
               name={product.name}
               description={product.description}
               price={product.price}
               quantity={product.quantity}
               imagePath={product.imagePath}
-              onUpdate={handleUpdate} // Pass the update function
-              onDelete={handleDelete} // Pass the delete function
+              onUpdate={() => handleUpdate(product)} // Pass the update function
+              onDelete={() => handleDelete(product.id)} // Pass the delete function
             />
           ))}
         </div>

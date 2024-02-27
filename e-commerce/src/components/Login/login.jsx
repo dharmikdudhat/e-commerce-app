@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/authSlice";
 import { AlertBanner } from "../Banners/AlertBanner";
 import LoadingSpinner from "../../assets/LoadingSpinner";
+import { hostName } from "../../ulits/GlobalHostName";
 
 export const SignInOne = () => {
   //State to handle form data
@@ -57,7 +58,7 @@ export const SignInOne = () => {
   // }, [token, navigation]);
 
   //Function to check user credentials and log them in
-   const hostName = window.location.hostname;
+  //  const hostName = window.location.hostname;
 
   const loginUser = async (e) => {
     e.preventDefault();

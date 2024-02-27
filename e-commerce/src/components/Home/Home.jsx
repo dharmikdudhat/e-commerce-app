@@ -3,6 +3,7 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LoadingPulse from "../../assets/LoadingPulse";
+import { hostName } from "../../ulits/GlobalHostName";
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastIndex, setLastIndex] = useState(5);
 
-  const hostName = window.location.hostname;
+  // const hostName = window.location.hostname;
 
   useEffect(() => {
     // Fetch data from backend when component mounts

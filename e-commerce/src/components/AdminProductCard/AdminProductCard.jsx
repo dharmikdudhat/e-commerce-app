@@ -2,19 +2,21 @@
 /* eslint-disable react/prop-types */
 import { CheckSquare } from "lucide-react";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-export function AdminProductCard(props, { onUpdate, onDelete }) {
+export function AdminProductCard(props) {
   const [extended, setExtended] = useState(false);
+  const navigate = useNavigate();
 
   const handleUpdate = () => {
     // Call the onUpdate function with the product details
-    onUpdate(props);
+    console.log("The props in update", props);
+    navigate("/edit");
   };
 
-  const handleDelete = () => {
-    // Call the onDelete function with the product name or ID
-    onDelete(props.id); // Assuming name is unique for each product
+  const handleDelete = (id) => {
+    console.log("ID in ", props.id);
+    props.onDelete(id);
   };
 
   const handleReadMore = () => {
@@ -54,14 +56,14 @@ export function AdminProductCard(props, { onUpdate, onDelete }) {
           <button
             type="button"
             className="mt-4 rounded-sm bg-green-500 px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={handleUpdate}
+            onClick={() => handleUpdate(props.id)}
           >
             Update
           </button>
           <button
             type="button"
             className="mt-4 rounded-sm bg-red-500 px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={handleDelete}
+            onClick={() => handleDelete(props.id)}
           >
             Delete
           </button>
