@@ -3,25 +3,36 @@
 import { CheckSquare } from "lucide-react";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import DeleteConfirmationModal from "../DeleteConfirm/DeleteConfirm";
 
 export function AdminProductCard(props) {
   const [extended, setExtended] = useState(false);
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleUpdate = () => {
-    // Call the onUpdate function with the product details
-    console.log("The props in update", props);
-    navigate("/edit");
+    props.onUpdate();
   };
 
-  const handleDelete = (id) => {
-    console.log("ID in ", props.id);
-    props.onDelete(id);
+  const handleDelete = () => {
+    console.log("In the delete");
+    setIsModalOpen(true);
   };
 
   const handleReadMore = () => {
     // Toggle the extended state to show/hide additional details
     setExtended(!extended);
+  };
+
+  const handleCancel = () => {
+    // Close the delete confirmation modal
+    setIsModalOpen(false);
+  };
+
+  const handleConfirm = () => {
+    // Call the delete function passed from the parent component
+    props.onDelete();
+    // Close the delete confirmation modal
+    setIsModalOpen(false);
   };
 
   return (
@@ -55,19 +66,25 @@ export function AdminProductCard(props) {
           <button
             type="button"
             className="mt-4 rounded-sm bg-green-500 px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={() => handleUpdate(props.id)}
+            onClick={handleUpdate}
           >
             Update
           </button>
           <button
             type="button"
             className="mt-4 rounded-sm bg-red-500 px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={() => handleDelete(props.id)}
+            onClick={() => setIsModalOpen(true)}
           >
             Delete
           </button>
         </div>
       </div>
+      {/* Delete confirmation modal */}
+      <DeleteConfirmationModal
+        isOpen={isModalOpen}
+        onCancel={handleCancel}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 }

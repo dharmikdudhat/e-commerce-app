@@ -1,44 +1,27 @@
-/* eslint-disable no-unused-vars */
-import {
-  NotebookPen,
-  BookMinus,
-  BookPlus,
-  User,
-  PlusSquareIcon,
-  MinusSquareIcon,
-} from "lucide-react";
+import { NotebookPen, BookMinus, BookPlus, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
+import { PanelLeftIcon, PanelRightIcon } from "lucide-react";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
   const hostName = window.location.hostname;
 
-  const handleCardClick = (index) => {
-    setSelectedCard(index);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://${hostName}:3000/product/getAll`);
+      const data = await response.json();
+      data.forEach((item) => {
+        const name = item.imagePath.split("\\")[1];
+        item.imagePath = `http://${hostName}:3000/${name}`;
+      });
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`);
-        const data = await response.json();
-        data.forEach((item) => {
-          const name = item.imagePath.split("\\")[1];
-          item.imagePath = `http://${hostName}:3000/${name}`;
-        });
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchData();
-  }, [hostName]);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -46,16 +29,20 @@ export function AdminDashboard() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleUpdate = (product) => {
     console.log("Update product:", product);
+    navigate("/edit/" + product.id);
   };
 
-  // Implement delete funcrtionality
+  // Delete functionality
   const handleDelete = async (id) => {
     console.log("Delete product:", id);
     try {
-      const response = await fetch(`http://${hostName}:3000/product/${id}`, {
+      await fetch(`http://${hostName}:3000/product/${id}`, {
         method: "DELETE",
       });
       // Assuming endpoint to fetch products
@@ -115,33 +102,22 @@ export function AdminDashboard() {
       </aside>
 
       {/* Product Cards */}
-      <div
-        className="flex-1"
-        style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}
-      >
-        <div className="w-full mt-2 text-center bg-black text-white p-2">
+      <div className="flex-1" style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}>
+        <div className="w-full text-center bg-black text-white p-2">
           <h1>Product Cards</h1>
         </div>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
           {products.map((product, index) => (
-            <div
-              key={index}
-              className={`${
-                selectedCard === index ? "selected-card" : ""
-              } card-container`}
-              onClick={() => handleCardClick(index)}
-            >
-              <AdminProductCard
-                key={product.id}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-                quantity={product.quantity}
-                imagePath={product.imagePath}
-                onUpdate={handleUpdate}
-                onDelete={handleDelete}
-              />
-            </div>
+            <AdminProductCard
+              key={product.id}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              quantity={product.quantity}
+              imagePath={product.imagePath}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       </div>

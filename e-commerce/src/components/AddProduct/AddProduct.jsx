@@ -2,13 +2,12 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { hostName } from "../../ulits/GlobalHostName";
 
-
-function AddProduct() {
+function AddProduct(props) {
   const params = useLocation();
-  console.log(params.pathname);
+  const navigate = useNavigate();
 
   // const hostName = window.location.hostname;
   const handleSubmit = async (e) => {
@@ -17,11 +16,17 @@ function AddProduct() {
     const formData = new FormData(formRef.current);
 
     try {
-      const response1 = await fetch(`http://${hostName}:3000/product/upload`, {
+      await fetch(`http://${hostName}:3000/product/upload`, {
         method: "POST",
         body: formData,
-      });
-      console.log("Image added successfully:", response1.data);
+      })
+        .then((res) => {
+          console.log("Image added successfully:");
+          navigate("/admin");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -40,8 +45,8 @@ function AddProduct() {
   };
 
   return (
-    <div className=" bg-green-800 p-10">
-      <div className=" mx-auto max-w-3xl  rounded-md w-full bg-amber-400">
+    <div className=" bg-white p-10">
+      <div className=" mx-auto max-w-3xl rounded-md w-full bg-gray-300">
         <form
           ref={formRef}
           onSubmit={handleSubmit}
