@@ -1,6 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { CheckSquare, MoreVertical } from "lucide-react";
+import {
+  BookOpenText,
+  CheckSquare,
+  FilePenLine,
+  IndianRupee,
+  MoreVertical,
+  Trash2,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 import DeleteConfirmationModal from "../DeleteConfirm/DeleteConfirm";
 
@@ -17,8 +24,6 @@ export function AdminProductCard(props) {
   const handleUpdate = () => {
     props.onUpdate();
   };
-
-
 
   const handleReadMore = () => {
     setExtended(!extended);
@@ -37,7 +42,7 @@ export function AdminProductCard(props) {
   };
 
   return (
-    <div className="w-16 align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-slate-200 m-2 p-5 relative">
+    <div className="w-16 align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black bg-slate-200 m-2 p-5 border-s-amber-600 border-e-black shadow-md shadow-black relative">
       <img
         src={props.imagePath}
         alt="Filter"
@@ -52,50 +57,35 @@ export function AdminProductCard(props) {
           />
         </div>
         {isOptionsVisible && (
-          <div className="absolute flex flex-col  z-50 origin-top-left transform p-2 transition ">
-          <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-50">
-            <div className="px-5 pb-6 pt-5">
-              <div className="grid grid-rows-3 gap-1">
-                <button
-                  type="button"
-                  className=" text-[12px] font-semibold text-bleck shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                >
-                  <NavLink to="/details">Read</NavLink>
-                </button>
-                <button
-                  type="button"
-                  className="  text-[12px] font-semibold text-black shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  onClick={() => handleUpdate(props)}
-                >
-                  Update
-                </button>
-                <button
-                  type="button"
-                  className=" text-[12px] font-semibold text-black shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Delete
-                </button>
+          <div className="absolute flex flex-col right-0   z-50 origin-top-left transform pr-4 transition ">
+            <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black opacity-90 ">
+              <div className="px-2 pb-2 pt-2">
+                <div className="grid grid-rows-3 gap-1">
+                  <NavLink to="/details">
+                    <BookOpenText />
+                  </NavLink>
+
+                  <FilePenLine onClick={() => handleUpdate(props)} className=" text-green-600" />
+
+                  <Trash2 onClick={() => setIsModalOpen(true)} className=" text-red-700" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
         )}
       </div>
       <div className="">
         {extended && (
-          <div>
+          <div className="grid grid-rows-4">
             <h1 className="text-lg font-semibold ">{props.name}</h1>
-            <p className="mt-3 text-sm text-gray-800"> {props.description}</p>
-            <h2 className="text-lg font-semibold"> {props.price}</h2>
+            <p className="text-sm text-gray-800 overflow-hidden max-h-20">Description : {props.description}</p>
+            <h2 className="text-lg font-semibold flex text-cover"> Price : <IndianRupee className="w-4 pt-2" />{props.price}</h2>
             <div className="flex justify-start">
-              <CheckSquare className="size-6 pt-1 pr-1 ml-0 text-green-900" />{" "}
+              <CheckSquare className="size-5 pt-1 pr-1 ml-0 text-green-900" />{" "}
               <label> InStock {props.quantity}</label>
             </div>
           </div>
         )}
-      
       </div>
       {/* Delete confirmation modal */}
       <DeleteConfirmationModal
