@@ -1,32 +1,28 @@
 import { NotebookPen, BookMinus, BookPlus, User } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
 import { PanelLeftIcon, PanelRightIcon } from "lucide-react";
+import { hostName } from "../../ulits/GlobalHostName";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const hostName = window.location.hostname;
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`);
-        const data = await response.json();
-        data.forEach((item) => {
-          const name = item.imagePath.split("\\")[1];
-          item.imagePath = `http://${hostName}:3000/${name}`;
-        });
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchData();
-  }, [hostName]);
-
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://${hostName}:3000/product/getAll`);
+      const data = await response.json();
+      data.forEach((item) => {
+        const name = item.imagePath.split("\\")[1];
+        item.imagePath = `http://${hostName}:3000/${name}`;
+      });
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -34,16 +30,20 @@ export function AdminDashboard() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleUpdate = (product) => {
     console.log("Update product:", product);
+    navigate("/edit/" + product.id);
   };
 
-  // Implement delete funcrtionality
+  // Delete functionality
   const handleDelete = async (id) => {
     console.log("Delete product:", id);
     try {
-      const response = await fetch(`http://${hostName}:3000/product/${id}`, {
+      await fetch(`http://${hostName}:3000/product/${id}`, {
         method: "DELETE",
       });
       // Assuming endpoint to fetch products
@@ -56,7 +56,11 @@ export function AdminDashboard() {
   return (
     <div className="flex flex-row flex-wrap">
       {/* Admin Dashboard */}
-      <aside className={`w-64 min-w-2 overflow-y-auto border-r bg-slate-200 px-5 py-8 ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
+      <aside
+        className={`w-64 min-w-2 overflow-y-auto border-r bg-slate-200 px-5 py-8 ${
+          isMenuOpen ? "block" : "hidden"
+        } lg:block`}
+      >
         <div className="mt-6">
           <nav className="space-y-3">
             <label className="text-sm font-semibold uppercase text-gray-950 block">
@@ -65,7 +69,7 @@ export function AdminDashboard() {
             <NavLink
               className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
               to="/add"
-              onClick={closeMenu} 
+              onClick={closeMenu}
             >
               <BookPlus className="h-5 w-5" aria-hidden="true" />
               <span className="mx-2 text-sm font-medium">Add Product</span>
@@ -81,7 +85,7 @@ export function AdminDashboard() {
             <NavLink
               className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
               to="/"
-              onClick={closeMenu} 
+              onClick={closeMenu}
             >
               <BookMinus className="h-5 w-5" aria-hidden="true" />
               <span className="mx-2 text-sm font-medium">Delete Product</span>
@@ -89,7 +93,7 @@ export function AdminDashboard() {
             <NavLink
               className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
               to="/"
-              onClick={closeMenu} 
+              onClick={closeMenu}
             >
               <User className="h-5 w-5" aria-hidden="true" />
               <span className="mx-2 text-sm font-medium">Profile</span>
@@ -99,12 +103,15 @@ export function AdminDashboard() {
       </aside>
 
       {/* Product Cards */}
-      <div className="flex-1" style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}>
+      <div
+        className="flex-1"
+        style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}
+      >
         <div className="w-full text-center bg-black text-white p-2">
           <h1>Product Cards</h1>
         </div>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <AdminProductCard
               key={product.id}
               name={product.name}
@@ -112,8 +119,8 @@ export function AdminDashboard() {
               price={product.price}
               quantity={product.quantity}
               imagePath={product.imagePath}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
+              onUpdate={() => handleUpdate(product)}
+              onDelete={() => handleDelete(product.id)}
             />
           ))}
         </div>
