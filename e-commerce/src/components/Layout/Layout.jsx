@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Navbar } from "../Header/Header";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 
 const Layout = () => {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith("/admin");
   return (
     <div className="relative">
-      <Navbar />
+      {!isAdminPage && <Navbar />}
       <Outlet />
-      <Footer />
+      {!isAdminPage && <Footer />}
     </div>
   );
 };

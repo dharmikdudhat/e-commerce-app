@@ -61,7 +61,7 @@ export const Home = () => {
             {/* <div>
               <img src="../bgImages/logo.jpg" alt="logo" />{" "}
             </div> */}
-            <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
+            <div className="align-middle text-center text-3xl bg-teal-600 color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Trending</h1>
             </div>
             <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5">
@@ -103,7 +103,7 @@ export const Home = () => {
             {/* <div>
               <img src="../bgImages/logo.jpg" alt="logo" />{" "}
             </div> */}
-            <div className="align-middle text-center text-3xl bg-black color font-normal text-slate-100 ">
+            <div className="align-middle text-center text-3xl bg-teal-600 color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Products</h1>
             </div>
             <div className="flex justify-evenly gap-3 m-2 px-3 py-3 flex-wrap grid-cols-5 mb-4">
@@ -111,6 +111,13 @@ export const Home = () => {
                 <LoadingPulse />
               ) : (
                 products.slice(0, lastIndex + 1).map((product, index) => (
+                  <div
+                    key={index}
+                    className={`${
+                      selectedCard === index ? "selected-card" : ""
+                    } card-container`}
+                    onClick={() => handleCardClick(index)}
+                  >
                   <ProductCard
                     key={index}
                     name={product.name}
@@ -119,6 +126,7 @@ export const Home = () => {
                     quantity={product.quantity}
                     imagePath={product.imagePath} // Assuming the image path is provided in the product data
                   />
+                  </div>
                 ))
               )}
             </div>

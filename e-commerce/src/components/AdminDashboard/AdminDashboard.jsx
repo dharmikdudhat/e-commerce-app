@@ -10,12 +10,13 @@ import {
 import { NavLink } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
+import { hostName } from "../../ulits/GlobalHostName";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
-  const hostName = window.location.hostname;
+  // const hostName = window.location.hostname;
 
   const handleCardClick = (index) => {
     setSelectedCard(index);
@@ -37,7 +38,7 @@ export function AdminDashboard() {
     };
 
     fetchData();
-  }, [hostName]);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -119,7 +120,7 @@ export function AdminDashboard() {
         className="flex-1"
         style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}
       >
-        <div className="w-full mt-2 text-center bg-black text-white p-2">
+        <div className="w-full mt-2 text-center bg-teal-600 text-white p-2">
           <h1>Product Cards</h1>
         </div>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
