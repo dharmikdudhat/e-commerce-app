@@ -24,23 +24,8 @@ export function AdminDashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const fetchData = async () => {
-    try {
-      console.log(hostName);
-      const response = await fetch(`http://${hostName}:3000/product/getAll`);
-      const data = await response.json();
-      data.forEach((item) => {
-        const name = item.imagePath.split("\\")[1];
-        item.imagePath = `http://${hostName}:3000/${name}`;
-      });
-      setProducts(data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const response = await fetch(`http://${hostName}:3000/product/getAll`);
         const data = await response.json();
@@ -52,9 +37,7 @@ export function AdminDashboard() {
       } catch (error) {
         console.error("Error fetching products:", error);
       }
-    };
-
-    fetchData();
+    })();
   }, []);
 
   const toggleMenu = () => {
@@ -64,12 +47,8 @@ export function AdminDashboard() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const handleUpdate = (product) => {
-    console.log("Update product:", product);
     dispatch(sendUpdateProps(product));
     navigate("/edit/" + product.id);
   };

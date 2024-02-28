@@ -4,41 +4,65 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { hostName } from "../../ulits/GlobalHostName";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { sendUpdateProps } from "../../features/authSlice";
 
 function AddProduct() {
   const params = useLocation();
+  const isUpdate = params && params.pathname !== "/add";
   const navigate = useNavigate();
   const updateProductProps = useSelector((state) => state.auth.updateProps);
   const formRef = useRef();
-  const isUpdate = params && params.pathname !== "/add";
   const [imageResult, setImageResult] = useState(null);
+  const dispatch = useDispatch();
 
-  console.log("Update product props: ", updateProductProps);
+  const API_CONFIG = isUpdate
+    ? {
+        api: `http://${hostName}:3000/product/${updateProductProps.id}`,
+        method: "PATCH",
+      }
+    : {
+        api: `http://${hostName}:3000/product/upload`,
+        method: "POST",
+      };
 
-  console.log("HElllo", params.pathname);
+  // Populate form fields with existing data if in update mode
+  useEffect(() => {
+    if (isUpdate) {
+      formRef.current.name.value = updateProductProps.name;
+      formRef.current.description.value = updateProductProps.description;
+      formRef.current.price.value = updateProductProps.price;
+      formRef.current.quantity.value = updateProductProps.quantity;
+      // Handle file input separately if necessary
+    }
+  }, [isUpdate, updateProductProps]);
 
-  // const hostName = window.location.hostname;
+  const handleInputChange = (e) => {  
+    const { name, value } = e.target;
+    // Dispatch an action to update the product in the Redux store
+    dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
 
-    try {
-      fetch(`http://${hostName}:3000/product/upload`, {
-        method: "POST",
-        body: formData,
+    fetch(API_CONFIG.api, {
+      method: API_CONFIG.method,
+      body: formData,
+    })
+      .then((res) => {
+        console.log("Image added successfully:");
+        res.json();
       })
-        .then((res) => {
-          console.log("Image added successfully:");
-          navigate("/admin");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
+      .then((data) => {
+        console.log("The res", data);
+        navigate("/admin");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handlePreviewOnChange = (file) => {
@@ -70,6 +94,8 @@ function AddProduct() {
               type="text"
               placeholder="Product Name"
               name="name"
+              value={updateProductProps.name}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -85,6 +111,8 @@ function AddProduct() {
               id="description"
               placeholder="Product Description"
               name="description"
+              value={updateProductProps.description}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -101,6 +129,8 @@ function AddProduct() {
               type="number"
               placeholder="Product Price"
               name="price"
+              value={updateProductProps.price}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -117,6 +147,8 @@ function AddProduct() {
               type="number"
               placeholder="Product Quantity"
               name="quantity"
+              value={updateProductProps.quantity}
+              onChange={handleInputChange}
               required
             />
           </div>
@@ -128,11 +160,11 @@ function AddProduct() {
               Upload Photo
             </label>
             <input
-              name="file"
               className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:border-gray-600 dark:placeholder-gray-400 mb-3"
               aria-describedby="user_avatar_help"
               id="user_avatar"
               type="file"
+              name="file"
               accept="image/*"
               onChange={(e) => handlePreviewOnChange(e.target.files[0])}
             />
