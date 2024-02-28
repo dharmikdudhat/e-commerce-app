@@ -15,7 +15,7 @@ export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly ProductRepository: Repository<ProductEntity>,
-  ) {}
+  ) { }
 
   uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {
     try {
@@ -52,7 +52,7 @@ export class ProductService {
     }
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
+  update(file: Express.Multer.File, id: string, updateProductDto: UpdateProductDto) {
     try {
       const product: ProductEntity = new ProductEntity();
       product.name = updateProductDto.name;
@@ -60,6 +60,8 @@ export class ProductService {
       product.price = updateProductDto.price;
       product.quantity = updateProductDto.quantity;
       product.updatedAt = new Date().toString();
+      product.imagePath = file.path;
+      product.id = id;
       return this.ProductRepository.save(product);
     } catch (error) {
       console.log('Error:', error);
@@ -69,7 +71,6 @@ export class ProductService {
 
   remove(name: string) {
     try {
-      console.log(name);
       return this.ProductRepository.delete(name);
     } catch (error) {
       console.log('Error:', error);

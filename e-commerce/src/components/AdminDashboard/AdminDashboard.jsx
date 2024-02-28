@@ -18,6 +18,11 @@ import { sendUpdateProps } from "../../features/authSlice";
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleCardClick = (index) => {
+    setSelectedCard(index);
+  };
   // const [selectedCard, setSelectedCard] = React.useState(null);
   // const hostName = window.location.hostname;
   // const hostName = window.location.hostname;
@@ -76,7 +81,7 @@ export function AdminDashboard() {
         } lg:block`}
       >
         <div className="mt-6">
-          <nav className="space-y-3">
+          <nav className="space-y-3 fixed">
             <label className="text-sm font-semibold uppercase text-gray-950 block">
               Admin Functions:
             </label>
@@ -117,25 +122,30 @@ export function AdminDashboard() {
       </aside>
 
       {/* Product Cards */}
-      <div
-        className="flex-1"
-        style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}
-      >
-        <div className="w-full mt-2 text-center bg-teal-600 text-white p-2">
+      <div className="flex-1">
+        <div className="w-full sticky mt-2 text-center bg-teal-600 text-white p-2">
           <h1>Product Cards</h1>
         </div>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
           {products.map((product, index) => (
-            <AdminProductCard
-              key={product.id}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              quantity={product.quantity}
-              imagePath={product.imagePath}
-              onUpdate={() => handleUpdate(product)}
-              onDelete={() => handleDelete(product.id)}
-            />
+            <div
+              key={index}
+              className={`${
+                selectedCard === index ? "selected-card" : ""
+              } card-container`}
+              onClick={() => handleCardClick(index)}
+            >
+              <AdminProductCard
+                key={product.id}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                quantity={product.quantity}
+                imagePath={product.imagePath}
+                onUpdate={() => handleUpdate(product)}
+                onDelete={() => handleDelete(product.id)}
+              />
+            </div>
           ))}
         </div>
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { Request } from 'express';
@@ -12,6 +13,7 @@ export class ImageInterceptor implements NestInterceptor {
         result['isError'] = false;
         result['message'] = result?.message;
         result['data'] = result?.data
+        
         return result;
       }),
     );
