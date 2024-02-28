@@ -1,16 +1,29 @@
-import { NotebookPen, BookMinus, BookPlus, User } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import {
+  NotebookPen,
+  BookMinus,
+  BookPlus,
+  User,
+  PlusSquareIcon,
+  MinusSquareIcon,
+} from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
 import { PanelLeftIcon, PanelRightIcon } from "lucide-react";
+import { hostName } from "../../ulits/GlobalHostName";
+import { useDispatch } from "react-redux";
+import { sendUpdateProps } from "../../features/authSlice";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const hostName = window.location.hostname;
+  // const hostName = window.location.hostname;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     try {
+      console.log(hostName);
       const response = await fetch(`http://${hostName}:3000/product/getAll`);
       const data = await response.json();
       data.forEach((item) => {
@@ -35,6 +48,7 @@ export function AdminDashboard() {
 
   const handleUpdate = (product) => {
     console.log("Update product:", product);
+    dispatch(sendUpdateProps(product));
     navigate("/edit/" + product.id);
   };
 
@@ -102,7 +116,10 @@ export function AdminDashboard() {
       </aside>
 
       {/* Product Cards */}
-      <div className="flex-1" style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}>
+      <div
+        className="flex-1"
+        style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}
+      >
         <div className="w-full text-center bg-black text-white p-2">
           <h1>Product Cards</h1>
         </div>
@@ -115,8 +132,8 @@ export function AdminDashboard() {
               price={product.price}
               quantity={product.quantity}
               imagePath={product.imagePath}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
+              onUpdate={() => handleUpdate(product)}
+              onDelete={() => handleDelete(product.id)}
             />
           ))}
         </div>

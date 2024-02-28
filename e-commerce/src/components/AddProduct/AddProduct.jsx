@@ -4,19 +4,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { hostName } from "../../ulits/GlobalHostName";
+import { useSelector } from "react-redux";
 
-function AddProduct(props) {
+function AddProduct() {
   const params = useLocation();
   const navigate = useNavigate();
+  const updateProductProps = useSelector((state) => state.auth.updateProps);
+  const formRef = useRef();
+  const isUpdate = params && params.pathname !== "/add";
+  const [imageResult, setImageResult] = useState(null);
+
+  console.log("Update product props: ", updateProductProps);
+
+  console.log("HElllo", params.pathname);
 
   // const hostName = window.location.hostname;
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
 
     try {
-      await fetch(`http://${hostName}:3000/product/upload`, {
+      fetch(`http://${hostName}:3000/product/upload`, {
         method: "POST",
         body: formData,
       })
@@ -31,10 +40,6 @@ function AddProduct(props) {
       console.error("Error adding product:", error);
     }
   };
-
-  const formRef = useRef();
-
-  const [imageResult, setImageResult] = useState(null);
 
   const handlePreviewOnChange = (file) => {
     const reader = new FileReader();
@@ -117,8 +122,8 @@ function AddProduct(props) {
           </div>
           <div>
             <label
-              class="block mb-2 text-sm font-semibold text-gray-900 "
-              for="user_avatar"
+              className="block mb-2 text-sm font-semibold text-gray-900 "
+              htmlFor="user_avatar"
             >
               Upload Photo
             </label>
@@ -150,7 +155,7 @@ function AddProduct(props) {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Add Product
+              {isUpdate ? "Update Product" : "Add Product"}
             </button>
           </div>
         </form>

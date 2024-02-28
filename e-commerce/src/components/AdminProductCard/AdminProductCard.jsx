@@ -66,7 +66,7 @@ export function AdminProductCard(props) {
           <button
             type="button"
             className="mt-4 rounded-sm bg-green-500 px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            onClick={handleUpdate}
+            onClick={() => handleUpdate(props)}
           >
             Update
           </button>
