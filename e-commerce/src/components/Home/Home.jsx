@@ -10,6 +10,11 @@ export const Home = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [lastIndex, setLastIndex] = useState(5);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleCardClick = (index) => {
+    setSelectedCard(index);
+  };
 
   // const hostName = window.location.hostname;
 
@@ -32,7 +37,7 @@ export const Home = () => {
     };
 
     fetchData();
-  }, [hostName]);
+  }, []);
 
   const showMoreCards = () => {
     setLastIndex((prevIndex) => prevIndex + 6);
@@ -64,14 +69,22 @@ export const Home = () => {
                 <LoadingPulse />
               ) : (
                 products.slice(-6).map((product, index) => (
-                  <ProductCard
+                  <div
                     key={index}
-                    name={product.name}
-                    description={product.description}
-                    price={product.price}
-                    quantity={product.quantity}
-                    imagePath={product.imagePath} // Assuming the image path is provided in the product data
-                  />
+                    className={`${
+                      selectedCard === index ? "selected-card" : ""
+                    } card-container`}
+                    onClick={() => handleCardClick(index)}
+                  >
+                    <ProductCard
+                      key={index}
+                      name={product.name}
+                      description={product.description}
+                      price={product.price}
+                      quantity={product.quantity}
+                      imagePath={product.imagePath} // Assuming the image path is provided in the product data
+                    />
+                  </div>
                 ))
               )}
             </div>

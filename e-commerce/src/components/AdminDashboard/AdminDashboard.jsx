@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   NotebookPen,
   BookMinus,
@@ -7,13 +8,18 @@ import {
   MinusSquareIcon,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
   const hostName = window.location.hostname;
+
+  const handleCardClick = (index) => {
+    setSelectedCard(index);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,21 +119,29 @@ export function AdminDashboard() {
         className="flex-1"
         style={{ overflowY: "scroll", height: "calc(100vh - 55px)" }}
       >
-        <div className="w-full text-center bg-black text-white p-2">
+        <div className="w-full mt-2 text-center bg-black text-white p-2">
           <h1>Product Cards</h1>
         </div>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
           {products.map((product, index) => (
-            <AdminProductCard
-              key={product.id}
-              name={product.name}
-              description={product.description}
-              price={product.price}
-              quantity={product.quantity}
-              imagePath={product.imagePath}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-            />
+            <div
+              key={index}
+              className={`${
+                selectedCard === index ? "selected-card" : ""
+              } card-container`}
+              onClick={() => handleCardClick(index)}
+            >
+              <AdminProductCard
+                key={product.id}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                quantity={product.quantity}
+                imagePath={product.imagePath}
+                onUpdate={handleUpdate}
+                onDelete={handleDelete}
+              />
+            </div>
           ))}
         </div>
       </div>
