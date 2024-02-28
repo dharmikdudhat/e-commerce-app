@@ -2,34 +2,44 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { hostName } from "../../ulits/GlobalHostName";
-
+import { useSelector } from "react-redux";
 
 function AddProduct() {
   const params = useLocation();
-  console.log(params.pathname);
+  const navigate = useNavigate();
+  const updateProductProps = useSelector((state) => state.auth.updateProps);
+  const formRef = useRef();
+  const isUpdate = params && params.pathname !== "/add";
+  const [imageResult, setImageResult] = useState(null);
+
+  console.log("Update product props: ", updateProductProps);
+
+  console.log("HElllo", params.pathname);
 
   // const hostName = window.location.hostname;
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData(formRef.current);
 
     try {
-      const response1 = await fetch(`http://${hostName}:3000/product/upload`, {
+      fetch(`http://${hostName}:3000/product/upload`, {
         method: "POST",
         body: formData,
-      });
-      console.log("Image added successfully:", response1.data);
+      })
+        .then((res) => {
+          console.log("Image added successfully:");
+          navigate("/admin");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
-
-  const formRef = useRef();
-
-  const [imageResult, setImageResult] = useState(null);
 
   const handlePreviewOnChange = (file) => {
     const reader = new FileReader();
@@ -40,8 +50,8 @@ function AddProduct() {
   };
 
   return (
-    <div className=" bg-green-800 p-10">
-      <div className=" mx-auto max-w-3xl  rounded-md w-full bg-amber-400">
+    <div className=" bg-white p-10">
+      <div className=" mx-auto max-w-3xl rounded-md w-full bg-gray-300">
         <form
           ref={formRef}
           onSubmit={handleSubmit}
@@ -112,8 +122,8 @@ function AddProduct() {
           </div>
           <div>
             <label
-              class="block mb-2 text-sm font-semibold text-gray-900 "
-              for="user_avatar"
+              className="block mb-2 text-sm font-semibold text-gray-900 "
+              htmlFor="user_avatar"
             >
               Upload Photo
             </label>
@@ -145,7 +155,7 @@ function AddProduct() {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Add Product
+              {isUpdate ? "Update Product" : "Add Product"}
             </button>
           </div>
         </form>

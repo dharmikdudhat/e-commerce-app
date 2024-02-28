@@ -7,19 +7,36 @@ import {
   PlusSquareIcon,
   MinusSquareIcon,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
+import { PanelLeftIcon, PanelRightIcon } from "lucide-react";
 import { hostName } from "../../ulits/GlobalHostName";
+import { useDispatch } from "react-redux";
+import { sendUpdateProps } from "../../features/authSlice";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
+  // const [selectedCard, setSelectedCard] = React.useState(null);
   // const hostName = window.location.hostname;
+  // const hostName = window.location.hostname;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleCardClick = (index) => {
-    setSelectedCard(index);
+  const fetchData = async () => {
+    try {
+      console.log(hostName);
+      const response = await fetch(`http://${hostName}:3000/product/getAll`);
+      const data = await response.json();
+      data.forEach((item) => {
+        const name = item.imagePath.split("\\")[1];
+        item.imagePath = `http://${hostName}:3000/${name}`;
+      });
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   useEffect(() => {
@@ -47,16 +64,21 @@ export function AdminDashboard() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleUpdate = (product) => {
     console.log("Update product:", product);
+    dispatch(sendUpdateProps(product));
+    navigate("/edit/" + product.id);
   };
 
-  // Implement delete funcrtionality
+  // Delete functionality
   const handleDelete = async (id) => {
     console.log("Delete product:", id);
     try {
-      const response = await fetch(`http://${hostName}:3000/product/${id}`, {
+      await fetch(`http://${hostName}:3000/product/${id}`, {
         method: "DELETE",
       });
       // Assuming endpoint to fetch products
@@ -125,24 +147,16 @@ export function AdminDashboard() {
         </div>
         <div className="flex justify-evenly gap-3 px-3 py-3 flex-wrap grid-cols-5 mb-[50px]">
           {products.map((product, index) => (
-            <div
-              key={index}
-              className={`${
-                selectedCard === index ? "selected-card" : ""
-              } card-container`}
-              onClick={() => handleCardClick(index)}
-            >
-              <AdminProductCard
-                key={product.id}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-                quantity={product.quantity}
-                imagePath={product.imagePath}
-                onUpdate={handleUpdate}
-                onDelete={handleDelete}
-              />
-            </div>
+            <AdminProductCard
+              key={product.id}
+              name={product.name}
+              description={product.description}
+              price={product.price}
+              quantity={product.quantity}
+              imagePath={product.imagePath}
+              onUpdate={() => handleUpdate(product)}
+              onDelete={() => handleDelete(product.id)}
+            />
           ))}
         </div>
       </div>

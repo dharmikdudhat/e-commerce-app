@@ -1,30 +1,39 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { CheckSquare, MoreVertical } from "lucide-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import DeleteConfirmationModal from "../DeleteConfirm/DeleteConfirm";
 
 export function AdminProductCard(props) {
   const [extended, setExtended] = useState(false);
   const [isOptionsVisible, setOptionsVisible] = React.useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleOptions = () => {
     setOptionsVisible(!isOptionsVisible);
   };
 
   const handleUpdate = () => {
-    console.log("The props in update", props);
-    navigate("/edit");
+    props.onUpdate();
   };
 
-  const handleDelete = (id) => {
-    console.log("ID in ", props.id);
-    // eslint-disable-next-line react/prop-types
-    props.onDelete(id);
-  };
+
 
   const handleReadMore = () => {
     setExtended(!extended);
+  };
+
+  const handleCancel = () => {
+    // Close the delete confirmation modal
+    setIsModalOpen(false);
+  };
+
+  const handleConfirm = () => {
+    // Call the delete function passed from the parent component
+    props.onDelete();
+    // Close the delete confirmation modal
+    setIsModalOpen(false);
   };
 
   return (
@@ -56,14 +65,14 @@ export function AdminProductCard(props) {
                 <button
                   type="button"
                   className="  text-[12px] font-semibold text-black shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  onClick={() => handleUpdate(props.id)}
+                  onClick={() => handleUpdate(props)}
                 >
                   Update
                 </button>
                 <button
                   type="button"
                   className=" text-[12px] font-semibold text-black shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  onClick={() => handleDelete(props.id)}
+                  onClick={() => setIsModalOpen(true)}
                 >
                   Delete
                 </button>
@@ -86,7 +95,14 @@ export function AdminProductCard(props) {
             </div>
           </div>
         )}
+      
       </div>
+      {/* Delete confirmation modal */}
+      <DeleteConfirmationModal
+        isOpen={isModalOpen}
+        onCancel={handleCancel}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 }

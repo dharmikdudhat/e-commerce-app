@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user") ?? "null"),
+  updateProps: {},
 };
 
 export const authSlice = createSlice({
@@ -16,15 +17,12 @@ export const authSlice = createSlice({
       localStorage.removeItem("user");
       state.user = null;
     },
+    sendUpdateProps: (state, action) => {
+      state.updateProps = action.payload;
+    },
   },
 });
 
-// export const userLoginThunk = (data) => async (dispatch) => {
-//   dispatch(login({ ...userData, jwt}))
-//   // const response = await fetch(`/fakeApi/todo/${jwt}`)
-//   // dispatch(login(await response.json()))
-// }
-
-export const { login, logout } = authSlice.actions;
+export const { login, logout, sendUpdateProps } = authSlice.actions;
 
 export default authSlice.reducer;
