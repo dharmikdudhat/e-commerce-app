@@ -14,21 +14,13 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filters';
 import { LogModule } from './logging/log.module';
 import { LogEntity } from './logging/entity/logging.entity';
 import { LoggingInterceptor } from './logging/logging.interceptor';
+import { typeOrmConfig } from './config/typrorm.config';
 // import { MulterMiddleware } from './product/product.middleware';
 // import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      host: 'localhost',
-      type: 'postgres',
-      port: 5530,
-      username: 'postgres',
-      password: '55305530',
-      database: 'typeorm_db',
-      entities: [User, ContactEntity, ProductEntity, LogEntity],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRootAsync(typeOrmConfig),
     TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
     UserModule,
     AuthModule,
