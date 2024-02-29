@@ -15,9 +15,12 @@ export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly ProductRepository: Repository<ProductEntity>,
-  ) { }
+  ) {}
 
-  uploadFile(file: Express.Multer.File, createProductDto: CreateProductDto) {
+  async uploadFile(
+    file: Express.Multer.File,
+    createProductDto: CreateProductDto,
+  ) {
     try {
       const product: ProductEntity = new ProductEntity();
       product.name = createProductDto.name;
@@ -27,10 +30,11 @@ export class ProductService {
       product.imagePath = file.path;
       product.createdAt = new Date().toString();
       product.updatedAt = new Date().toString();
-      return this.ProductRepository.save(product);
+      await this.ProductRepository.save(product);
+      return { message: 'Product Added Successfully', data: null };
     } catch (error) {
       console.log('Error in Product:', error);
-      throw new BadRequestException("Can't upload the file");
+      throw new BadRequestException("Can't add the product");
     }
   }
 
@@ -39,7 +43,7 @@ export class ProductService {
       return this.ProductRepository.find();
     } catch (error) {
       console.log('Error in FindALl:', error);
-      throw new BadRequestException("Can't get all products");
+      throw new BadRequestException("Can't get the products");
     }
   }
 
@@ -52,7 +56,11 @@ export class ProductService {
     }
   }
 
-  update(file: Express.Multer.File, id: string, updateProductDto: UpdateProductDto) {
+  update(
+    file: Express.Multer.File,
+    id: string,
+    updateProductDto: UpdateProductDto,
+  ) {
     try {
       const product: ProductEntity = new ProductEntity();
       product.name = updateProductDto.name;
@@ -62,10 +70,11 @@ export class ProductService {
       product.updatedAt = new Date().toString();
       product.imagePath = file.path;
       product.id = id;
-      return this.ProductRepository.save(product);
+      this.ProductRepository.save(product);
+      return { message: 'Data Updated Successfully', data: null };
     } catch (error) {
       console.log('Error:', error);
-      throw new BadRequestException("Can't update the file");
+      throw new BadRequestException("Can't update the details");
     }
   }
 

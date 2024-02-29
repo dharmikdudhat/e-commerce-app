@@ -1,5 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -13,28 +23,9 @@ export class UserController {
 
   @Post('registration')
   //@Roles(Role.Admin)
-  @UseInterceptors(
-    FileInterceptor('files', {
-      storage: diskStorage({
-        destination: './usersImage', // Destination folder for uploaded files
-        filename: (req, file, callback) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-
-          callback(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  uploadFile(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() createUserDto: CreateUserDto,
-  ) {
-    return this.userService.uploadFile(file, createUserDto);
+  uploadFile(@Body() createUserDto: CreateUserDto) {
+    return this.userService.uploadFile(createUserDto);
   }
-
 
   // @Post('registration')
   // async create(@Body() createUserDto: CreateUserDto) {
@@ -57,7 +48,7 @@ export class UserController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
