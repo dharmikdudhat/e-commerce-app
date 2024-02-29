@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { ContactEntity } from 'src/contact/entities/contact.entity';
@@ -5,7 +6,8 @@ import { LogEntity } from 'src/logging/entity/logging.entity';
 import { ProductEntity } from 'src/product/entities/product.entity';
 import { User } from 'src/user/entities/user.entity';
 
-export class TypeOrmConfig {
+
+export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService) {
     return {
       type: 'postgres',
@@ -21,9 +23,11 @@ export class TypeOrmConfig {
 }
 
 export const typeOrmConfig: TypeOrmModuleAsyncOptions = {
-  imports: [ConfigModule],
+  imports: [ConfigModule.forRoot({
+    envFilePath : ".env",
+  })],
   useFactory: async (configService: ConfigService): Promise<any> => {
-    TypeOrmConfig.getOrmConfig(configService);
+    return TypeOrmConfig.getOrmConfig(configService);
   },
   inject: [ConfigService],
 };
