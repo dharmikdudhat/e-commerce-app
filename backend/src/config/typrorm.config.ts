@@ -23,7 +23,7 @@ export class TypeOrmConfig {
 export const typeOrmConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   useFactory: async (configService: ConfigService): Promise<any> => {
-    TypeOrmConfig.getOrmConfig(configService);
+    return TypeOrmConfig.getOrmConfig(configService);
   },
   inject: [ConfigService],
 };
