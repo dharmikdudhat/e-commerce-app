@@ -19,13 +19,19 @@ export class UserService {
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
-      const user: User = new User();
+      const isUserExist = await this.findOneUser(createUserDto.email);
+      if (isUserExist) {
+        return { message: 'User Already Exists', data: null };
+      }
+
       const saltOrRounds = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(
         createUserDto.password,
         saltOrRounds,
       );
       const lowerCasedEmail = createUserDto.email.toLowerCase();
+      const user: User = new User();
+
       user.username = createUserDto.username;
       user.email = lowerCasedEmail;
       user.age = createUserDto.age;
@@ -35,6 +41,7 @@ export class UserService {
       user.updatedAt = new Date().toString();
       user.password = hashPassword;
       this.userRepository.save(user);
+
       return { message: 'Successfully Registered', data: null };
     } catch (error) {
       console.log('Error in Product:', error);
