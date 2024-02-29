@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "react-bootstrap";
 
 const menuItemsList = [
   {
@@ -60,9 +61,7 @@ export const Navbar = () => {
               />
             </svg>
           </span>
-          <span className="font-bold text-slate-50">
-            Our&apos;s Shop
-          </span>
+          <span className="font-bold text-slate-50">Our&apos;s Shop</span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
@@ -87,12 +86,12 @@ export const Navbar = () => {
             {!isLogin ? (
               <div className="flex gap-2">
                 <div>
-                  <button
+                  <Button
                     type="button"
                     className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     <NavLink to="/login">Sign In</NavLink>
-                  </button>
+                  </Button>
                 </div>
                 <div>
                   <button
@@ -111,7 +110,7 @@ export const Navbar = () => {
                   onClick={() => dispatch(logout())}
                 >
                   <NavLink to="/">Sign Out</NavLink>
-                </button>
+                </button >
               </div>
             )}
           </div>
@@ -174,31 +173,37 @@ export const Navbar = () => {
                   {!isLogin ? (
                     <div className=" m-2">
                       <div className="p-1">
-                        <button
-                          type="button"
-                          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                        >
-                          <NavLink to="/login">Sign In</NavLink>
-                        </button>
+                        <NavLink to="/login">
+                          <button
+                            type="button"
+                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          >
+                            Sign In
+                          </button>
+                        </NavLink>
                       </div>
                       <div className="p-1">
-                        <button
-                          type="button"
-                          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                        >
-                          <NavLink to="/registration">Registration</NavLink>
-                        </button>
+                        <NavLink to="/registration">
+                          <button
+                            type="button"
+                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          >
+                            Registration
+                          </button>
+                        </NavLink>
                       </div>
                     </div>
                   ) : (
                     <div className=" m-2 p-1">
-                      <button
-                        type="button"
-                        className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                        onClick={() => dispatch(logout())}
-                      >
-                        <NavLink to="/">Sign Out</NavLink>
-                      </button>
+                      <NavLink to="/">
+                        <button
+                          type="button"
+                          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                          onClick={() => dispatch(logout())}
+                        >
+                          Sign Out
+                        </button>
+                      </NavLink>
                     </div>
                   )}
                 </div>

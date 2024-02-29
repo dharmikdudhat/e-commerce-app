@@ -30,6 +30,7 @@ export class UserService {
       user.email = lowerCasedEmail;
       user.age = createUserDto.age;
       user.role = createUserDto.role || 'USER';
+      user.personalAnswer = createUserDto.personalAnswer;
       user.createdAt = new Date().toString();
       user.updatedAt = new Date().toString();
       user.password = hashPassword;
@@ -62,6 +63,7 @@ export class UserService {
       user.email = updateUserDto.email;
       user.age = updateUserDto.age;
       user.id = id;
+      user.personalAnswer = updateUserDto.personalAnswer;
       user.password = updateUserDto.password;
       this.userRepository.save(user);
       return { message: 'User Updated', data: null };

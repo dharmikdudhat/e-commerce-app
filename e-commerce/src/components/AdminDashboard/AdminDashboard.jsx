@@ -6,6 +6,7 @@ import {
   User,
   PlusSquareIcon,
   MinusSquareIcon,
+  Table,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -74,7 +75,7 @@ export function AdminDashboard() {
     <div className="flex flex-row flex-wrap">
       {/* Admin Dashboard */}
       <aside
-        className={`w-64 min-w-2 overflow-y-auto border-r bg-slate-200 px-5 py-8 ${
+        className={`w-64  min-w-2 overflow-y-auto border-r bg-slate-200 px-5 py-8 ${
           isMenuOpen ? "block" : "hidden"
         } lg:block`}
       >
@@ -93,27 +94,35 @@ export function AdminDashboard() {
             </NavLink>
             <NavLink
               className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+              to="/add"
+              onClick={closeMenu}
+            >
+              <Table className="h-5 w-5" aria-hidden="true" />
+              <span className="mx-2 text-sm font-medium">Product List</span>
+            </NavLink>
+            {/* <NavLink
+              className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
               to="/"
               onClick={closeMenu}
             >
               <NotebookPen className="h-5 w-5" aria-hidden="true" />
               <span className="mx-2 text-sm font-medium">Update Product</span>
-            </NavLink>
-            <NavLink
+            </NavLink> */}
+            {/* <NavLink
               className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
               to="/"
               onClick={closeMenu}
             >
               <BookMinus className="h-5 w-5" aria-hidden="true" />
               <span className="mx-2 text-sm font-medium">Delete Product</span>
-            </NavLink>
+            </NavLink> */}
             <NavLink
               className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
               to="/"
               onClick={closeMenu}
             >
               <User className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium">Profile</span>
+              <span className="mx-2 text-sm font-medium bottom-3">Profile</span>
             </NavLink>
           </nav>
         </div>
@@ -172,20 +181,27 @@ export function AdminDashboard() {
                     Add Product
                   </NavLink>
                   <NavLink
+                    className="block text-gray-950 hover:text-white hover:bg-slate-500"
+                    to="/add"
+                    onClick={closeMenu}
+                  >
+                    Product List
+                  </NavLink>
+                  {/* <NavLink
                     className="block text-gray-950 hover:text-white
                   hover:bg-slate-500"
                     to="/"
                     onClick={closeMenu}
                   >
                     Update Product
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     className="block text-gray-950 hover:text-white hover:bg-slate-500"
                     to="/"
                     onClick={closeMenu}
                   >
                     Delete Product
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
                     className="block text-gray-950 hover:text-white hover:bg-slate-500"
                     to="/"
@@ -200,7 +216,7 @@ export function AdminDashboard() {
         ) : (
           <PlusSquareIcon
             onClick={toggleMenu}
-            className="text-slate-50 h-6 w-6 cursor-pointer fixed top-14 left-8 z-50"
+            className="text-slate-50 h-6 w-6 cursor-pointer fixed top-4 left-8 z-50"
           />
         )}
       </div>

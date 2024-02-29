@@ -27,6 +27,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column()
+    personalAnswer: string;
+
     @Column({ nullable: true })
     imagePath: string;
 
