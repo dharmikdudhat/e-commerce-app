@@ -19,15 +19,25 @@ export function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCardClick = (index) => {
     setSelectedCard(index);
   };
-  // const [selectedCard, setSelectedCard] = React.useState(null);
-  // const hostName = window.location.hostname;
-  // const hostName = window.location.hostname;
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleUpdate = (product) => {
+    dispatch(sendUpdateProps(product));
+    navigate("/edit/" + product.id);
+  };
 
   useEffect(() => {
     (async () => {
@@ -45,19 +55,7 @@ export function AdminDashboard() {
     })();
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-
-  const handleUpdate = (product) => {
-    dispatch(sendUpdateProps(product));
-    navigate("/edit/" + product.id);
-  };
-
+  
   // Delete functionality
   const handleDelete = async (id) => {
     console.log("Delete product:", id);

@@ -1,10 +1,24 @@
 /* eslint-disable prettier/prettier */
-export class CreateUserDto {
+import { IsString, IsEmail, IsInt, IsOptional } from 'class-validator';
 
-   username: string;
-   email: string;
-   age: number;
-   role: string;
-   password: string;
-   imagePath: string | null = null;
+export class CreateUserDto {
+  @IsString()
+  username: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsInt()
+  age: number;
+
+  @IsString()
+  @IsOptional()
+  role?: string;
+
+  @IsString()
+  password: string;
+
+  @IsString()
+  @IsOptional()
+  imagePath?: string;
 }

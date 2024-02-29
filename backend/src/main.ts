@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as path from 'path';
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule,{});
 
   app.useStaticAssets(path.join("C:/Users/HP/Desktop/task_with_dhruvik/backend/uploads"));
 

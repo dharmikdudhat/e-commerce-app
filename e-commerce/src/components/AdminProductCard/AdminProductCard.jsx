@@ -64,10 +64,14 @@ export function AdminProductCard(props) {
                   <NavLink to="/details">
                     <BookOpenText />
                   </NavLink>
-
-                  <FilePenLine onClick={() => handleUpdate(props)} className=" text-green-600" />
-
-                  <Trash2 onClick={() => setIsModalOpen(true)} className=" text-red-700" />
+                  <FilePenLine
+                    onClick={() => handleUpdate(props)}
+                    className=" text-green-600"
+                  />
+                  <Trash2
+                    onClick={() => setIsModalOpen(true)}
+                    className=" text-red-700"
+                  />
                 </div>
               </div>
             </div>
@@ -78,8 +82,14 @@ export function AdminProductCard(props) {
         {extended && (
           <div className="grid grid-rows-4">
             <h1 className="text-lg font-semibold ">{props.name}</h1>
-            <p className="text-sm text-gray-800 overflow-hidden max-h-20">Description : {props.description}</p>
-            <h2 className="text-lg font-semibold flex text-cover"> Price : <IndianRupee className="w-4 pt-2" />{props.price}</h2>
+            <p className="text-sm text-gray-800 overflow-hidden max-h-20">
+              Description : {props.description}
+            </p>
+            <h2 className="text-lg font-semibold flex text-cover">
+              {" "}
+              Price : <IndianRupee className="w-4 pt-2" />
+              {props.price}
+            </h2>
             <div className="flex justify-start">
               <CheckSquare className="size-5 pt-1 pr-1 ml-0 text-green-900" />{" "}
               <label> InStock {props.quantity}</label>

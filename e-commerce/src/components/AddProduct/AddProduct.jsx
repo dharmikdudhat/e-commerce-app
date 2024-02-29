@@ -37,7 +37,7 @@ function AddProduct() {
     }
   }, [isUpdate, updateProductProps]);
 
-  const handleInputChange = (e) => {  
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     // Dispatch an action to update the product in the Redux store
     dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
@@ -94,7 +94,7 @@ function AddProduct() {
               type="text"
               placeholder="Product Name"
               name="name"
-              value={updateProductProps.name}
+              value={isUpdate ? updateProductProps.name : ""}
               onChange={handleInputChange}
               required
             />
@@ -111,7 +111,7 @@ function AddProduct() {
               id="description"
               placeholder="Product Description"
               name="description"
-              value={updateProductProps.description}
+              value={isUpdate ? updateProductProps.description : ""}
               onChange={handleInputChange}
               required
             />
@@ -129,7 +129,7 @@ function AddProduct() {
               type="number"
               placeholder="Product Price"
               name="price"
-              value={updateProductProps.price}
+              value={isUpdate ? updateProductProps.price : ""}
               onChange={handleInputChange}
               required
             />
@@ -147,7 +147,7 @@ function AddProduct() {
               type="number"
               placeholder="Product Quantity"
               name="quantity"
-              value={updateProductProps.quantity}
+              value={isUpdate ? updateProductProps.quantity : ""}
               onChange={handleInputChange}
               required
             />
