@@ -11,6 +11,7 @@ export const SignUpOne = () => {
     email: "",
     age: 0,
     password: "",
+    personalAnswer: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -49,6 +50,12 @@ export const SignUpOne = () => {
       newErrors.password = "Password must be at least 8 characters";
       valid = false;
     }
+
+    if (!formData.personalAnswer || formData.personalAnswer) {
+      newErrors.personalAnswer = "Answer is Mandatory";
+      valid = false;
+    }
+    personalAnswer;
 
     setErrors(newErrors);
     return valid;
@@ -219,13 +226,58 @@ export const SignUpOne = () => {
                     )}
                   </div>
                 </div>
+                {
+                  {
+                    /* Question */
+                  }
+                }
+                <div>
+                  <div className="flex items-center justify-between">
+                    <label
+                      htmlFor="password"
+                      className="text-base font-medium text-gray-900"
+                    >
+                      {" "}
+                      What is your favourite colour ?{" "}
+                    </label>
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      className={`flex h-10 w-full rounded-md border ${
+                        errors.password ? "border-red-500" : "border-gray-950"
+                      } border-gray-950 bg-transparent px-3 py-2 text-sm placeholder:text-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50`}
+                      type="text"
+                      placeholder="Enter Favourite Colour"
+                      id="personalAnswer"
+                      name="personalAnswer"
+                      value={formData.personalAnswer}
+                      onChange={handleInputChange}
+                    ></input>
+                    {errors.personalAnswer && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.personalAnswer}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {
+                  {
+                    /* hello */
+                  }
+                }
                 <div>
                   <button
                     type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    Create Account <ArrowRight className="ml-2" size={16} />
-                    {loading && <LoadingSpinner />}
+                    {" "}
+                    {!loading ? (
+                      <>
+                        Create Account <ArrowRight className="ml-2" size={16} />
+                      </>
+                    ) : (
+                      <LoadingSpinner />
+                    )}
                   </button>
                 </div>
               </div>
