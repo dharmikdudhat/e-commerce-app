@@ -171,21 +171,21 @@ export function AdminDashboard() {
                   >
                     Add Product
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     className="block text-gray-950 hover:text-white
                   hover:bg-slate-500"
                     to="/"
                     onClick={closeMenu}
                   >
                     Update Product
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     className="block text-gray-950 hover:text-white hover:bg-slate-500"
                     to="/"
                     onClick={closeMenu}
                   >
                     Delete Product
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
                     className="block text-gray-950 hover:text-white hover:bg-slate-500"
                     to="/"

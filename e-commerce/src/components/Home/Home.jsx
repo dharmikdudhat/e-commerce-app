@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LoadingPulse from "../../assets/LoadingPulse";
 import { hostName } from "../../ulits/GlobalHostName";
+import Slide from "./slide";
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
@@ -144,6 +145,7 @@ export const Home = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center h-screen ">
+          <Slide />
           <h1 className="text-3xl font-bold mb-4 text-center">
             Welcome to the Filter Shop
           </h1>

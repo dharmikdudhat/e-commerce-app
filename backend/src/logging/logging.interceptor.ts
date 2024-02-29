@@ -34,7 +34,10 @@ export class LoggingInterceptor implements NestInterceptor {
     const response = context.switchToHttp().getResponse();
 
     const { method, url, body } = request;
-    const user: string | undefined = body.username;
+    //console.log(body);
+    //const user: string | undefined = body.username;
+    //console.log(user);
+    
 
     return next.handle().pipe(
       tap(async (data) => {
@@ -43,7 +46,7 @@ export class LoggingInterceptor implements NestInterceptor {
             method,
             url,
             statusCode: response.statusCode,
-            created_by: user,
+            //created_by: user || null,
             requestBody: JSON.stringify(body),
             responseBody: JSON.stringify(data),
           };
@@ -56,7 +59,7 @@ export class LoggingInterceptor implements NestInterceptor {
         const logData2 = {
           method,
           url,
-          created_by: user,
+          //created_by: user,
           statusCode:
             error instanceof HttpException
               ? error.getStatus()
