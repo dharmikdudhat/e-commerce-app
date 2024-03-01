@@ -55,6 +55,7 @@ export const SignUpOne = () => {
       newErrors.personalAnswer = "Answer is Mandatory";
       valid = false;
     }
+
     setErrors(newErrors);
     return valid;
   };
