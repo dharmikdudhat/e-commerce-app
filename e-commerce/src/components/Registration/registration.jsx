@@ -51,12 +51,10 @@ export const SignUpOne = () => {
       valid = false;
     }
 
-    if (!formData.personalAnswer || formData.personalAnswer) {
+    if (!formData.personalAnswer) {
       newErrors.personalAnswer = "Answer is Mandatory";
       valid = false;
     }
-    personalAnswer;
-
     setErrors(newErrors);
     return valid;
   };
@@ -226,11 +224,6 @@ export const SignUpOne = () => {
                     )}
                   </div>
                 </div>
-                {
-                  {
-                    /* Question */
-                  }
-                }
                 <div>
                   <div className="flex items-center justify-between">
                     <label
@@ -260,24 +253,13 @@ export const SignUpOne = () => {
                     )}
                   </div>
                 </div>
-                {
-                  {
-                    /* hello */
-                  }
-                }
                 <div>
                   <button
                     type="submit"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    {" "}
-                    {!loading ? (
-                      <>
-                        Create Account <ArrowRight className="ml-2" size={16} />
-                      </>
-                    ) : (
-                      <LoadingSpinner />
-                    )}
+                    Create Account <ArrowRight className="ml-2" size={16} />
+                    {loading && <LoadingSpinner />}
                   </button>
                 </div>
               </div>

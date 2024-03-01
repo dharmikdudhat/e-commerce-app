@@ -24,13 +24,13 @@ export const Home = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`http://${hostName}:3000/product/getAll`); 
-        console.log(response);// Assuming endpoint to fetch products
+       
         const data = await response.json();
         data.map((item) => {
           const name = item.imagePath.split("\\")[1];
           item.imagePath = `http://${hostName}:3000/${name}`;
         });
-        console.log(data);
+  
         setProducts(data); // Set products state with fetched data
         setIsLoading(false);
       } catch (error) {
