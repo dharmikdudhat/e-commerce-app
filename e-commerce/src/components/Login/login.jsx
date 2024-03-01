@@ -86,7 +86,7 @@ export const SignInOne = () => {
       }
     } catch (error) {
       console.log(error);
-      alert("Error ", error);
+      //alert("Error ", error);
       setLoading(false);
     }
   };

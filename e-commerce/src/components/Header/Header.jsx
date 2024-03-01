@@ -25,8 +25,36 @@ const menuItemsList = [
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isLogin, setisLogin] = React.useState(false);
+  const dropDownRef = React.useRef(null);
 
-  const toggleMenu = () => {
+  const handleClickOutside = (e) => {
+    if (
+      dropDownRef.current &&
+      !dropDownRef.current.contains(e.target) &&
+      !e.target.classList.contains("toggle-options")
+    ) {
+      // console.log("CLicked Outside", e.target);
+      // console.log(dropDownRef.current)
+      // console.log(dropDownRef.current.contains(e.target))
+      // console.log(e.target.classList.contains("toggle-options"))
+      setIsMenuOpen(false);
+    } else {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    // console.log("AdminProductCard rendered");
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      // console.log("AdminProductCard unmounted");
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  const toggleMenu = (e) => {
+    e.stopPropagation();
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -122,7 +150,8 @@ export const Navbar = () => {
           />
         </div>
         {isMenuOpen && (
-          <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden">
+          <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden"
+          ref={dropDownRef}>
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-50">
               <div className="px-5 pb-6 pt-5">
                 <div className="flex items-center justify-between">

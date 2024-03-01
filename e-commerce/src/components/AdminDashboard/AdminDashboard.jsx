@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import {
   NotebookPen,
@@ -7,6 +8,7 @@ import {
   PlusSquareIcon,
   MinusSquareIcon,
   Table,
+  LogOut,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -14,7 +16,7 @@ import { AdminProductCard } from "../AdminProductCard/AdminProductCard";
 import { PanelLeftIcon, PanelRightIcon } from "lucide-react";
 import { hostName } from "../../ulits/GlobalHostName";
 import { useDispatch } from "react-redux";
-import { sendUpdateProps } from "../../features/authSlice";
+import { logout, sendUpdateProps } from "../../features/authSlice";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -56,7 +58,6 @@ export function AdminDashboard() {
     })();
   }, []);
 
-  
   // Delete functionality
   const handleDelete = async (id) => {
     console.log("Delete product:", id);
@@ -84,46 +85,47 @@ export function AdminDashboard() {
             <label className="text-sm font-semibold uppercase text-gray-950 block">
               Admin Functions:
             </label>
-            <NavLink
-              className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-              to="/add"
-              onClick={closeMenu}
-            >
-              <BookPlus className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium">Add Product</span>
-            </NavLink>
-            <NavLink
-              className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-              to="/add"
-              onClick={closeMenu}
-            >
-              <Table className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium">Product List</span>
-            </NavLink>
-            {/* <NavLink
-              className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-              to="/"
-              onClick={closeMenu}
-            >
-              <NotebookPen className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium">Update Product</span>
-            </NavLink> */}
-            {/* <NavLink
-              className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-              to="/"
-              onClick={closeMenu}
-            >
-              <BookMinus className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium">Delete Product</span>
-            </NavLink> */}
-            <NavLink
-              className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-              to="/"
-              onClick={closeMenu}
-            >
-              <User className="h-5 w-5" aria-hidden="true" />
-              <span className="mx-2 text-sm font-medium bottom-3">Profile</span>
-            </NavLink>
+            <div>
+              <NavLink
+                className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/add"
+                onClick={closeMenu}
+              >
+                <BookPlus className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium">Add Product</span>
+              </NavLink>
+              <NavLink
+                className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/add"
+                onClick={closeMenu}
+              >
+                <Table className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium">Product List</span>
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                to="/"
+                onClick={closeMenu}
+              >
+                <User className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium bottom-3">
+                  Profile
+                </span>
+              </NavLink>
+              <NavLink
+                to="/"
+                className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                onClick={() => dispatch(logout())}
+              >
+                <LogOut className="h-5 w-5" aria-hidden="true" />
+                <span className="mx-2 text-sm font-medium bottom-3">
+                  {" "}
+                  Sign Out
+                </span>
+              </NavLink>
+            </div>
           </nav>
         </div>
       </aside>
@@ -169,47 +171,56 @@ export function AdminDashboard() {
                     onClick={toggleMenu}
                     className="text-gray-950 hover:text-gray-700"
                   >
-                    <MinusSquareIcon className="h-6 w-6" />
+                    <MinusSquareIcon className="h-6 w-6 cursor-pointer fixed top-4 left-56 z-50" />
                   </button>
                 </div>
                 <nav className="space-y-3">
-                  <NavLink
-                    className="block text-gray-950 hover:text-white hover:bg-slate-500"
-                    to="/add"
-                    onClick={closeMenu}
-                  >
-                    Add Product
-                  </NavLink>
-                  <NavLink
-                    className="block text-gray-950 hover:text-white hover:bg-slate-500"
-                    to="/add"
-                    onClick={closeMenu}
-                  >
-                    Product List
-                  </NavLink>
-                  {/* <NavLink
-                    className="block text-gray-950 hover:text-white
-                  hover:bg-slate-500"
-                    to="/"
-                    onClick={closeMenu}
-                  >
-                    Update Product
-                  </NavLink> */}
-                  {/* <NavLink
-                    className="block text-gray-950 hover:text-white hover:bg-slate-500"
-                    to="/"
-                    onClick={closeMenu}
-                  >
-                    Delete Product
-                  </NavLink> */}
-                  <NavLink
-                    className="block text-gray-950 hover:text-white hover:bg-slate-500"
-                    to="/"
-                    onClick={closeMenu}
-                  >
-                    Profile
-                  </NavLink>
+                  <div>
+                    <NavLink
+                      className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                      to="/add"
+                      onClick={closeMenu}
+                    >
+                      <BookPlus className="h-5 w-5" aria-hidden="true" />
+                      <span className="mx-2 text-sm font-medium">
+                        Add Product
+                      </span>
+                    </NavLink>
+                    <NavLink
+                      className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                      to="/add"
+                      onClick={closeMenu}
+                    >
+                      <Table className="h-5 w-5" aria-hidden="true" />
+                      <span className="mx-2 text-sm font-medium">
+                        Product List
+                      </span>
+                    </NavLink>
+                  </div>
                 </nav>
+                <div>
+                  <NavLink
+                    className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                    to="/"
+                    onClick={closeMenu}
+                  >
+                    <User className="h-5 w-5" aria-hidden="true" />
+                    <span className="mx-2 text-sm font-medium bottom-3">
+                      Profile
+                    </span>
+                  </NavLink>
+                  <NavLink
+                    to="/"
+                    className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
+                    onClick={() => dispatch(logout())}
+                  >
+                    <LogOut className="h-5 w-5" aria-hidden="true" />
+                    <span className="mx-2 text-sm font-medium bottom-3">
+                      {" "}
+                      Sign Out
+                    </span>
+                  </NavLink>
+                </div>
               </div>
             </div>
           </div>

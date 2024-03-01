@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { animated } from "react-spring";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import LoadingPulse from "../../assets/LoadingPulse";
 import { hostName } from "../../ulits/GlobalHostName";
-import Slide from "./slide";
+import WithoutLoginHomePage from "./WithoutLoginHomePage";
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
@@ -17,20 +17,28 @@ export const Home = () => {
     setSelectedCard(index);
   };
 
-  // const hostName = window.location.hostname;
+  const userData = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (userData) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, [userData]);
 
   useEffect(() => {
     // Fetch data from backend when component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`); 
-       
+        const response = await fetch(`http://${hostName}:3000/product/getAll`);
+
         const data = await response.json();
         data.map((item) => {
           const name = item.imagePath.split("\\")[1];
           item.imagePath = `http://${hostName}:3000/${name}`;
         });
-  
+
         setProducts(data); // Set products state with fetched data
         setIsLoading(false);
       } catch (error) {
@@ -46,24 +54,11 @@ export const Home = () => {
     setLastIndex((prevIndex) => prevIndex + 6);
   };
 
-  const userData = useSelector((state) => state.auth.user);
-
-  useEffect(() => {
-    if (userData) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [userData]);
-
   return (
     <div>
       {isLogin ? (
         <div className=" ">
           <div className=" justify-center ">
-            {/* <div>
-              <img src="../bgImages/logo.jpg" alt="logo" />{" "}
-            </div> */}
             <div className="align-middle text-center text-3xl bg-teal-600 color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Trending</h1>
             </div>
@@ -72,9 +67,9 @@ export const Home = () => {
                 <LoadingPulse />
               ) : (
                 products.slice(-6).map((product, index) => (
-                  <div
+                  <animated.div
                     key={index}
-                    className={`${
+                    className={`fade-in ${
                       selectedCard === index ? "selected-card" : ""
                     } card-container`}
                     onClick={() => handleCardClick(index)}
@@ -85,27 +80,14 @@ export const Home = () => {
                       description={product.description}
                       price={product.price}
                       quantity={product.quantity}
-                      imagePath={product.imagePath} // Assuming the image path is provided in the product data
+                      imagePath={product.imagePath}
                     />
-                  </div>
+                  </animated.div>
                 ))
               )}
             </div>
-            {/* <div className=" mt-4 text-center">
-              {lastIndex < products.length && (
-                <button
-                  className="text-white bg-black px-3 py-1 rounded mt-4"
-                  onClick={showMoreCards}
-                >
-                  Show More
-                </button>
-              )}
-            </div> */}
           </div>
           <div className=" justify-center">
-            {/* <div>
-              <img src="../bgImages/logo.jpg" alt="logo" />{" "}
-            </div> */}
             <div className="align-middle text-center text-3xl bg-teal-600 color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Products</h1>
             </div>
@@ -114,22 +96,22 @@ export const Home = () => {
                 <LoadingPulse />
               ) : (
                 products.slice(0, lastIndex + 1).map((product, index) => (
-                  <div
+                  <animated.div
                     key={index}
-                    className={`${
+                    className={`fade-in ${
                       selectedCard === index ? "selected-card" : ""
                     } card-container`}
                     onClick={() => handleCardClick(index)}
                   >
-                  <ProductCard
-                    key={index}
-                    name={product.name}
-                    description={product.description}
-                    price={product.price}
-                    quantity={product.quantity}
-                    imagePath={product.imagePath} // Assuming the image path is provided in the product data
-                  />
-                  </div>
+                    <ProductCard
+                      key={index}
+                      name={product.name}
+                      description={product.description}
+                      price={product.price}
+                      quantity={product.quantity}
+                      imagePath={product.imagePath}
+                    />
+                  </animated.div>
                 ))
               )}
             </div>
@@ -146,32 +128,7 @@ export const Home = () => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center h-screen ">
-          <Slide />
-          <h1 className="text-3xl font-bold mb-4 text-center">
-            Welcome to the Filter Shop
-          </h1>
-          <p className="text-lg mb-8 text-center">
-            Discover a wide range of high-quality filters for your needs!
-          </p>
-          <div className="max-w-md p-6 bg-gray-300 shadow-xl shadow-slate-700  rounded-lg">
-            <h2 className="text-xl font-semibold mb-2 text-blue-800">
-              Why Choose Us?
-            </h2>
-            <ul className="list-disc pl-6">
-              <li>
-                Wide variety of filter types, including air filters, water
-                filters, and more.
-              </li>
-              <li>High-quality materials for durability and efficiency.</li>
-              <li>Easy installation and maintenance.</li>
-              <li>Fast shipping and excellent customer service.</li>
-            </ul>
-          </div>
-          <button className="mt-8 bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-            <NavLink to="/login">Sign In to Explore</NavLink>
-          </button>
-        </div>
+        <WithoutLoginHomePage />
       )}
     </div>
   );

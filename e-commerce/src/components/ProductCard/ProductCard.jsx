@@ -8,13 +8,15 @@ import { Link, NavLink } from "react-router-dom";
 export function ProductCard(props) {
   const [extended, setExtended] = useState(false);
 
+ 
+
   const handleReadMore = () => {
     // Toggle the extended state to show/hide additional details
     setExtended(!extended);
   };
 
   return (
-    <div className=" w-16 align-middle transition-transform transform hover:scale-x-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black border-s-amber-600 border-e-black shadow-md shadow-black p-3 bg-slate-200 max-h-[400px]">
+    <div className=" w-16 align-middle transition-transform transform hover:scale-105 max-w-80 min-w-52 rounded-md border hover:ease-in-out hover:shadow-sm hover:shadow-black border-s-amber-600 border-e-black shadow-md shadow-black p-3 bg-slate-200 max-h-[400px]">
       <img
         src={props.imagePath}
         alt="Laptop"
