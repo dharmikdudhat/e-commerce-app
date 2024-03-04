@@ -59,7 +59,7 @@ export default function WithoutLoginHomePage() {
       <div className=" content-center text-center justify-center">
         <div className=" bg-teal-400 p-2 mt-2 mb-2 text-center font-bold text-xl">
           <h1>Welcome to our Filter Shop Website!</h1>
-          <p>Here you can find the best filters for your camera or lens.</p>
+          <p>Here you can find the best filters for your everyday water needs.</p>
         </div>
       </div>
       {/* Hero Section */}

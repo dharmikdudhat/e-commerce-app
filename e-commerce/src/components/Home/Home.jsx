@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import LoadingPulse from "../../assets/LoadingPulse";
 import { hostName } from "../../ulits/GlobalHostName";
 import WithoutLoginHomePage from "./WithoutLoginHomePage";
+import AnimatedEmoji from "../../assets/emogi";
+import AnimatedEmoji2 from "../../assets/emogi2";
 
 export const Home = () => {
   const [products, setProducts] = useState([]);
@@ -59,6 +61,10 @@ export const Home = () => {
       {isLogin ? (
         <div className=" ">
           <div className=" justify-center ">
+            <div className="text-center justify-center text-4xl font-bold flex text-violet-200 bg-purple-700 mt-2 p-2">
+              <AnimatedEmoji2 />
+              Welcome !!!! May your visit be fruitful for you.<AnimatedEmoji />
+            </div>
             <div className="align-middle text-center text-3xl bg-teal-600 color font-normal text-slate-100 ">
               <h1 className="px-1 mx-2 my-3 py-2">Trending</h1>
             </div>
