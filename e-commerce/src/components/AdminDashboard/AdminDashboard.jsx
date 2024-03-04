@@ -17,6 +17,9 @@ import { PanelLeftIcon, PanelRightIcon } from "lucide-react";
 import { hostName } from "../../ulits/GlobalHostName";
 import { useDispatch } from "react-redux";
 import { logout, sendUpdateProps } from "../../features/authSlice";
+import ProductListModal from "./Modals/ProductListModel";
+import ProfileModal from "./Modals/ProfileModal";
+// import AddProductModel from "../AddProduct/AddProductModel";
 
 export function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -24,6 +27,32 @@ export function AdminDashboard() {
   const [selectedCard, setSelectedCard] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false); // New state for the AddProduct modal
+  const [isProductListOpen, setIsProductListOpen] = useState(false);
+  const [isProfile, setProfile] = useState(false);
+
+  const openProductList = () => {
+    setIsProductListOpen(true);
+  }
+  const  closeProductList = () => {
+    setIsProductListOpen(false)
+  };
+
+  const openProfile = () => {
+    setProfile(true);
+  }
+
+  const closeProfile = () => {
+    setProfile(false);
+  }
+
+  // const openAddProductModal = () => {
+  //   setIsAddProductModalOpen(true);
+  // };
+
+  // const closeAddProductModal = () => {
+  //   setIsAddProductModalOpen(false);
+  // };
 
   const handleCardClick = (index) => {
     setSelectedCard(index);
@@ -91,23 +120,28 @@ export function AdminDashboard() {
                 to="/add"
                 onClick={closeMenu}
               >
+               {/* <span
+                className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900 cursor-pointer"
+                onClick={openAddProductModal}
+              > */}
                 <BookPlus className="h-5 w-5" aria-hidden="true" />
                 <span className="mx-2 text-sm font-medium">Add Product</span>
+              {/* </span> */}
               </NavLink>
               <NavLink
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                to="/add"
-                onClick={closeMenu}
+                // to="/add"
+                onClick={openProductList}
               >
                 <Table className="h-5 w-5" aria-hidden="true" />
-                <span className="mx-2 text-sm font-medium">Product List</span>
+                <span className="mx-2 text-sm font-medium" >Product List</span>
               </NavLink>
             </div>
             <div>
               <NavLink
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                to="/"
-                onClick={closeMenu}
+                // to="/"
+                onClick={openProfile}
               >
                 <User className="h-5 w-5" aria-hidden="true" />
                 <span className="mx-2 text-sm font-medium bottom-3">
@@ -162,8 +196,8 @@ export function AdminDashboard() {
       {/* Menu Button for Mobile */}
       <div className="lg:hidden">
         {isMenuOpen ? (
-          <div className="fixed inset-0 bg-gray-700 bg-opacity-75 z-50 top-14">
-            <div className="absolute inset-y-0 left-0 w-64 bg-slate-200">
+          <div className="fixed inset-0 top-14 bg-gray-700 bg-opacity-75 z-50 ">
+            <div className="absolute inset-y-0 left-0 w-64   bg-slate-200">
               <div className="p-4">
                 <div className="flex justify-between items-center mb-4">
                   <span className="font-bold">Admin Functions</span>
@@ -188,8 +222,8 @@ export function AdminDashboard() {
                     </NavLink>
                     <NavLink
                       className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                      to="/add"
-                      onClick={closeMenu}
+                      // to="/add"
+                      onClick={openProductList}
                     >
                       <Table className="h-5 w-5" aria-hidden="true" />
                       <span className="mx-2 text-sm font-medium">
@@ -201,8 +235,8 @@ export function AdminDashboard() {
                 <div>
                   <NavLink
                     className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                    to="/"
-                    onClick={closeMenu}
+                    // to="/"
+                    onClick={openProfile}
                   >
                     <User className="h-5 w-5" aria-hidden="true" />
                     <span className="mx-2 text-sm font-medium bottom-3">
@@ -231,6 +265,18 @@ export function AdminDashboard() {
           />
         )}
       </div>
+      {/* <AddProductModel
+        isOpen={isAddProductModalOpen}
+        onClose={closeAddProductModal}
+      /> */}
+      <ProductListModal 
+      isOpen={isProductListOpen}
+      onClose={closeProductList}
+      ></ProductListModal>
+      <ProfileModal
+      showProfile={isProfile}
+      closeProfile={closeProfile}
+      />
     </div>
   );
 }

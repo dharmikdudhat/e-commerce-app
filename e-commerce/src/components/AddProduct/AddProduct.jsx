@@ -15,6 +15,15 @@ function AddProduct() {
   const formRef = useRef();
   const [imageResult, setImageResult] = useState(null);
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const API_CONFIG = isUpdate
     ? {
