@@ -53,7 +53,7 @@ export class UserService {
       user.password = hashPassword;
       this.userRepository.save(user);
 
-      await this.emailService.sendRegistrationSuccessfulEmail(lowerCasedEmail);
+      await this.emailService.sendRegistrationSuccessfulEmail(lowerCasedEmail, user.username,createUserDto.password,user.personalAnswer);
       return { message: 'Successfully Registered', data: null };
     } catch (error) {
       console.log('Error in Product:', error);
