@@ -7,6 +7,8 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  Redirect,
+  Res,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +20,7 @@ import { IsUppercase, validate } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from 'src/mailer/mailer.service';
 import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
 // import { AuthService } from '../auth/auth.service';
 
 @Injectable()
@@ -27,25 +30,25 @@ export class UserService {
     private readonly emailService: MailerService,
     private readonly jwtService: JwtService,
     // private readonly authService: AuthService,
-  ) { }
+  ) {}
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
       const isUserExist = await this.findOneUser(createUserDto.email);
-  
+
       if (isUserExist) {
         throw new ConflictException('User Already exists');
       }
-  
+
       const saltOrRounds = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(
         createUserDto.password,
         saltOrRounds,
       );
       const lowerCasedEmail = createUserDto.email.toLowerCase();
-  
+
       const user: User = new User();
-  
+
       user.username = createUserDto.username;
       user.email = lowerCasedEmail;
       user.age = createUserDto.age;
@@ -54,20 +57,15 @@ export class UserService {
       user.createdAt = new Date().toString();
       user.updatedAt = new Date().toString();
       user.password = hashPassword;
-  
+
       await this.userRepository.save(user);
-  
-      const loginUserNumber = await this.signInUser(
-        lowerCasedEmail,
-        createUserDto.password,
-      );
-  
+
       // Retrieve user details after signing in
       const signedInUserResponse = await this.signInUser(
         lowerCasedEmail,
         createUserDto.password,
       );
-  
+
       return {
         message: 'Successfully Registered and Logged In',
         data: signedInUserResponse.data,
@@ -77,20 +75,10 @@ export class UserService {
       throw new BadRequestException("Can't send the details");
     }
   }
-  
 
   async validateUser(createUserDto: CreateUserDto): Promise<string[]> {
     const errors = await validate(createUserDto);
     return errors.map((error) => Object.values(error.constraints)).flat();
-  }
-
-  findAll(): Promise<User[]> {
-    return this.userRepository.find();
-  }
-
-  findOneUser(email: string) {
-    const user = this.userRepository.findOneBy({ email });
-    return user;
   }
 
   async signInUser(email, password) {
@@ -109,8 +97,6 @@ export class UserService {
         password: password,
       };
       const token = await this.jwtService.signAsync(payload);
-
-
 
       const userResponse = {
         email: user.email,
@@ -134,8 +120,6 @@ export class UserService {
         'Authentication failed. Please try again later.',
       );
     }
-
-
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
@@ -158,5 +142,60 @@ export class UserService {
 
   remove(id: number) {
     return this.userRepository.delete(id);
+  }
+
+  findAll(): Promise<User[]> {
+    return this.userRepository.find();
+  }
+
+  findOneUser(email: string) {
+    const user = this.userRepository.findOneBy({ email });
+    return user;
+  }
+
+  // Update the user with the reset token
+  async saveResetToken(id, resetToken) {
+    try {
+      return await this.userRepository
+        .createQueryBuilder()
+        .update(User)
+        .set({ resetToken: `${resetToken}` })
+        .where('id = :id', { id: id })
+        .execute();
+    } catch (error) {
+      console.log('Error in saving reset token:', error);
+      throw new Error('Error in saving reset token');
+    }
+  }
+
+  // Send Reset Password Mail
+  async sendResetPasswordEmail(email: string) {
+    const user = await this.findOneUser(email);
+    try {
+      if (user) {
+        const date = new Date().toString();
+        const resetToken = Date.parse(date).toString();
+        await this.saveResetToken(user.id, resetToken);
+        await this.emailService.sendResetPasswordEmail(email, resetToken);
+        return { message: 'Mail sent successfully', data: null };
+      }
+    } catch (error) {
+      console.log('Error in sending reset password email:', error);
+      throw new Error('Error in sending reset password email');
+    }
+  }
+
+  // Verify user and send Reset Password Page
+  async resetPassword(token: string) {
+    try {
+      const user = await this.userRepository.findOneBy({ where: { token } });
+      if (user) {
+        Redirect('http:localhost:5173/resetpassword');
+      } else {
+        return 'Invalid or expired token';
+      }
+    } catch (error) {
+      console.log('Error in reset password:', error);
+    }
   }
 }

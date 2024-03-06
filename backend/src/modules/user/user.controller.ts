@@ -20,7 +20,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { SignInDto,LoginResponseDto } from './dto/login.response.dto';
+import { SignInDto, LoginResponseDto } from './dto/login.response.dto';
 
 @Controller('user')
 export class UserController {
@@ -45,7 +45,7 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   signIn(@Body() signInDto: SignInDto): Promise<LoginResponseDto> {
     console.log(signInDto);
-    
+
     return this.signInUser(signInDto.email, signInDto.password);
   }
   signInUser(email: string, password: string): Promise<LoginResponseDto> {
@@ -70,5 +70,15 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
+  }
+
+  @Post('forget-password')
+  async sendResetPassword(@Body('email') email: string) {
+    return this.userService.sendResetPasswordEmail(email);
+  }
+
+  @Get('reset-password/:token')
+  async resetPassword(@Param('token') token: string): Promise<string> {
+    return this.userService.resetPassword(token);
   }
 }

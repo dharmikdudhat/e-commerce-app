@@ -42,7 +42,7 @@ export class MailerService {
     });
   }
 
-  async sendRegistrationSuccessfulEmail(to,username,password,color) {
+  async sendRegistrationSuccessfulEmail(to, username, password, color) {
     // console.log(to);
 
     // const jwtToken = await this.jwtService.signJwt({ email: to })
@@ -119,6 +119,16 @@ export class MailerService {
     await this.sendEmail({
       to: to,
       subject: 'User Activation',
+      htmlBody: htmlBody,
+    });
+  }
+
+  async sendResetPasswordEmail(email, resetToken) {
+    const htmlBody = `<p>You requested a password reset, click <a href="http://localhost:3000/user/reset-password/${resetToken}">here</a> to reset your password.</p>`;
+
+    await this.sendEmail({
+      to: email,
+      subject: 'Reset Password',
       htmlBody: htmlBody,
     });
   }
