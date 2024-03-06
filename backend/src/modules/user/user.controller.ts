@@ -24,7 +24,7 @@ import { SignInDto, LoginResponseDto } from './dto/login.response.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post('registration')
   //@Roles(Role.Admin)
@@ -75,7 +75,7 @@ export class UserController {
   }
 
   @Get('reset-password/:token')
-  async resetPassword(@Param('token') token: string): Promise<string> {
+  async resetPassword(@Param('token') token: string): Promise<any> {
     return this.userService.resetPassword(token);
   }
 }

@@ -187,14 +187,20 @@ export class UserService {
   // Verify user and send Reset Password Page
   async resetPassword(token: string) {
     try {
-      const user = await this.findOneUser(token);
+      const user = await this.userRepository.findOne({ where: { token } });
       if (user) {
-        Redirect('http:localhost:5173/resetpassword');
+        // Redirect user to the reset password page
+        return {
+          statusCode: 302, // Redirect status code
+          headers: { Location: 'http://localhost:5173/resetpassword' }, // Redirect location
+        };
       } else {
+        // Token is invalid or expired
         return 'Invalid or expired token';
       }
     } catch (error) {
       console.log('Error in reset password:', error);
+      throw new Error('Error in reset password');
     }
   }
 }
