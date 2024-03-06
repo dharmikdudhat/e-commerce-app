@@ -44,7 +44,8 @@ export class UserController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   signIn(@Body() signInDto: SignInDto): Promise<LoginResponseDto> {
-    console.log(signInDto)
+    console.log(signInDto);
+
     return this.userService.signInUser(signInDto.email, signInDto.password);
   }
 
@@ -66,5 +67,15 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
+  }
+
+  @Post('forget-password')
+  async sendResetPassword(@Body('email') email: string) {
+    return this.userService.sendResetPasswordEmail(email);
+  }
+
+  @Get('reset-password/:token')
+  async resetPassword(@Param('token') token: string): Promise<string> {
+    return this.userService.resetPassword(token);
   }
 }
