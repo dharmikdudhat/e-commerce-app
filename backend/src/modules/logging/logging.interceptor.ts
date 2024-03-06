@@ -14,8 +14,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { DeepPartial, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LogEntity } from './entity/logging.entity';
-import { User } from 'src/user/entities/user.entity';
+import { LogEntity } from '../../Entities/logging.entity';
+import { User } from '../../Entities/user.entity';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
@@ -37,7 +37,6 @@ export class LoggingInterceptor implements NestInterceptor {
     //console.log(body);
     //const user: string | undefined = body.username;
     //console.log(user);
-    
 
     return next.handle().pipe(
       tap(async (data) => {
@@ -55,7 +54,6 @@ export class LoggingInterceptor implements NestInterceptor {
         }
       }),
       catchError((error) => {
-        
         const logData2 = {
           method,
           url,
@@ -72,7 +70,7 @@ export class LoggingInterceptor implements NestInterceptor {
         };
 
         this.logRepository.save(logData2 as DeepPartial<LogEntity>);
-        return  throwError(error);
+        return throwError(error);
       }),
     );
   }

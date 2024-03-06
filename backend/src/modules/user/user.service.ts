@@ -2,29 +2,35 @@
 /* eslint-disable prefer-const */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
-import { validate } from 'class-validator';
+import { User } from '../../Entities/user.entity';
+import { IsUppercase, validate } from 'class-validator';
 import * as bcrypt from 'bcrypt';
-import { EmailService } from '../mailer/mailer.service';
+import { MailerService } from 'src/mailer/mailer.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<any>,
-   private readonly  emailService: EmailService,
-    
+    private readonly emailService: MailerService,
   ) {}
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
       const isUserExist = await this.findOneUser(createUserDto.email);
+
+      console.log(isUserExist);
       if (isUserExist) {
-        return { message: 'User Already Exists', data: null };
+        throw new ConflictException('User Already exists');
       }
 
       const saltOrRounds = await bcrypt.genSalt();
@@ -33,8 +39,8 @@ export class UserService {
         saltOrRounds,
       );
       const lowerCasedEmail = createUserDto.email.toLowerCase();
-      
-      console.log("lowercaseemail",lowerCasedEmail);
+
+      console.log('lowercaseemail', lowerCasedEmail);
       const user: User = new User();
 
       user.username = createUserDto.username;
@@ -47,10 +53,8 @@ export class UserService {
       user.password = hashPassword;
       this.userRepository.save(user);
 
-      
-       await this.emailService.sendRegistrationSuccessfulEmail(lowerCasedEmail);
+      await this.emailService.sendRegistrationSuccessfulEmail(lowerCasedEmail);
       return { message: 'Successfully Registered', data: null };
-
     } catch (error) {
       console.log('Error in Product:', error);
       throw new BadRequestException("Can't send the details");
