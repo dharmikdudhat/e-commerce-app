@@ -1,4 +1,6 @@
-import { Route } from "react-router-dom";
+/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable react/prop-types */
+import { Route, Navigate } from "react-router-dom";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -15,23 +17,53 @@ import { Details } from "./components/DetailedProductCard/DetailedProductCard";
 import { AdminDashboard } from "./components/AdminDashboard/AdminDashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
 import ReturnPolicy from "./components/ReturnPolicy/ReturnPolicy";
-// import { Home } from "./components/Home/Home";
+// import { ProductCard } from "./components/ProductCard/ProductCard";
+
+const isAuthenticated = () => {
+  const userData = localStorage.getItem("user");
+  return userData;
+};
+
+const ProtectedRoute = ({ element }) => {
+  return isAuthenticated() ? element : <Navigate to="/login" />;
+};
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="" element={<Home />} />
       <Route path="aboutus" element={<AboutPageOne />} />
-      <Route path="login" element={<SignInOne />} />
-      <Route path="registration" element={<SignUpOne />} />
-      <Route path="contact" element={<Contact />} />
-      <Route path="privacypolicy" element={<PrivacyPolicy />} />
-      <Route path="terms" element={<Terms />} />
+      <Route
+        path="login"
+        element={isAuthenticated() ? <Navigate to="/" /> : <SignInOne />}
+      />
+      <Route
+        path="registration"
+        element={isAuthenticated() ? <Navigate to="/" /> : <SignUpOne />}
+      />
+      <Route
+        path="contact"
+        element={<ProtectedRoute element={<Contact />} />}
+      />
+      <Route
+        path="privacypolicy"
+        element={<ProtectedRoute element={<PrivacyPolicy />} />}
+      />
+      <Route path="terms" element={<ProtectedRoute element={<Terms />} />} />
       <Route path="details" element={<Details />} />
-      <Route path="admin" element={<AdminDashboard />} />
-      <Route path="add" element={<AddProduct />} />
-      <Route path="edit/:id" element={<AddProduct />} />
-      <Route path="returnpolicy" element={<ReturnPolicy />} />
+      <Route
+        path="admin"
+        element={<ProtectedRoute element={<AdminDashboard />} />}
+      />
+      <Route path="add" element={<ProtectedRoute element={<AddProduct />} />} />
+      <Route
+        path="edit/:id"
+        element={<ProtectedRoute element={<AddProduct />} />}
+      />
+      <Route
+        path="returnpolicy"
+        element={<ProtectedRoute element={<ReturnPolicy />} />}
+      />
     </Route>
   )
 );

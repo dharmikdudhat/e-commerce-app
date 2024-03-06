@@ -20,11 +20,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { SignInDto,LoginResponseDto } from './dto/login.response.dto';
+import { SignInDto, LoginResponseDto } from './dto/login.response.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post('registration')
   //@Roles(Role.Admin)
@@ -44,12 +44,8 @@ export class UserController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   signIn(@Body() signInDto: SignInDto): Promise<LoginResponseDto> {
-    console.log(signInDto);
-    
-    return this.signInUser(signInDto.email, signInDto.password);
-  }
-  signInUser(email: string, password: string): Promise<LoginResponseDto> {
-    throw new Error('Method not implemented.');
+    console.log(signInDto)
+    return this.userService.signInUser(signInDto.email, signInDto.password);
   }
 
   @Get()

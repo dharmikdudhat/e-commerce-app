@@ -1,82 +1,93 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/prop-types */
+// import  { useEffect, useState } from "react";
+// import { hostName } from "../../../ulits/GlobalHostName";
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { hostName } from "../../ulits/GlobalHostName";
+import {  useLocation, useNavigate } from "react-router-dom";
+import { hostName } from "../../../ulits/GlobalHostName";
 import { useDispatch, useSelector } from "react-redux";
-import { sendUpdateProps } from "../../features/authSlice";
+import { sendUpdateProps } from "../../../features/authSlice";
 
-function AddProduct() {
-  const params = useLocation();
-  const isUpdate = params && params.pathname !== "/add";
-  const navigate = useNavigate();
-  const updateProductProps = useSelector((state) => state.auth.updateProps);
-  const formRef = useRef();
-  const [imageResult, setImageResult] = useState(null);
-  const dispatch = useDispatch();
-
+const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
+    if (!showAddProduct) return null;
+    const userdatas = localStorage.getItem("user");
+    const userconverted = JSON.parse(userdatas);
+    const params = useLocation();
+    const isUpdate = params && params.pathname !== "/add";
+    const navigate = useNavigate();
+    const updateProductProps = useSelector((state) => state.auth.updateProps);
+    const formRef = useRef();
+    const [imageResult, setImageResult] = useState(null);
+    const dispatch = useDispatch();
   
-
-  const API_CONFIG = isUpdate
-    ? {
-        api: `http://${hostName}:3000/product/${updateProductProps.id}`,
-        method: "PATCH",
+    
+  
+    const API_CONFIG = isUpdate
+      ? {
+          api: `http://${hostName}:3000/product/${updateProductProps.id}`,
+          method: "PATCH",
+        }
+      : {
+          api: `http://${hostName}:3000/product/upload`,
+          method: "POST",
+        };
+  
+    // Populate form fields with existing data if in update mode
+    useEffect(() => {
+      if (isUpdate) {
+        formRef.current.name.value = updateProductProps.name;
+        formRef.current.description.value = updateProductProps.description;
+        formRef.current.price.value = updateProductProps.price;
+        formRef.current.quantity.value = updateProductProps.quantity;
+        // Handle file input separately if necessary
       }
-    : {
-        api: `http://${hostName}:3000/product/upload`,
-        method: "POST",
-      };
-
-  // Populate form fields with existing data if in update mode
-  useEffect(() => {
-    if (isUpdate) {
-      formRef.current.name.value = updateProductProps.name;
-      formRef.current.description.value = updateProductProps.description;
-      formRef.current.price.value = updateProductProps.price;
-      formRef.current.quantity.value = updateProductProps.quantity;
-      // Handle file input separately if necessary
-    }
-  }, [isUpdate, updateProductProps]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    // Dispatch an action to update the product in the Redux store
-    dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(formRef.current);
-
-    fetch(API_CONFIG.api, {
-      method: API_CONFIG.method,
-      body: formData,
-    })
-      .then((res) => {
-        console.log("Image added successfully:");
-        res.json();
+    }, [isUpdate, updateProductProps]);
+  
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      // Dispatch an action to update the product in the Redux store
+      dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+  
+      const formData = new FormData(formRef.current);
+  
+      fetch(API_CONFIG.api, {
+        method: API_CONFIG.method,
+        body: formData,
       })
-      .then((data) => {
-        console.log("The res", data);
-        navigate("/admin");
-      })
-      .catch((err) => {
-        console.error(err);
+        .then((res) => {
+          console.log("Image added successfully:");
+          res.json();
+        })
+        .then((data) => {
+          console.log("The res", data);
+          navigate("/admin");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+  
+    const handlePreviewOnChange = (file) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", (e) => {
+        setImageResult(e.target.result);
       });
-  };
-
-  const handlePreviewOnChange = (file) => {
-    const reader = new FileReader();
-    reader.addEventListener("load", (e) => {
-      setImageResult(e.target.result);
-    });
-    reader.readAsDataURL(file);
-  };
-
-  return (
-    <div className=" bg-white p-10">
+      reader.readAsDataURL(file);
+    };
+  
+    return (
+      <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-75 flex items-center justify-center">
+        <div className="bg-black p-8 mx-auto rounded-lg">
+          <div className="flex justify-end text-3xl text-white">
+            <button onClick={closeAddProduct}>&times;</button>
+          </div>
+          <div className=" bg-white p-10">
       <div className=" mx-auto max-w-3xl rounded-md w-full bg-gray-300">
         <form
           ref={formRef}
@@ -195,7 +206,10 @@ function AddProduct() {
         </form>
       </div>
     </div>
-  );
-}
-
-export default AddProduct;
+        </div>
+      </div>
+    );
+  };
+  
+  export default AddProductModel;
+  

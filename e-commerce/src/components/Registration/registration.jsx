@@ -1,9 +1,12 @@
-/* eslint-disable no-undef */
+
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"; // Added import
+// import { login } from "../../actions/authActions"; // Adjust the path based on your structure
 import LoadingSpinner from "../../assets/LoadingSpinner";
+import { login } from "../../features/authSlice";
 import { hostName } from "../../ulits/GlobalHostName";
 
 export const SignUpOne = () => {
@@ -17,8 +20,10 @@ export const SignUpOne = () => {
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Added dispatch
 
   // Handle form data changes
   const handleInputChange = (e) => {
@@ -60,7 +65,18 @@ export const SignUpOne = () => {
     setErrors(newErrors);
     return valid;
   };
-  // const hostName = window.location.hostname;
+
+  const userData = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (userData) {
+      if (userData.user.role === "Admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [navigate, userData]);
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -78,19 +94,19 @@ export const SignUpOne = () => {
         body: JSON.stringify(formData),
       });
 
-      if (user.ok) {
-        alert("User Created Succesfully !!! Go and check Your mail id for our responce for email verification. You will find Login link there only. Thank you!!!!");
-        // navigate("/login");
+      const response = await user.json();
+      console.log("response from server ", response);
+
+      if (!response.isError) {
+        dispatch(login(response.data));
         setLoading(false);
+        navigate("/");
       } else {
-        //alert("Not Able to Craete User", user.statusText);
-        console.log(user.statusText);
-        setErrorMessage("Server Error Occured, Please Try Again Later.");
+        setIsError(true);
         setLoading(false);
       }
     } catch (error) {
-      //alert("Error Creating Item : ", error);
-      console.log(error);
+      console.error("Error Creating Item:", error);
       setLoading(false);
     }
   };

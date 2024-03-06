@@ -5,25 +5,8 @@
 
 const ProfileModal = ({ showProfile, closeProfile }) => {
   if (!showProfile) return null;
-
-  // const [userData, setUserData] = useState(null);
   const userdatas = localStorage.getItem("user");
   const userconverted = JSON.parse(userdatas);
-  // const userId = userconverted ? userconverted.user.id : "";
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(`http://${hostName}:3000/user/${userId}`);
-  //       const user = await response.json(); // Parse the response
-  //       setUserData(user);
-  //     } catch (err) {
-  //       console.error("Error while fetching user data ", err);
-  //     }
-  //   };
-
-  //   fetchData(); // Call the fetchData function
-  // }, [userId]);
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-75 flex items-center justify-center">

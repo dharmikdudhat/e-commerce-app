@@ -57,10 +57,10 @@ export class UserService {
   
       await this.userRepository.save(user);
   
-      const loginUserNumber = await this.signInUser(
-        lowerCasedEmail,
-        createUserDto.password,
-      );
+      // const loginUserNumber = await this.signInUser(
+      //   lowerCasedEmail,
+      //   createUserDto.password,
+      // );
   
       // Retrieve user details after signing in
       const signedInUserResponse = await this.signInUser(
@@ -106,7 +106,7 @@ export class UserService {
 
       const payload = {
         email: email,
-        password: password,
+        id: user.id,
       };
       const token = await this.jwtService.signAsync(payload);
 

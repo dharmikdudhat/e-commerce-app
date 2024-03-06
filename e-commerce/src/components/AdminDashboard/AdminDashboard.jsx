@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { logout, sendUpdateProps } from "../../features/authSlice";
 import ProductListModal from "./Modals/ProductListModel";
 import ProfileModal from "./Modals/ProfileModal";
+import AddProductModel from "./Modals/AddProductModal";
 // import AddProductModel from "../AddProduct/AddProductModel";
 
 export function AdminDashboard() {
@@ -30,6 +31,7 @@ export function AdminDashboard() {
   // const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false); // New state for the AddProduct modal
   const [isProductListOpen, setIsProductListOpen] = useState(false);
   const [isProfile, setProfile] = useState(false);
+  const [isAddProduct, setAddProduct] = useState(false);
 
   const openProductList = () => {
     setIsProductListOpen(true);
@@ -44,6 +46,13 @@ export function AdminDashboard() {
 
   const closeProfile = () => {
     setProfile(false);
+  }
+
+  const  addNewProduct = ()=>{
+    setAddProduct(true);
+  }
+  const closeNewProduct = () => {
+    setAddProduct(false);
   }
 
   // const openAddProductModal = () => {
@@ -117,8 +126,8 @@ export function AdminDashboard() {
             <div>
               <NavLink
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
-                to="/add"
-                onClick={closeMenu}
+                // to="/add"
+                onClick={addNewProduct}
               >
                {/* <span
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900 cursor-pointer"
@@ -276,6 +285,10 @@ export function AdminDashboard() {
       <ProfileModal
       showProfile={isProfile}
       closeProfile={closeProfile}
+      />
+      <AddProductModel
+      showAddProduct={isAddProduct}
+      closeAddProduct={closeNewProduct}
       />
     </div>
   );

@@ -24,12 +24,13 @@ export const SignInOne = () => {
   //for navigation
   const navigation = useNavigate();
 
-  const userData = useSelector((state) => state.auth.user);
+  // const userData = useSelector((state) => state.auth.user);
 
+  const userData = localStorage.getItem("user");
   // Redirect to home page if user is already logged in
   useEffect(() => {
     if (userData) {
-      if (userData.user.role == "Admin") {
+      if (userData.role === "Admin") {
         navigation("/admin");
       } else {
         navigation("/");
@@ -66,7 +67,7 @@ export const SignInOne = () => {
     try {
       setLoading(true);
 
-      const loginData = await fetch(`http://${hostName}:3000/auth/login`, {
+      const loginData = await fetch(`http://${hostName}:3000/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -198,7 +199,9 @@ export const SignInOne = () => {
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Get started <ArrowRight className="ml-2" size={16} />
-                    <div className=" text-slate-950">{loading &&   <LoadingSpinner />}</div>
+                    <div className=" text-slate-950">
+                      {loading && <LoadingSpinner />}
+                    </div>
                   </button>
                 </div>
               </div>
@@ -238,9 +241,8 @@ export const SignInOne = () => {
               </button>
             </div> */}
           </div>
-        
         </div>
-        
+
         {/* <div className="h-full w-full">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
@@ -249,7 +251,6 @@ export const SignInOne = () => {
           />
         </div> */}
       </div>
-     
     </section>
   );
 };
