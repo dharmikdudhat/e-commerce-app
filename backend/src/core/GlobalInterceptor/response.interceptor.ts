@@ -3,7 +3,7 @@ import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { Request } from 'express';
 
-export class ImageInterceptor implements NestInterceptor {
+export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler<any>): any {
 
     return next.handle().pipe(

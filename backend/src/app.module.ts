@@ -6,7 +6,7 @@ import { User } from 'src/Entities';
 import { ContactEntity } from './Entities/contact.entity';
 import { ProductEntity } from './Entities/product.entity';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { ImageInterceptor } from './core/GlobalInterceptor/response.interceptor';
+import { ResponseInterceptor } from './core/GlobalInterceptor/response.interceptor';
 import { AllExceptionsFilter } from './core/filters/all-exceptions.filters';
 import { LogEntity } from './Entities/logging.entity';
 import { LoggingInterceptor } from './modules/logging/logging.interceptor';
@@ -17,7 +17,6 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { ProductModule } from './modules/product/product.module';
 import { LogModule } from './modules/logging/log.module';
-
 
 @Module({
   imports: [
@@ -44,7 +43,7 @@ import { LogModule } from './modules/logging/log.module';
   providers: [
     {
       provide: APP_INTERCEPTOR,
-      useClass: ImageInterceptor,
+      useClass: ResponseInterceptor,
     },
     {
       provide: APP_FILTER,
