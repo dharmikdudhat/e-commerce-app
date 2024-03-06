@@ -79,8 +79,8 @@ export const SignUpOne = () => {
       });
 
       if (user.ok) {
-        // alert("User Created Succesfully !!!");
-        navigate("/login");
+        alert("User Created Succesfully !!! Go and check Your mail id for our responce for email verification. You will find Login link there only. Thank you!!!!");
+        // navigate("/login");
         setLoading(false);
       } else {
         //alert("Not Able to Craete User", user.statusText);

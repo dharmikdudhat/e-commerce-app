@@ -5,6 +5,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { UUID } from "typeorm/driver/mongodb/bson.typings";
 import { ProductEntity } from '../../product/entities/product.entity';
+import { IsEmail, IsRgbColor, IsStrongPassword } from "class-validator";
 
 @Entity()
 export class User {
@@ -16,6 +17,7 @@ export class User {
     username: string;
 
     @Column()
+    @IsEmail()
     email: string;
 
     @Column()
@@ -25,9 +27,11 @@ export class User {
     role: string;
 
     @Column()
+    @IsStrongPassword()
     password: string;
 
     @Column()
+    @IsRgbColor()
     personalAnswer: string;
 
     @Column({ nullable: true })

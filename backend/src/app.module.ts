@@ -17,6 +17,10 @@ import { LoggingInterceptor } from './logging/logging.interceptor';
 // import { typeOrmConfig } from './config/typrorm.config';
 // import { MulterMiddleware } from './product/product.middleware';
 // import { MulterModule } from '@nestjs/platform-express';
+// import { MailerModule } from '@nestjs-modules/mailer';
+// import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { EmailModule } from './mailer/mailer.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -31,11 +35,14 @@ import { LoggingInterceptor } from './logging/logging.interceptor';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
+   
     UserModule,
     AuthModule,
     LogModule,
     ContactModule,
     ProductModule,
+    EmailModule,
+    ConfigModule.forRoot(),
   ],
   controllers: [],
   providers: [
