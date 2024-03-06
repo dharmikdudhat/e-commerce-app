@@ -2,7 +2,7 @@
 import { Module } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { ContactController } from './contact.controller';
-import { ContactEntity } from './entities/contact.entity';
+import { ContactEntity } from '../../Entities/contact.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -10,4 +10,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   controllers: [ContactController],
   providers: [ContactService],
 })
-export class ContactModule { }
+export class ContactModule {}

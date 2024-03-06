@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 // log.entity.ts
-import { User } from 'src/user/entities/user.entity';
+import { User } from './user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity('logs')

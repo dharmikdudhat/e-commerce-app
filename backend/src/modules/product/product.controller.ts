@@ -23,13 +23,12 @@ import { diskStorage } from 'multer';
 import * as path from 'path';
 import { extname } from 'path';
 import { createReadStream } from 'fs';
-import { Roles } from 'src/RBAC/role.decorator';
-import { Role } from 'src/RBAC/role.enum';
+import { Roles } from '../../core/RBAC/role.decorator';
+import { Role } from '../../core/RBAC/role.enum';
 
 @Controller('product')
-
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
 
   // @Post('add')
   // create( @UploadedFile() files: Express.Multer.File) {

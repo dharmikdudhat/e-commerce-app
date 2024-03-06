@@ -1,26 +1,23 @@
 /* eslint-disable prettier/prettier */
-import { /* MiddlewareConsumer */ Module } from '@nestjs/common';
+
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
-import { AuthModule } from './auth/auth.module';
-import { ContactModule } from './contact/contact.module';
-import { ContactEntity } from './contact/entities/contact.entity';
-import { ProductModule } from './product/product.module';
-import { ProductEntity } from './product/entities/product.entity';
+import { User } from 'src/Entities';
+import { ContactEntity } from './Entities/contact.entity';
+import { ProductEntity } from './Entities/product.entity';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { ImageInterceptor } from './GlobalInterceptor/response.interceptor';
-import { AllExceptionsFilter } from './filters/all-exceptions.filters';
-import { LogModule } from './logging/log.module';
-import { LogEntity } from './logging/entity/logging.entity';
-import { LoggingInterceptor } from './logging/logging.interceptor';
-// import { typeOrmConfig } from './config/typrorm.config';
-// import { MulterMiddleware } from './product/product.middleware';
-// import { MulterModule } from '@nestjs/platform-express';
-// import { MailerModule } from '@nestjs-modules/mailer';
-// import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { ImageInterceptor } from './core/GlobalInterceptor/response.interceptor';
+import { AllExceptionsFilter } from './core/filters/all-exceptions.filters';
+import { LogEntity } from './Entities/logging.entity';
+import { LoggingInterceptor } from './modules/logging/logging.interceptor';
 import { EmailModule } from './mailer/mailer.module';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ContactModule } from './modules/contact/contact.module';
+import { ProductModule } from './modules/product/product.module';
+import { LogModule } from './modules/logging/log.module';
+
 
 @Module({
   imports: [
@@ -35,12 +32,11 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
-   
     UserModule,
     AuthModule,
-    LogModule,
     ContactModule,
     ProductModule,
+    LogModule,
     EmailModule,
     ConfigModule.forRoot(),
   ],

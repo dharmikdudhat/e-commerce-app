@@ -2,14 +2,16 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
-import { ContactEntity } from './entities/contact.entity';
+import { ContactEntity } from '../../Entities/contact.entity';
 
 @Controller('contact')
 export class ContactController {
-  constructor(private readonly contactService: ContactService) { }
+  constructor(private readonly contactService: ContactService) {}
 
   @Post('add')
-  async create(@Body() createContactDto: CreateContactDto): Promise<ContactEntity> {
+  async create(
+    @Body() createContactDto: CreateContactDto,
+  ): Promise<ContactEntity> {
     return this.contactService.create(createContactDto);
   }
 
@@ -17,5 +19,4 @@ export class ContactController {
   async findAll(): Promise<ContactEntity[]> {
     return this.contactService.findAll();
   }
-
 }

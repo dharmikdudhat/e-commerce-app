@@ -3,7 +3,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { LogEntity } from './entity/logging.entity';
+import { LogEntity } from '../../Entities/logging.entity';
 
 @Injectable()
 export class LoggingService {
@@ -20,15 +20,14 @@ export class LoggingService {
   async getlogsByStatusCode(statusCode: number) {
     return await this.logRepository.find({
       where: { statusCode },
-    });  
-}
+    });
+  }
 
-async getLogsByUserId(createdBy: string) {
-  return await this.logRepository
-    .createQueryBuilder('log')
-    .where('log.created_by = :createdBy', { createdBy })
-    .leftJoinAndSelect('log.created_by', 'user')
-    .getMany();
-}
-
+  async getLogsByUserId(createdBy: string) {
+    return await this.logRepository
+      .createQueryBuilder('log')
+      .where('log.created_by = :createdBy', { createdBy })
+      .leftJoinAndSelect('log.created_by', 'user')
+      .getMany();
+  }
 }

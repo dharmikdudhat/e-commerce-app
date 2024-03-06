@@ -1,11 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
-import { ContactEntity } from 'src/contact/entities/contact.entity';
-import { LogEntity } from 'src/logging/entity/logging.entity';
-import { ProductEntity } from 'src/product/entities/product.entity';
-import { User } from 'src/user/entities/user.entity';
-
+import { ContactEntity } from 'src/Entities/contact.entity';
+import { LogEntity } from '../Entities/logging.entity';
+import { ProductEntity } from '../Entities/product.entity';
+import { User } from '../Entities/user.entity';
 
 export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService) {
@@ -23,9 +22,11 @@ export default class TypeOrmConfig {
 }
 
 export const typeOrmConfig: TypeOrmModuleAsyncOptions = {
-  imports: [ConfigModule.forRoot({
-    envFilePath : ".env",
-  })],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
+  ],
   useFactory: async (configService: ConfigService): Promise<any> => {
     return TypeOrmConfig.getOrmConfig(configService);
   },
