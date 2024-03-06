@@ -32,9 +32,6 @@ export class User {
   @IsRgbColor()
   personalAnswer: string;
 
-  @Column({ nullable: true })
-  imagePath: string;
-
   @Column(/* {type:'timestamp',default:'CURRENT_TIMESTAMP'} */)
   createdAt?: string;
 
@@ -43,6 +40,9 @@ export class User {
 
   @Column({ nullable: true })
   deletedAt?: string;
+
+  @Column({ nullable: true })
+  resetToken?: string;
 }
 
 //Working on different backend technologies starting from Javascript Backend portion to TypeScript and then moving forward to Nodejs and further with its frameworks like Nestjs.Also work on different databases like SQL(MySql , Postgres) and NoSQl(MongoDb , FireBase).Working on Different projects using these all technologies.

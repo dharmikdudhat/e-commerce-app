@@ -30,7 +30,7 @@ export class UserService {
     private readonly emailService: MailerService,
     private readonly jwtService: JwtService,
     // private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
@@ -187,7 +187,7 @@ export class UserService {
   // Verify user and send Reset Password Page
   async resetPassword(token: string) {
     try {
-      const user = await this.userRepository.findOneBy({ where: { token } });
+      const user = await this.findOneUser(token);
       if (user) {
         Redirect('http:localhost:5173/resetpassword');
       } else {
