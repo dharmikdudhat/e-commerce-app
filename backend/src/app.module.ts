@@ -13,7 +13,7 @@ import { LoggingInterceptor } from './modules/logging/logging.interceptor';
 import { EmailModule } from './mailer/mailer.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
+// import { AuthModule } from './modules/auth/auth.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { ProductModule } from './modules/product/product.module';
 import { LogModule } from './modules/logging/log.module';
@@ -33,7 +33,6 @@ import { LogModule } from './modules/logging/log.module';
     }),
     TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
     UserModule,
-    AuthModule,
     ContactModule,
     ProductModule,
     LogModule,

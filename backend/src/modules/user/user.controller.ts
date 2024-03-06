@@ -11,6 +11,8 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +20,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { SignInDto,LoginResponseDto } from './dto/login.response.dto';
 
 @Controller('user')
 export class UserController {
@@ -37,6 +40,17 @@ export class UserController {
   //   }
   //   return this.userService.create(createUserDto);
   // }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  signIn(@Body() signInDto: SignInDto): Promise<LoginResponseDto> {
+    console.log(signInDto);
+    
+    return this.signInUser(signInDto.email, signInDto.password);
+  }
+  signInUser(email: string, password: string): Promise<LoginResponseDto> {
+    throw new Error('Method not implemented.');
+  }
 
   @Get()
   findAll() {
