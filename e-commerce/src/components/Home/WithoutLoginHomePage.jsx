@@ -23,31 +23,31 @@ export default function WithoutLoginHomePage() {
   const contactUsRef = useRef(null);
 
   // Hero Section Animation
-  const fadeInHero = useSpring({
-    opacity: scrollY > 0 ? 1 : 0,
-    transform: scrollY > 0 ? "translateY(0)" : "translateY(50px)",
-  });
+  // const fadeInHero = useSpring({
+  //   opacity: scrollY > 0 ? 1 : 0,
+  //   transform: scrollY > 0 ? "translateY(0)" : "translateY(50px)",
+  // });
 
   // Features Section Animation
   const fadeInFeatures = useSpring({
-    opacity: scrollY > 500 ? 1 : 0,
-    transform: scrollY > 500 ? "translateY(0)" : "translateY(50px)",
+    opacity: scrollY > 250 ? 1 : 0,
+    transform: scrollY > 250 ? "translateY(0)" : "translateY(50px)",
   });
   const fadeIndata = useSpring({
-    opacity: scrollY > 750 ? 1 : 0,
-    transform: scrollY > 750 ? "translateY(0)" : "translateY(50px)",
+    opacity: scrollY > 500 ? 1 : 0,
+    transform: scrollY > 500 ? "translateY(0)" : "translateY(50px)",
   });
 
   // FAQs Section Animation
   const fadeInFAQs = useSpring({
-    opacity: scrollY > 1000 ? 1 : 0,
-    transform: scrollY > 1000 ? "translateY(0)" : "translateY(50px)",
+    opacity: scrollY > 750 ? 1 : 0,
+    transform: scrollY > 750 ? "translateY(0)" : "translateY(50px)",
   });
 
   // Pricing Section Animation
   const fadeInPricing = useSpring({
-    opacity: scrollY > 2000 ? 1 : 0,
-    transform: scrollY > 2000 ? "translateY(0)" : "translateY(50px)",
+    opacity: scrollY > 1500 ? 1 : 0,
+    transform: scrollY > 1500 ? "translateY(0)" : "translateY(50px)",
   });
 
   const scrollToContactUs = () => {
@@ -56,14 +56,14 @@ export default function WithoutLoginHomePage() {
 
   return (
     <div className="w-full">
-      <div className=" content-center text-center justify-center">
+      {/* <div className=" content-center text-center justify-center">
         <div className=" bg-teal-400 p-2 mt-2 mb-2 text-center font-bold text-xl">
           <h1>Welcome to our Filter Shop Website!</h1>
           <p>Here you can find the best filters for your everyday water needs.</p>
         </div>
-      </div>
+      </div> */}
       {/* Hero Section */}
-      <animated.div className="relative w-full bg-sky-200 " style={fadeInHero}>
+      <div className="relative w-full bg-sky-200 " >
         <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
           <div className="flex flex-col justify-center px-4 py-12 md:py-16 lg:col-span-7 lg:gap-x-6 lg:px-6 lg:py-24 xl:col-span-6">
             <div className="mt-8 flex max-w-max items-center space-x-2 rounded-full bg-gray-100 p-1">
@@ -102,7 +102,7 @@ export default function WithoutLoginHomePage() {
             />
           </div>
         </div>
-      </animated.div>
+      </div>
       {/* Features Section */}
       <animated.div
         style={fadeInFeatures}

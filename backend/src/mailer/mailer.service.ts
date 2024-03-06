@@ -42,15 +42,79 @@ export class MailerService {
     });
   }
 
-  async sendRegistrationSuccessfulEmail(to) {
+  async sendRegistrationSuccessfulEmail(to,username,password,color) {
     // console.log(to);
 
     // const jwtToken = await this.jwtService.signJwt({ email: to })
 
     const htmlBody = `
-      <p>you can login now</p>
-      <p>Thank you for registering with us</p>
-      <a href="http://localhost:5173/login" target="_blank">Click here to Login</a>`;
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to Our Company</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                line-height: 1.6;
+                color: #333;
+            }
+    
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+    
+            .header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 20px;
+                text-align: center;
+            }
+    
+            .content {
+                padding: 20px;
+            }
+    
+            .footer {
+                background-color: #f4f4f4;
+                padding: 10px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Welcome to Our Company Website!</h1>
+            </div>
+            <div class="content">
+                <p>Dear ${username},
+    
+                <p>Thank you for registering with Our Company. We are excited to have such a good customer!</p>
+    
+                <p>Your account details:</p>
+                <ul>
+                    <li><strong>Username : </strong> ${username}</li>
+                    <li><strong>Password : </strong> ${password}</li>
+                    <li><strong>Your Favorite Color : </strong> ${color}</li>
+                </ul>
+    
+                <p>We look forward to serving you and providing you with a great experience. If you have any questions or need assistance, feel free to reach out to our support team.</p>
+    
+                <p>Best regards,<br> Our company </p>
+            </div>
+            <div class="footer">
+                <p>This is an automated email. Please do not reply.</p>
+            </div>
+        </div>
+    </body>
+    
+    </html>
+    `;
 
     await this.sendEmail({
       to: to,
