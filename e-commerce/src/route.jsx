@@ -19,6 +19,7 @@ import AddProduct from "./components/AddProduct/AddProduct";
 import ReturnPolicy from "./components/ReturnPolicy/ReturnPolicy";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import { ForgetPasswordMail } from "./components/ForgetPassword/ForgetPasswordMail";
+import NoMatch from "./components/NoMatch/NoMatch";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 const isAuthenticated = () => {
@@ -68,6 +69,7 @@ const router = createBrowserRouter(
         path="returnpolicy"
         element={<ProtectedRoute element={<ReturnPolicy />} />}
       />
+      <Route path="*" element={<NoMatch />} />
     </Route>
   )
 );
