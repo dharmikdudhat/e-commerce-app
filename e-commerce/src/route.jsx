@@ -5,20 +5,20 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
-import { SignInOne } from "./components/Login/login";
-import { SignUpOne } from "./components/Registration/registration";
-import Contact from "./components/ContactUs/Contact";
-import { Home } from "./components/Home/Home";
-import { AboutPageOne } from "./components/AboutUs/About";
-import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
-import Terms from "./components/Terms/Terms";
-import { Details } from "./components/DetailedProductCard/DetailedProductCard";
-import { AdminDashboard } from "./components/AdminDashboard/AdminDashboard";
-import AddProduct from "./components/AddProduct/AddProduct";
-import ReturnPolicy from "./components/ReturnPolicy/ReturnPolicy";
-import ResetPassword from "./components/ResetPassword/ResetPassword";
-import { ForgetPasswordMail } from "./components/ForgetPassword/ForgetPasswordMail";
+import Layout from "./features/home/layout/Layout";
+import { SignInOne } from "./features/auth/component/login";
+import { SignUpOne } from "./features/Registration/registration";
+import Contact from "./features/home/components/Contact";
+import { Home } from "./features/home/components/Home";
+import { AboutPageOne } from "./features/home/components/About";
+import PrivacyPolicy from "./features/home/components/PrivacyPolicy";
+import Terms from "./features/home/components/Terms";
+import { Details } from "./features/product/components/DetailedProductCard";
+import { AdminDashboard } from "./features/Admin/components/AdminDashboard";
+import AddProduct from "./features/product/components/AddProduct";
+import ReturnPolicy from "./features/home/components/ReturnPolicy";
+import ResetPassword from "./features/auth/component/ResetPassword";
+import { ForgetPasswordMail } from "./features/auth/component/ForgetPasswordMail";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 const isAuthenticated = () => {
