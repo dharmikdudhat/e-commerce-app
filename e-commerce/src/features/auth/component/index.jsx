@@ -1,5 +1,0 @@
-export * from './ForgetPasswordMail'
-export * from './ResetPassword'
-export * from './SignOut'
-export * from './login'
-export * from './registration'

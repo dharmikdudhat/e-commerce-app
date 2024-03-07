@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { Route, Navigate } from "react-router-dom";
@@ -68,7 +69,7 @@ const router = createBrowserRouter(
         path="returnpolicy"
         element={<ProtectedRoute element={<ReturnPolicy />} />}
       />
-      <Route path="*" element={<NoMatch />} />
+      {/* <Route path="*" element={<NoMatch />} /> */}
     </Route>
   )
 );
