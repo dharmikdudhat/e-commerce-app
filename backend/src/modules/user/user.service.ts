@@ -174,9 +174,12 @@ export class UserService {
       if (user) {
         const date = new Date().toString();
         const resetToken = Date.parse(date).toString();
+        console.log("the token in reset passsword email:", resetToken)
         await this.saveResetToken(user.id, resetToken);
         await this.emailService.sendResetPasswordEmail(email, resetToken);
         return { message: 'Mail sent successfully', data: null };
+      }else {
+        throw new BadRequestException("User Dosen't Exist!")
       }
     } catch (error) {
       console.log('Error in sending reset password email:', error);
@@ -186,16 +189,12 @@ export class UserService {
 
   // Verify user and send Reset Password Page
   async resetPassword(token: string) {
+    console.log("The token: ", token);
     try {
-      const user = await this.userRepository.findOne({ where: { token } });
+      const user = await this.userRepository.findOneBy({ resetToken: token });
       if (user) {
-        // Redirect user to the reset password page
-        return {
-          statusCode: 302, // Redirect status code
-          headers: { Location: 'http://localhost:5173/resetpassword' }, // Redirect location
-        };
+        return { hello: 'http://localhost:5173/resetpassword' }
       } else {
-        // Token is invalid or expired
         return 'Invalid or expired token';
       }
     } catch (error) {
