@@ -124,7 +124,7 @@ export class MailerService {
   }
 
   async sendResetPasswordEmail(email, resetToken) {
-    const htmlBody = `<p>You requested a password reset, click <a href="http://localhost:3000/user/reset-password/${resetToken}">here</a> to reset your password.</p>`;
+    const htmlBody = `<p>You requested a password reset, click <a href="http://localhost:5173/user/resetpassword/${resetToken}">here</a> to reset your password.</p>`;
 
     await this.sendEmail({
       to: email,

@@ -188,7 +188,7 @@ export class UserService {
   }
 
   // Verify user and send Reset Password Page
-  async resetPassword(token: string, password: String) {
+  async resetPassword(token: string, password: string) {
     console.log('The token: ', token);
     try {
       const user = await this.userRepository.findOneBy({ resetToken: token });
