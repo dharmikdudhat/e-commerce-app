@@ -13,14 +13,15 @@ import { sendUpdateProps } from "../../../features/authSlice";
 const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
     if (!showAddProduct) return null;
     const userdatas = localStorage.getItem("user");
-    const userconverted = JSON.parse(userdatas);
-    const params = useLocation();
-    const isUpdate = params && params.pathname !== "/add";
+    // const userconverted = JSON.parse(userdatas);
+    // const params = useLocation();
+    // const isUpdate = params && params.pathname !== "/add";
     const navigate = useNavigate();
     const updateProductProps = useSelector((state) => state.auth.updateProps);
     const formRef = useRef();
     const [imageResult, setImageResult] = useState(null);
     const dispatch = useDispatch();
+    const isUpdate  = false;
   
     
   
@@ -35,24 +36,33 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
         };
   
     // Populate form fields with existing data if in update mode
-    useEffect(() => {
-      if (isUpdate) {
-        formRef.current.name.value = updateProductProps.name;
-        formRef.current.description.value = updateProductProps.description;
-        formRef.current.price.value = updateProductProps.price;
-        formRef.current.quantity.value = updateProductProps.quantity;
-        // Handle file input separately if necessary
-      }
-    }, [isUpdate, updateProductProps]);
+    // useEffect(() => {
+    //   if (isUpdate) {
+    //     formRef.current.name.value = updateProductProps.name;
+    //     formRef.current.description.value = updateProductProps.description;
+    //     formRef.current.price.value = updateProductProps.price;
+    //     formRef.current.quantity.value = updateProductProps.quantity;
+    //     // Handle file input separately if necessary
+    //   }
+    // }, [isUpdate, updateProductProps]);
+
+    // const handleInputChange = (e) => {
+    //   const { name, value } = e.target;
+    //   // Dispatch an action to update the product in the Redux store
+    //   dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
+    // };
   
-    const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      // Dispatch an action to update the product in the Redux store
-      dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
+    const handleAddOrUpdate = () => {
+      // Determine whether it's an update or add operation based on isUpdate
+      const API_CONFIG = isUpdate
+        ? {
+            api: `http://${hostName}:3000/product/${updateProductProps.id}`,
+            method: "PATCH",
+          }
+        : {
+            api: `http://${hostName}:3000/product/upload`,
+            method: "POST",
+          };
   
       const formData = new FormData(formRef.current);
   
@@ -60,18 +70,19 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
         method: API_CONFIG.method,
         body: formData,
       })
-        .then((res) => {
-          console.log("Image added successfully:");
-          res.json();
-        })
+        .then((res) => res.json())
         .then((data) => {
-          console.log("The res", data);
-          navigate("/admin");
+          console.log("Product added/updated successfully:", data);
+          // Optionally, you can update local state or Redux store with the new data
+          // dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
+          // Close the modal or perform any other actions
+          closeAddProduct();
         })
         .catch((err) => {
           console.error(err);
         });
     };
+  
   
     const handlePreviewOnChange = (file) => {
       const reader = new FileReader();
@@ -91,7 +102,7 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
       <div className=" mx-auto max-w-3xl rounded-md w-full bg-gray-300">
         <form
           ref={formRef}
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
           className=" rounded-md shadow-md  px-8 pt-6 pb-8 mb-4"
         >
           <div className="mb-4">
@@ -107,8 +118,8 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
               type="text"
               placeholder="Product Name"
               name="name"
-              value={isUpdate ? updateProductProps.name : ""}
-              onChange={handleInputChange}
+              value={!isUpdate ? updateProductProps.name : ""}
+              // onChange={handleInputChange}
               required
             />
           </div>
@@ -124,8 +135,8 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
               id="description"
               placeholder="Product Description"
               name="description"
-              value={isUpdate ? updateProductProps.description : ""}
-              onChange={handleInputChange}
+              value={!isUpdate ? updateProductProps.description : ""}
+              // onChange={handleInputChange}
               required
             />
           </div>
@@ -142,8 +153,8 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
               type="number"
               placeholder="Product Price"
               name="price"
-              value={isUpdate ? updateProductProps.price : ""}
-              onChange={handleInputChange}
+              value={!isUpdate ? updateProductProps.price : ""}
+              // onChange={handleInputChange}
               required
             />
           </div>
@@ -160,8 +171,8 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
               type="number"
               placeholder="Product Quantity"
               name="quantity"
-              value={isUpdate ? updateProductProps.quantity : ""}
-              onChange={handleInputChange}
+              value={!isUpdate ? updateProductProps.quantity : ""}
+              // onChange={handleInputChange}
               required
             />
           </div>
@@ -196,12 +207,13 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
             )}
           </div>
           <div className="flex items-center justify-between">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              {isUpdate ? "Update Product" : "Add Product"}
-            </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={handleAddOrUpdate}
+          >
+            {isUpdate ? "Update Product" : "Add Product"}
+          </button>
           </div>
         </form>
       </div>

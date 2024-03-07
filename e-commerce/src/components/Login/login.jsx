@@ -56,7 +56,7 @@ export const SignInOne = () => {
   //       navigation("/");
   //     }
   //   }
-  // }, [token, navigation]);
+  // }, [navigation]);
 
   //Function to check user credentials and log them in
   //  const hostName = window.location.hostname;
