@@ -30,7 +30,7 @@ export class UserService {
     private readonly emailService: MailerService,
     private readonly jwtService: JwtService,
     // private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
@@ -196,9 +196,8 @@ export class UserService {
         await this.userRepository
           .createQueryBuilder()
           .update(User)
-          .set({ password: `${password}` })
-          .set({ updatedAt: new Date().toISOString() })
-          .where('resetToken = :token', { resetToken: token })
+          .set({ password: `${password}`, updatedAt: new Date().toString() })
+          .where('resetToken = :token', { token: token })
           .execute();
         return { message: 'User Verified and Password Updated', data: null };
       } else {

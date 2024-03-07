@@ -10,7 +10,7 @@ import { hostName } from "../../../ulits/GlobalHostName";
 import { useDispatch, useSelector } from "react-redux";
 import { sendUpdateProps } from "../../../features/authSlice";
 
-const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
+const AddProductModel = ({ showAddProduct, closeAddProduct, updateProduct }) => {
     if (!showAddProduct) return null;
     const userdatas = localStorage.getItem("user");
     // const userconverted = JSON.parse(userdatas);
@@ -25,15 +25,15 @@ const AddProductModel = ({ showAddProduct, closeAddProduct }) => {
   
     
   
-    const API_CONFIG = isUpdate
-      ? {
-          api: `http://${hostName}:3000/product/${updateProductProps.id}`,
-          method: "PATCH",
-        }
-      : {
-          api: `http://${hostName}:3000/product/upload`,
-          method: "POST",
-        };
+    // const API_CONFIG = isUpdate
+    //   ? {
+    //       api: `http://${hostName}:3000/product/${updateProductProps.id}`,
+    //       method: "PATCH",
+    //     }
+    //   : {
+    //       api: `http://${hostName}:3000/product/upload`,
+    //       method: "POST",
+    //     };
   
     // Populate form fields with existing data if in update mode
     // useEffect(() => {

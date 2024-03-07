@@ -1,5 +1,6 @@
-import { useState, useParams } from "react";
+import {  useState } from "react";
 import { hostName } from "../../ulits/GlobalHostName";
+import { useParams } from "react-router-dom";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -8,11 +9,12 @@ const ResetPassword = () => {
   const [success, setSuccess] = useState("");
   const { token } = useParams();
 
-  const handleResetPassword = async () => {
+  console.log("The token in RsetPOassword:", token);
+
+  const handleResetPassword =  () => {
     setError("");
     setSuccess("");
-
-    // Perform validation
+   
     if (!password || !confirmPassword) {
       setError("Please fill in all fields.");
       return;
@@ -22,30 +24,26 @@ const ResetPassword = () => {
       setError("Passwords do not match.");
       return;
     }
-
-    // Send reset password request to the server
-    try {
-      const response = await fetch(
-        `http:${hostName}:3000/user/reset-password/${token}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ password, token }),
+    const url = `http://${hostName}:3000/user/reset-password/${token}`
+    console.log(url);
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password, token }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.isError) {
+          setSuccess("Password reset successfully.");
+        } else {
+          setError(data.message);
         }
-      );
-
-      if (response.ok) {
-        setSuccess("Password reset successfully.");
-      } else {
-        const errorMessage = await response.text();
-        setError(errorMessage);
-      }
-    } catch (error) {
-      setError("An error occurred. Please try again later.");
-    }
+      })
+      .catch((err) => console.log(err));
   };
+
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-gray-100 border border-gray-300 rounded-lg">
