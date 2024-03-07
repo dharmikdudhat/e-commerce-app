@@ -83,11 +83,11 @@ export function AdminDashboard() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`);
+        const response = await fetch(`${hostName}/product/getAll`);
         const data = await response.json();
         data.forEach((item) => {
           const name = item.imagePath.split("\\")[1];
-          item.imagePath = `http://${hostName}:3000/${name}`;
+          item.imagePath = `${hostName}/${name}`;
         });
         setProducts(data);
       } catch (error) {
@@ -100,7 +100,7 @@ export function AdminDashboard() {
   const handleDelete = async (id) => {
     console.log("Delete product:", id);
     try {
-      await fetch(`http://${hostName}:3000/product/${id}`, {
+      await fetch(`${hostName}/product/${id}`, {
         method: "DELETE",
       });
       // Assuming endpoint to fetch products

@@ -20,11 +20,11 @@ function AddProduct() {
 
   const API_CONFIG = isUpdate
     ? {
-        api: `http://${hostName}:3000/product/${updateProductProps.id}`,
+        api: `${hostName}/product/${updateProductProps.id}`,
         method: "PATCH",
       }
     : {
-        api: `http://${hostName}:3000/product/upload`,
+        api: `${hostName}/product/upload`,
         method: "POST",
       };
 

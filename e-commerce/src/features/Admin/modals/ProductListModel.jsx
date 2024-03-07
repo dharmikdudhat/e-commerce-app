@@ -13,7 +13,7 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`);
+        const response = await fetch(`${hostName}/product/getAll`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {

@@ -34,12 +34,12 @@ export const Home = () => {
     // Fetch data from backend when component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://${hostName}:3000/product/getAll`);
+        const response = await fetch(`${hostName}/product/getAll`);
 
         const data = await response.json();
         data.map((item) => {
           const name = item.imagePath.split("\\")[1];
-          item.imagePath = `http://${hostName}:3000/${name}`;
+          item.imagePath = `${hostName}/${name}`;
         });
 
         setProducts(data); // Set products state with fetched data

@@ -40,7 +40,7 @@ export const ForgetPasswordMail = () => {
       setLoading(true);
 
       const loginData = await fetch(
-        `http://${hostName}:3000/user/forget-password`,
+        `${hostName}/user/forget-password`,
         {
           method: "POST",
           headers: {

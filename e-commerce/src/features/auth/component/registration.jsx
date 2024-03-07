@@ -85,7 +85,7 @@ export const SignUpOne = () => {
 
     try {
       setLoading(true);
-      const user = await fetch(`http://${hostName}:3000/user/registration`, {
+      const user = await fetch(`${hostName}/user/registration`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

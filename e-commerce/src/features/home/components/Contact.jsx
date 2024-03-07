@@ -21,7 +21,7 @@ const hostName  = window.location.hostname;
     e.preventDefault();
 
     try {
-      const user = await fetch(`http://${hostName}:3000/contact/add`, {
+      const user = await fetch(`${hostName}/contact/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ const ResetPassword = () => {
       setError("Passwords do not match.");
       return;
     }
-    const url = `http://${hostName}:3000/user/reset-password/${token}`
+    const url = `${hostName}/user/reset-password/${token}`
     console.log(url);
     fetch(url, {
       method: "POST",

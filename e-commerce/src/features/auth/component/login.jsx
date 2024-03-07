@@ -67,7 +67,7 @@ export const SignInOne = () => {
     try {
       setLoading(true);
 
-      const loginData = await fetch(`http://${hostName}:3000/user/login`, {
+      const loginData = await fetch(`${hostName}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
