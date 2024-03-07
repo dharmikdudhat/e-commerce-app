@@ -53,7 +53,7 @@ const router = createBrowserRouter(
       />
       <Route path="terms" element={<ProtectedRoute element={<Terms />} />} />
       <Route path="details" element={<Details />} />
-      <Route path="resetpassword" element={<ResetPassword />} />
+      <Route path="resetpassword/:token" element={<ResetPassword />} />
       <Route path="forgetpassword" element={<ForgetPasswordMail />} />
       <Route
         path="admin"

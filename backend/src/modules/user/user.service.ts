@@ -30,7 +30,7 @@ export class UserService {
     private readonly emailService: MailerService,
     private readonly jwtService: JwtService,
     // private readonly authService: AuthService,
-  ) { }
+  ) {}
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
@@ -174,12 +174,12 @@ export class UserService {
       if (user) {
         const date = new Date().toString();
         const resetToken = Date.parse(date).toString();
-        console.log("the token in reset passsword email:", resetToken)
+        console.log('the token in reset passsword email:', resetToken);
         await this.saveResetToken(user.id, resetToken);
         await this.emailService.sendResetPasswordEmail(email, resetToken);
         return { message: 'Mail sent successfully', data: null };
       } else {
-        throw new BadRequestException("User Dosen't Exist!")
+        throw new BadRequestException("User Dosen't Exist!");
       }
     } catch (error) {
       console.log('Error in sending reset password email:', error);
@@ -188,14 +188,21 @@ export class UserService {
   }
 
   // Verify user and send Reset Password Page
-  async resetPassword(token: string) {
-    console.log("The token: ", token);
+  async resetPassword(token: string, password: String) {
+    console.log('The token: ', token);
     try {
       const user = await this.userRepository.findOneBy({ resetToken: token });
       if (user) {
-        return { message: "User Verified", data: { resetToken: token } }
+        await this.userRepository
+          .createQueryBuilder()
+          .update(User)
+          .set({ password: `${password}` })
+          .set({ updatedAt: new Date().toISOString() })
+          .where('resetToken = :token', { resetToken: token })
+          .execute();
+        return { message: 'User Verified and Password Updated', data: null };
       } else {
-        return new BadRequestException("Invalid Token");
+        return new BadRequestException('Invalid Token');
       }
     } catch (error) {
       console.log('Error in reset password:', error);

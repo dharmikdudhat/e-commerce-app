@@ -74,8 +74,11 @@ export class UserController {
     return this.userService.sendResetPasswordEmail(email);
   }
 
-  @Get('reset-password/:token')
-  async resetPassword(@Param('token') token: string): Promise<any> {
-    return this.userService.resetPassword(token);
+  @Post('reset-password/:token')
+  async resetPassword(
+    @Param('token') token: string,
+    @Body('password') password: string,
+  ): Promise<any> {
+    return this.userService.resetPassword(token, password);
   }
 }
