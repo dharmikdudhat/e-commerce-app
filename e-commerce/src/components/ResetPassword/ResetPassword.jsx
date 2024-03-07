@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useParams } from "react";
 import { hostName } from "../../ulits/GlobalHostName";
 
 const ResetPassword = () => {
@@ -6,6 +6,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { token } = useParams();
 
   const handleResetPassword = async () => {
     setError("");
@@ -31,7 +32,7 @@ const ResetPassword = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ password }),
+          body: JSON.stringify({ password, token }),
         }
       );
 
