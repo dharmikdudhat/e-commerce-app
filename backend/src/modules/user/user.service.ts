@@ -30,7 +30,7 @@ export class UserService {
     private readonly emailService: MailerService,
     private readonly jwtService: JwtService,
     // private readonly authService: AuthService,
-  ) { }
+  ) {}
 
   async uploadFile(createUserDto: CreateUserDto) {
     try {
@@ -192,11 +192,16 @@ export class UserService {
     console.log('The token: ', token);
     try {
       const user = await this.userRepository.findOneBy({ resetToken: token });
+      const salt = await bcrypt.genSalt();
+      const hashPassword = await bcrypt.hash(password, salt);
       if (user) {
         await this.userRepository
           .createQueryBuilder()
           .update(User)
-          .set({ password: `${password}`, updatedAt: new Date().toString() })
+          .set({
+            password: `${hashPassword}`,
+            updatedAt: new Date().toString(),
+          })
           .where('resetToken = :token', { token: token })
           .execute();
         return { message: 'User Verified and Password Updated', data: null };
