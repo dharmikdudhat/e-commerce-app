@@ -125,7 +125,7 @@ export const Home = () => {
             <div className=" text-center p-4">
               {lastIndex < products.length && (
                 <button
-                  className="text-white bg-black px-3 py-1 rounded mt-4"
+                  className="text-white bg-black px-3 py-1 mb-10 rounded mt-4"
                   onClick={showMoreCards}
                 >
                   Show More
