@@ -17,6 +17,8 @@ import { Details } from "./components/DetailedProductCard/DetailedProductCard";
 import { AdminDashboard } from "./components/AdminDashboard/AdminDashboard";
 import AddProduct from "./components/AddProduct/AddProduct";
 import ReturnPolicy from "./components/ReturnPolicy/ReturnPolicy";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
+import { ForgetPasswordMail } from "./components/ForgetPassword/ForgetPasswordMail";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 const isAuthenticated = () => {
@@ -51,6 +53,8 @@ const router = createBrowserRouter(
       />
       <Route path="terms" element={<ProtectedRoute element={<Terms />} />} />
       <Route path="details" element={<Details />} />
+      <Route path="resetpassword" element={<ResetPassword />} />
+      <Route path="forgetpassword" element={<ForgetPasswordMail />} />
       <Route
         path="admin"
         element={<ProtectedRoute element={<AdminDashboard />} />}

@@ -178,7 +178,7 @@ export class UserService {
         await this.saveResetToken(user.id, resetToken);
         await this.emailService.sendResetPasswordEmail(email, resetToken);
         return { message: 'Mail sent successfully', data: null };
-      }else {
+      } else {
         throw new BadRequestException("User Dosen't Exist!")
       }
     } catch (error) {
@@ -193,9 +193,9 @@ export class UserService {
     try {
       const user = await this.userRepository.findOneBy({ resetToken: token });
       if (user) {
-        return { hello: 'http://localhost:5173/resetpassword' }
+        return { message: "User Verified", data: { resetToken: token } }
       } else {
-        return 'Invalid or expired token';
+        return new BadRequestException("Invalid Token");
       }
     } catch (error) {
       console.log('Error in reset password:', error);

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { hostName } from "../../ulits/GlobalHostName";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -23,13 +24,16 @@ const ResetPassword = () => {
 
     // Send reset password request to the server
     try {
-      const response = await fetch(`http:${hostName}:3000/user/reset-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password }),
-      });
+      const response = await fetch(
+        `http:${hostName}:3000/user/reset-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password }),
+        }
+      );
 
       if (response.ok) {
         setSuccess("Password reset successfully.");

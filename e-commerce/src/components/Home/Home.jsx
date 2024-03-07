@@ -14,6 +14,7 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastIndex, setLastIndex] = useState(5);
   const [selectedCard, setSelectedCard] = useState(null);
+  
 
   const handleCardClick = (index) => {
     setSelectedCard(index);

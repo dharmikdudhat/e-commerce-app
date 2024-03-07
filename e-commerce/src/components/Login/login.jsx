@@ -159,14 +159,15 @@ export const SignInOne = () => {
                       {" "}
                       Password{" "}
                     </label>
-                    <a
+                    <Link
                       href="#"
                       title=""
                       className="text-sm font-semibold text-black hover:underline"
+                      to='/forgetpassword'
                     >
                       {" "}
                       Forgot password?{" "}
-                    </a>
+                    </Link>
                   </div>
                   <div className="mt-2">
                     <input
