@@ -5,9 +5,9 @@ import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"; // Added import
 // import { login } from "../../actions/authActions"; // Adjust the path based on your structure
-import LoadingSpinner from "../../shared/components/LoadingSpinner";
-import { login } from "../../store/authSlice";
-import { hostName } from "../../shared/constant/GlobalHostName";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
+import { login } from "../../../store/authSlice";
+import { hostName } from "../../../shared/constant/GlobalHostName";
 
 export const SignUpOne = () => {
   const [formData, setFormData] = useState({

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Layout from "./features/home/layout/Layout";
 import { SignInOne } from "./features/auth/component/login";
-import { SignUpOne } from "./features/Registration/registration";
+import { SignUpOne } from "./features/auth/component/registration";
 import Contact from "./features/home/components/Contact";
 import { Home } from "./features/home/components/Home";
 import { AboutPageOne } from "./features/home/components/About";
