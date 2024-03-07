@@ -46,7 +46,7 @@ const router = createBrowserRouter(
       />
       <Route
         path="contact"
-        element={<ProtectedRoute element={<Contact />} />}
+        element={ <Contact />}
       />
       <Route
         path="privacypolicy"
