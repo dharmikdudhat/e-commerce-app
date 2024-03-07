@@ -68,6 +68,7 @@ const router = createBrowserRouter(
         path="returnpolicy"
         element={<ProtectedRoute element={<ReturnPolicy />} />}
       />
+      <Route path="*" element={<NoMatch />} />
     </Route>
   )
 );
