@@ -39,16 +39,13 @@ export const ForgetPasswordMail = () => {
     try {
       setLoading(true);
 
-      const loginData = await fetch(
-        `${hostName}/user/forget-password`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(forgetPasswordFormData),
-        }
-      );
+      const loginData = await fetch(`${hostName}/user/forget-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(forgetPasswordFormData),
+      });
 
       const response = await loginData.json();
       // console.log(response);
@@ -58,7 +55,7 @@ export const ForgetPasswordMail = () => {
         // navigation("/");
       } else {
         setIsError(true);
-        setErrorMessage(response.message)
+        setErrorMessage(response.message);
         setLoading(false);
       }
     } catch (error) {
@@ -69,18 +66,14 @@ export const ForgetPasswordMail = () => {
   };
 
   return (
-    <section
-      className="bg-cover bg-center min-h-screen"
-      style={{
-        backgroundImage:
-          "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
-      }}
-    >
+    <section className="bg-cover bg-center min-h-screen">
       <div className="min-h-screen w-full flex flex-col justify-center items-center">
         <div className=" container max-w-md mx-auto p-8  bg-slate-200 rounded-3xl shadow-lg mt-8">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             {isError && <AlertBanner text={errorMessage} />}
-            {successMessage && <SuccessBanner text={"Please check your mail account"} />}
+            {successMessage && (
+              <SuccessBanner text={"Please check your mail account"} />
+            )}
 
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Forget Password ??

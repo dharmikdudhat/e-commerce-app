@@ -8,7 +8,7 @@ const Layout = () => {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
   return (
-    <div className="relative">
+    <div className="flex flex-col h-screen">
       {!isAdminPage && <Navbar />}
       <Outlet />
       {!isAdminPage && <Footer />}

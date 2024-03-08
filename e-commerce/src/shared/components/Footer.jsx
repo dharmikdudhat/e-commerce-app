@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 export const Footer = () => {
   return (
     <div
-      className="overflow-hidden bg-black py-6 bottom-0 absolute w-full items-center justify-between"
+      className="overflow-hidden bg-black py-6 bottom-0 fixed w-full items-center justify-between"
       style={{ height: "50px" }}
     >
       <div className="container relative z-10  px-4 justify-center align-middle inline-flex  ">

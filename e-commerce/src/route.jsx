@@ -34,28 +34,21 @@ const ProtectedRoute = ({ element }) => {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
+      {/*Normal Routes Without Authentication*/}
       <Route path="" element={<Home />} />
+      <Route path="contact" element={<Contact />} />
       <Route path="aboutus" element={<AboutPageOne />} />
-      <Route
-        path="login"
-        element={isAuthenticated() ? <Navigate to="/" /> : <SignInOne />}
-      />
-      <Route
-        path="registration"
-        element={isAuthenticated() ? <Navigate to="/" /> : <SignUpOne />}
-      />
-      <Route
-        path="contact"
-        element={ <Contact />}
-      />
-      <Route
-        path="privacypolicy"
-        element={<ProtectedRoute element={<PrivacyPolicy />} />}
-      />
-      <Route path="terms" element={<ProtectedRoute element={<Terms />} />} />
-      <Route path="details" element={<Details />} />
+      <Route path="privacypolicy" element={<PrivacyPolicy />} />
+      <Route path="terms" element={<Terms />} />
       <Route path="resetpassword/:token" element={<ResetPassword />} />
       <Route path="forgetpassword" element={<ForgetPasswordMail />} />
+      <Route path="returnpolicy" element={<ReturnPolicy />} />
+
+      {/*Protectetd Routes*/}
+      <Route
+        path="details"
+        element={<ProtectedRoute element={<Details />} />}
+      />
       <Route
         path="admin"
         element={<ProtectedRoute element={<AdminDashboard />} />}
@@ -65,11 +58,16 @@ const router = createBrowserRouter(
         path="edit/:id"
         element={<ProtectedRoute element={<AddProduct />} />}
       />
+
+      {/*Auth Routes*/}
       <Route
-        path="returnpolicy"
-        element={<ProtectedRoute element={<ReturnPolicy />} />}
+        path="login"
+        element={isAuthenticated() ? <Navigate to="/" /> : <SignInOne />}
       />
-      {/* <Route path="*" element={<NoMatch />} /> */}
+      <Route
+        path="registration"
+        element={isAuthenticated() ? <Navigate to="/" /> : <SignUpOne />}
+      />
     </Route>
   )
 );

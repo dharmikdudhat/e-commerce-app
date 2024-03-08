@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { hostName } from "../../../shared/constant/GlobalHostName";
 import { useDispatch, useSelector } from "react-redux";
 import { sendUpdateProps } from "../../../store/authSlice";

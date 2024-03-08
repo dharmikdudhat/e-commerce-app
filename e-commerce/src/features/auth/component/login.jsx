@@ -104,13 +104,7 @@ export const SignInOne = () => {
   // urvas code
 
   return (
-    <section
-      className="bg-cover bg-center min-h-screen"
-      style={{
-        backgroundImage:
-          "url('https://www.befunky.com/images/prismic/68363147-7351-4f58-a545-3e744a9413b0_hero-photo-to-cartoon-2.jpg?auto=avif,webp&format=jpg&width=896')",
-      }}
-    >
+    <section className="bg-cover bg-center min-h-screen">
       <div className="min-h-screen w-full flex flex-col justify-center items-center">
         <div className=" container max-w-md mx-auto p-8  bg-slate-200 rounded-3xl shadow-lg mt-8">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
@@ -163,7 +157,7 @@ export const SignInOne = () => {
                       href="#"
                       title=""
                       className="text-sm font-semibold text-black hover:underline"
-                      to='/forgetpassword'
+                      to="/forgetpassword"
                     >
                       {" "}
                       Forgot password?{" "}

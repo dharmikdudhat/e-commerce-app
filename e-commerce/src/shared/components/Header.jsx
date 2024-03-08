@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 
 const menuItemsList = [
   {
@@ -72,7 +72,7 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="sticky top-0 w-full   justify-between bg-black z-10">
+    <div className="fixed top-0 w-full   justify-between bg-black z-10">
       <div className="mx-auto relative  flex flex-wrap max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
         <div className="inline-flex  items-center space-x-2">
           <span>
@@ -112,33 +112,45 @@ export const Navbar = () => {
         <div>
           <div className="hidden lg:block">
             {!isLogin ? (
-              <div className="flex gap-2">
+              <div className="flex gap-6">
                 <div>
-                  <Button
-                    type="button"
-                    className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      `text-sm font-semibold ${
+                        isActive ? "text-orange-700" : "text-slate-50"
+                      } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
+                    }
                   >
-                    <NavLink to="/login">Sign In</NavLink>
-                  </Button>
+                    Login
+                  </NavLink>
                 </div>
                 <div>
-                  <button
-                    type="button"
-                    className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  <NavLink
+                    to="/registration"
+                    className={({ isActive }) =>
+                      `text-sm font-semibold ${
+                        isActive ? "text-orange-700" : "text-slate-50"
+                      } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
+                    }
                   >
-                    <NavLink to="/registration">Registration</NavLink>
-                  </button>
+                    Registration
+                  </NavLink>
                 </div>
               </div>
             ) : (
               <div>
-                <button
-                  type="button"
-                  className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `text-sm font-semibold ${
+                      isActive ? "text-orange-700" : "text-slate-50"
+                    } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
+                  }
                   onClick={() => dispatch(logout())}
                 >
-                  <NavLink to="/">Sign Out</NavLink>
-                </button >
+                  Log Out
+                </NavLink>
               </div>
             )}
           </div>
@@ -150,8 +162,10 @@ export const Navbar = () => {
           />
         </div>
         {isMenuOpen && (
-          <div className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden"
-          ref={dropDownRef}>
+          <div
+            className="absolute inset-x-0 top-0 z-50 origin-top-right transform p-2 transition lg:hidden"
+            ref={dropDownRef}
+          >
             <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-50">
               <div className="px-5 pb-6 pt-5">
                 <div className="flex items-center justify-between">
@@ -202,36 +216,42 @@ export const Navbar = () => {
                   {!isLogin ? (
                     <div className=" m-2">
                       <div className="p-1">
-                        <NavLink to="/login">
-                          <button
-                            type="button"
-                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                          >
-                            Sign In
-                          </button>
+                        <NavLink
+                          to="/login"
+                          className={({ isActive }) =>
+                            `text-sm font-semibold ${
+                              isActive ? "text-orange-700" : "text-slate-50"
+                            } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
+                          }
+                        >
+                          Login
                         </NavLink>
                       </div>
                       <div className="p-1">
-                        <NavLink to="/registration">
-                          <button
-                            type="button"
-                            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                          >
-                            Registration
-                          </button>
+                        <NavLink
+                          to="/registration"
+                          className={({ isActive }) =>
+                            `text-sm font-semibold ${
+                              isActive ? "text-orange-700" : "text-slate-50"
+                            } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
+                          }
+                        >
+                          Registration
                         </NavLink>
                       </div>
                     </div>
                   ) : (
                     <div className=" m-2 p-1">
-                      <NavLink to="/">
-                        <button
-                          type="button"
-                          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                          onClick={() => dispatch(logout())}
-                        >
-                          Sign Out
-                        </button>
+                      <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                          `text-sm font-semibold ${
+                            isActive ? "text-orange-700" : "text-slate-50"
+                          } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
+                        }
+                        onClick={() => dispatch(logout())}
+                      >
+                        Log Out
                       </NavLink>
                     </div>
                   )}

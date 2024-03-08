@@ -58,11 +58,11 @@ export const Home = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       {isLogin ? (
         <div className=" ">
           <div className=" justify-center ">
-            <div className="text-center justify-center text-4xl font-bold flex text-violet-200 bg-purple-700 mt-2 p-2">
+            <div className="text-center justify-center text-4xl font-bold flex text-violet-200 bg-purple-700 mt-14 p-2">
               <AnimatedEmoji2 />
               Welcome !!!! May your visit be fruitful for you.<AnimatedEmoji />
             </div>
