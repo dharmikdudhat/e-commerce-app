@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { hostName } from "../../../shared/constant/GlobalHostName";
 
 export const Contact = () => {
   const [contactData, setContactData] = useState({
@@ -15,13 +16,12 @@ export const Contact = () => {
       [e.target.name]: e.target.value,
     });
   };
-  
-const hostName  = window.location.hostname;
+
   const CONTACT_DATA = async (e) => {
     e.preventDefault();
 
     try {
-      const user = await fetch(`${hostName}/contact/add`, {
+      const response = await fetch(`${hostName}/contact/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,11 +29,10 @@ const hostName  = window.location.hostname;
         body: JSON.stringify(contactData),
       });
 
-      if (user.ok) {
+      if (!response.isError) {
         alert("Thank You!! We'll reach you in short time");
-        
       } else {
-        alert("Not Able to Craete User", user.statusText);
+        alert("Not Able to Create response", response?.message);
       }
     } catch (error) {
       alert("Error Creating Item : ", error);
@@ -43,7 +42,6 @@ const hostName  = window.location.hostname;
   return (
     <section>
       <div className="mx-auto max-w-7xl px-4">
-        {/* Hero Map */}
         <div className="flex flex-col space-y-8 pb-10 pt-12 md:pt-24">
           <div className="mx-auto max-w-max rounded-full border bg-gray-50 p-1 px-3">
             <p className="text-center text-xs font-semibold leading-normal md:text-sm">
@@ -61,7 +59,6 @@ const hostName  = window.location.hostname;
         </div>
         <div className="mx-auto max-w-7xl py-12 md:py-24">
           <div className="grid items-center justify-items-center gap-x-4 gap-y-10 lg:grid-cols-2">
-            {/* contact from */}
             <div className="flex items-center justify-center">
               <div className="px-2 md:px-12">
                 <p className="text-2xl font-bold text-gray-900 md:text-4xl">
@@ -70,17 +67,21 @@ const hostName  = window.location.hostname;
                 <p className="mt-4 text-lg text-gray-600">
                   Our friendly team would love to hear from you.
                 </p>
-                <form onSubmit={CONTACT_DATA} className="mt-8 space-y-4">
+                <form
+                  onSubmit={CONTACT_DATA}
+                  method="POST"
+                  className="mt-8 space-y-4"
+                >
                   <div className="grid w-full gap-y-4 md:gap-x-4 lg:grid-cols-2">
-                    <div className="grid w-full  items-center gap-1.5">
+                    <div className="grid w-full items-center gap-1.5">
                       <label
-                        className="text-sm font-medium leading-none text-gray-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        htmlFor="first_name"
+                        className="text-sm font-medium leading-none text-gray-700"
+                        htmlFor=" "
                       >
                         First Name
                       </label>
                       <input
-                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                         type="text"
                         placeholder="First Name"
                         id="firstName"
@@ -90,15 +91,15 @@ const hostName  = window.location.hostname;
                         onChange={handleInputChange}
                       />
                     </div>
-                    <div className="grid w-full  items-center gap-1.5">
+                    <div className="grid w-full items-center gap-1.5">
                       <label
-                        className="text-sm font-medium leading-none text-gray-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        htmlFor="last_name"
+                        className="text-sm font-medium leading-none text-gray-700"
+                        htmlFor=" "
                       >
                         Last Name
                       </label>
                       <input
-                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                         type="text"
                         placeholder="Last Name"
                         id="lastName"
@@ -109,16 +110,16 @@ const hostName  = window.location.hostname;
                       />
                     </div>
                   </div>
-                  <div className="grid w-full  items-center gap-1.5">
+                  <div className="grid w-full items-center gap-1.5">
                     <label
-                      className="text-sm font-medium leading-none text-gray-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      htmlFor="email"
+                      className="text-sm font-medium leading-none text-gray-700"
+                      htmlFor=" "
                     >
                       Email
                     </label>
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
-                      type="text"
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                      type="email"
                       id="email"
                       placeholder="Email"
                       name="email"
@@ -127,15 +128,15 @@ const hostName  = window.location.hostname;
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div className="grid w-full  items-center gap-1.5">
+                  <div className="grid w-full items-center gap-1.5">
                     <label
-                      className="text-sm font-medium leading-none text-gray-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      htmlFor="phone_number"
+                      className="text-sm font-medium leading-none text-gray-700"
+                      htmlFor=" "
                     >
                       Phone number
                     </label>
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
                       type="tel"
                       placeholder="Phone number"
                       id="phoneNumber"
@@ -145,15 +146,15 @@ const hostName  = window.location.hostname;
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div className="grid w-full  items-center gap-1.5">
+                  <div className="grid w-full items-center gap-1.5">
                     <label
-                      className="text-sm font-medium leading-none text-gray-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      htmlFor="message"
+                      className="text-sm font-medium leading-none text-gray-700"
+                      htmlFor=" "
                     >
                       Message
                     </label>
                     <textarea
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-gray-400 dark:focus:ring-offset-gray-900"
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700  dark:focus:ring-gray-400 dark:focus:ring-offset-gray-9"
                       id="message"
                       placeholder="Leave us a message"
                       cols={3}
