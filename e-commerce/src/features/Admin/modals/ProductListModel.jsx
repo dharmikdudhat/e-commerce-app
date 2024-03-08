@@ -23,8 +23,8 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-75 flex items-center justify-center">
-      <div className="bg-black p-8 mx-auto rounded-lg">
+    <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-75 backdrop-filter backdrop-blur-lg flex items-center justify-center">
+      <div className="bg-white bg-opacity-25 p-8 mx-auto rounded-lg backdrop-filter backdrop-blur-lg">
         <div className="flex justify-end text-3xl text-white">
           <button onClick={onClose}>&times;</button>
         </div>
@@ -37,23 +37,47 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
             <table className="border border-white w-full">
               <thead className="border justify-between border-white">
                 <tr>
-                  <th className="py-2 text-blue-200 px-4 border text-center border-gray-300">Product Id</th>
-                  <th className="py-2 text-blue-200 px-4 border border-gray-300">Product Name</th>
-                  <th className="py-2 text-blue-200 px-4 border border-gray-300">Product Description</th>
-                  <th className="py-2 text-blue-200 px-4 border border-gray-300">Price</th>
-                  <th className="py-2 text-blue-200 px-4 border border-gray-300">Quantity</th>
-                  <th className="py-2 text-blue-200 px-4 border border-gray-300">Image Path</th>
+                  <th className="py-2 text-blue-200 px-4 border text-center border-gray-300">
+                    Product Id
+                  </th>
+                  <th className="py-2 text-blue-200 px-4 border border-gray-300">
+                    Product Name
+                  </th>
+                  <th className="py-2 text-blue-200 px-4 border border-gray-300">
+                    Product Description
+                  </th>
+                  <th className="py-2 text-blue-200 px-4 border border-gray-300">
+                    Price
+                  </th>
+                  <th className="py-2 text-blue-200 px-4 border border-gray-300">
+                    Quantity
+                  </th>
+                  <th className="py-2 text-blue-200 px-4 border border-gray-300">
+                    Image Path
+                  </th>
                 </tr>
               </thead>
               <tbody className="border border-white">
                 {products.map((product, index) => (
                   <tr key={index} className="border-b">
-                    <td className="py-2 text-lime-300 px-1 text-center border border-gray-300 hover:text-green-500">{product.id}</td>
-                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">{product.name}</td>
-                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">{product.description}</td>
-                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">{product.price}</td>
-                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">{product.quantity}</td>
-                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">{product.imagePath}</td>
+                    <td className="py-2 text-lime-300 px-1 text-center border border-gray-300 hover:text-green-500">
+                      {product.id}
+                    </td>
+                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">
+                      {product.name}
+                    </td>
+                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">
+                      {product.description}
+                    </td>
+                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">
+                      {product.price}
+                    </td>
+                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">
+                      {product.quantity}
+                    </td>
+                    <td className="py-2 text-lime-300 hover:text-green-500 px-1 text-center border border-gray-300">
+                      {product.imagePath}
+                    </td>
                   </tr>
                 ))}
               </tbody>
