@@ -76,13 +76,14 @@ function AddProduct() {
   };
 
   return (
-    <div className=" bg-white p-10">
-      <div className=" mx-auto max-w-3xl rounded-md w-full bg-gray-300">
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className=" rounded-md shadow-md  px-8 pt-6 pb-8 mb-4"
-        >
+    <div className="bg-white p-10 relative overflow-hidden">
+    <div className="mx-auto max-w-3xl rounded-md w-full bg-gray-300 backdrop-blur-md p-6">
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        className="rounded-md shadow-md px-8 pt-6 pb-8 mb-4 bg-opacity-70 backdrop-blur-md"
+        style={{ backdropFilter: "blur(10px)" }}
+      >
           <div className="mb-4">
             <label
               className="block text-gray-900 text-sm font-bold mb-2"

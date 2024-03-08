@@ -220,7 +220,7 @@ export const Navbar = () => {
                           to="/login"
                           className={({ isActive }) =>
                             `text-sm font-semibold ${
-                              isActive ? "text-orange-700" : "text-slate-50"
+                              isActive ? "text-orange-700" : "text-gray-900"
                             } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
                           }
                         >
@@ -232,7 +232,7 @@ export const Navbar = () => {
                           to="/registration"
                           className={({ isActive }) =>
                             `text-sm font-semibold ${
-                              isActive ? "text-orange-700" : "text-slate-50"
+                              isActive ? "text-orange-700" : "text-gray-900"
                             } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
                           }
                         >
@@ -246,7 +246,7 @@ export const Navbar = () => {
                         to="/"
                         className={({ isActive }) =>
                           `text-sm font-semibold ${
-                            isActive ? "text-orange-700" : "text-slate-50"
+                            isActive ? "text-orange-700" : "text-gray-900"
                           } text-gray-800 hover:bg-slate-50 lg:hover:bg-transparent lg:border-0 hover:text-gray-400 lg:p-0`
                         }
                         onClick={() => dispatch(logout())}
