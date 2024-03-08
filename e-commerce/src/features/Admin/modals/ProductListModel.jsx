@@ -1,26 +1,32 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes for prop type validation
 import { hostName } from "../../../shared/constant/GlobalHostName";
 
 const ProductListModal = ({ isOpen, onClose, children }) => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5); // Number of products per page
+  const [error, setError] = useState(null); // State to hold error message
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(`${hostName}/product/getAll`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
         const data = await response.json();
         setProducts(data);
       } catch (error) {
-        console.error("Error fetching products", error);
+        setError(error.message); // Set error message in case of failure
       }
     };
 
-    fetchProducts();
-  }, []);
+    if (isOpen) {
+      fetchProducts();
+    }
+  }, [isOpen]);
 
   // Pagination
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -32,6 +38,10 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  if (!isOpen) {
+    return null; // Don't render the modal if isOpen is false
+  }
+
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-75 backdrop-filter backdrop-blur-lg flex items-center justify-center max-h-screen">
       <div className="bg-white bg-opacity-75 p-4 mx-auto rounded-lg backdrop-filter backdrop-blur-lg">
@@ -39,6 +49,9 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
           <button onClick={onClose}>&times;</button>
         </div>
         {children}
+        {error && ( // Display error message if an error occurred
+          <div className="text-red-500">{error}</div>
+        )}
         <div className="max-conte">
           <div className="text-center font-bold text-xl mb-2 text-red-500">
             <h1>Product Table</h1>
@@ -121,6 +134,13 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
       </div>
     </div>
   );
+};
+
+// Prop type validation
+ProductListModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node,
 };
 
 export default ProductListModal;
