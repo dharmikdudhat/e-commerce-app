@@ -20,14 +20,14 @@ const ProfileModal = ({ showProfile, closeProfile }) => {
           </h1>
           <form className="mt-8">
             <div className="grid grid-cols-2 gap-4">
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-700">
                   ID:
                 </label>
                 <p className="mt-1 text-lg font-semibold text-gray-900">
                   {userconverted ? userconverted.user.id : ""}
                 </p>
-              </div>
+              </div> */}
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Email:

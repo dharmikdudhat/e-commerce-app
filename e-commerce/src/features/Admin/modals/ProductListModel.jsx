@@ -23,7 +23,7 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-75 backdrop-filter backdrop-blur-lg flex items-center justify-center">
+    <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-75 backdrop-filter backdrop-blur-lg flex items-center justify-center max-h-screen">
       <div className="bg-white bg-opacity-75 p-4 mx-auto rounded-lg backdrop-filter backdrop-blur-lg">
         <div className="flex justify-end text-2xl text-gray-900">
           <button onClick={onClose}>&times;</button>
