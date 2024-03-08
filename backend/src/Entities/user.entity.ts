@@ -28,10 +28,6 @@ export class User {
   @IsStrongPassword()
   password: string;
 
-  @Column()
-  @IsRgbColor()
-  personalAnswer: string;
-
   @Column(/* {type:'timestamp',default:'CURRENT_TIMESTAMP'} */)
   createdAt?: string;
 
