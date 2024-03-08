@@ -84,7 +84,7 @@ const ProductListModal = ({isOpen, onClose, children }) => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="border border-gray-500">
+              <tbody className="border border-gray-500 text-center">
                 {currentProducts.map((product, index) => (
                   <tr key={index} className="border-b">
                     <td className="py-2 text-gray-700 px-2 text-center border border-gray-500">
