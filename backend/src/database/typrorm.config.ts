@@ -10,11 +10,11 @@ export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService) {
     return {
       type: 'postgres',
-      host: configService.get<String>('DB_HOST'),
-      port: configService.get<Number>('DB_PORT'),
-      username: configService.get<String>('DB_USERNAME'),
-      password: configService.get<String>('DB_PASSWORD'),
-      database: configService.get<String>('DB_DATABASE'),
+      host: configService.get<string>('DB_HOST'),
+      port: configService.get<number>('DB_PORT'),
+      username: configService.get<string>('DB_USERNAME'),
+      password: configService.get<string>('DB_PASSWORD'),
+      database: configService.get<string>('DB_DATABASE'),
       entities: [User, ContactEntity, ProductEntity, LogEntity],
       synchronize: true,
     };
