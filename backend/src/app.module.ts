@@ -17,11 +17,19 @@ import { UserModule } from './modules/user/user.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { ProductModule } from './modules/product/product.module';
 import { LogModule } from './modules/logging/log.module';
-import { typeOrmConfig } from './database/typrorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5530,
+      username: 'postgres',
+      password: '55305530',
+      database: 'typeorm_db',
+      entities: [User, ContactEntity, ProductEntity, LogEntity],
+      synchronize: true,
+    }),
     TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
     UserModule,
     ContactModule,
