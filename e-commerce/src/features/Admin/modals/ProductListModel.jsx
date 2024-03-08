@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import { hostName } from "../../../shared/constant/GlobalHostName";
 
 const ProductListModal = ({ isOpen, onClose, children }) => {
-  if (!isOpen) {
-    return null;
-  }
-
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(5); // Number of products per page
 
   useEffect(() => {
-    (async () => {
+    const fetchProducts = async () => {
       try {
         const response = await fetch(`${hostName}/product/getAll`);
         const data = await response.json();
@@ -19,11 +17,27 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
       } catch (error) {
         console.error("Error fetching products", error);
       }
-    })();
+    };
+
+    fetchProducts();
   }, []);
 
+  // Pagination
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-75 backdrop-filter backdrop-blur-lg flex items-center justify-center">
+    <div
+      className={`fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-75 backdrop-filter backdrop-blur-lg ${
+        isOpen ? "flex" : "hidden"
+      }`}
+    >
       <div className="bg-white bg-opacity-75 p-4 mx-auto rounded-lg backdrop-filter backdrop-blur-lg">
         <div className="flex justify-end text-2xl text-gray-900">
           <button onClick={onClose}>&times;</button>
@@ -61,10 +75,10 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
                 </tr>
               </thead>
               <tbody className="border border-gray-500">
-                {products.map((product, index) => (
+                {currentProducts.map((product, index) => (
                   <tr key={index} className="border-b">
                     <td className="py-2 text-gray-700 px-2 text-center border border-gray-500">
-                      {index + 1}
+                      {(currentPage - 1) * productsPerPage + index + 1}
                     </td>
                     <td className="py-2 text-gray-700 px-2 text-center border border-gray-500">
                       {product.id}
@@ -89,6 +103,24 @@ const ProductListModal = ({ isOpen, onClose, children }) => {
               </tbody>
             </table>
           </div>
+        </div>
+        {/* Pagination */}
+        <div className="flex justify-center mt-4">
+          {[...Array(Math.ceil(products.length / productsPerPage)).keys()].map(
+            (number) => (
+              <button
+                key={number}
+                onClick={() => paginate(number + 1)}
+                className={`mx-1 px-3 py-1 border border-gray-500 ${
+                  currentPage === number + 1
+                    ? "bg-gray-500 text-white"
+                    : "text-gray-500"
+                }`}
+              >
+                {number + 1}
+              </button>
+            )
+          )}
         </div>
       </div>
     </div>
