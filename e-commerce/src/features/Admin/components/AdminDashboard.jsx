@@ -35,9 +35,10 @@ export function AdminDashboard() {
 
   const openProductList = () => {
     setIsProductListOpen(true);
-  }
-  const  closeProductList = () => {
-    setIsProductListOpen(false)
+  };
+
+  const closeProductList = () => {
+    setIsProductListOpen(false);
   };
 
   const openProfile = () => {
@@ -278,14 +279,8 @@ export function AdminDashboard() {
         isOpen={isAddProductModalOpen}
         onClose={closeAddProductModal}
       /> */}
-      <ProductListModal 
-      isOpen={isProductListOpen}
-      onClose={closeProductList}
-      ></ProductListModal>
-      <ProfileModal
-      showProfile={isProfile}
-      closeProfile={closeProfile}
-      />
+      <ProductListModal isOpen={isProductListOpen} onClose={closeProductList} />
+      <ProfileModal showProfile={isProfile} closeProfile={closeProfile} />
       <AddProductModel
       showAddProduct={isAddProduct}
       closeAddProduct={closeNewProduct}
