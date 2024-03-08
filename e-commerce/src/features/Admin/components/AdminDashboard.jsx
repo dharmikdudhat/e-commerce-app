@@ -43,18 +43,18 @@ export function AdminDashboard() {
 
   const openProfile = () => {
     setProfile(true);
-  }
+  };
 
   const closeProfile = () => {
     setProfile(false);
-  }
+  };
 
-  const  addNewProduct = ()=>{
+  const addNewProduct = () => {
     setAddProduct(true);
-  }
+  };
   const closeNewProduct = () => {
     setAddProduct(false);
-  }
+  };
 
   // const openAddProductModal = () => {
   //   setIsAddProductModalOpen(true);
@@ -124,19 +124,19 @@ export function AdminDashboard() {
             <label className="text-sm font-semibold uppercase text-gray-950 block">
               Admin Functions:
             </label>
-            <div>
+            <div style={{ height: "490px" }}>
               <NavLink
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
                 // to="/add"
                 onClick={addNewProduct}
               >
-               {/* <span
+                {/* <span
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900 cursor-pointer"
                 onClick={openAddProductModal}
               > */}
                 <BookPlus className="h-5 w-5" aria-hidden="true" />
                 <span className="mx-2 text-sm font-medium">Add Product</span>
-              {/* </span> */}
+                {/* </span> */}
               </NavLink>
               <NavLink
                 className="flex items-center rounded-lg px-3 py-2 text-gray-800 transition-colors duration-300 hover:bg-gray-200 hover:text-gray-900"
@@ -144,7 +144,7 @@ export function AdminDashboard() {
                 onClick={openProductList}
               >
                 <Table className="h-5 w-5" aria-hidden="true" />
-                <span className="mx-2 text-sm font-medium" >Product List</span>
+                <span className="mx-2 text-sm font-medium">Product List</span>
               </NavLink>
             </div>
             <div>
@@ -282,8 +282,8 @@ export function AdminDashboard() {
       <ProductListModal isOpen={isProductListOpen} onClose={closeProductList} />
       <ProfileModal showProfile={isProfile} closeProfile={closeProfile} />
       <AddProductModel
-      showAddProduct={isAddProduct}
-      closeAddProduct={closeNewProduct}
+        showAddProduct={isAddProduct}
+        closeAddProduct={closeNewProduct}
       />
     </div>
   );
