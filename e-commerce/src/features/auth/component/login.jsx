@@ -26,18 +26,6 @@ export const SignInOne = () => {
 
   // const userData = useSelector((state) => state.auth.user);
 
-  const userData = localStorage.getItem("user");
-  // Redirect to home page if user is already logged in
-  useEffect(() => {
-    if (userData) {
-      if (userData.role === "Admin") {
-        navigation("/admin");
-      } else {
-        navigation("/");
-      }
-    }
-  }, [navigation, userData]);
-
   //Used to handle input changes at every input area in the form
   const handleInputChange = (e) => {
     setLoginFormData({
@@ -80,7 +68,13 @@ export const SignInOne = () => {
       if (!response.isError) {
         dispatch(login(response.data));
         setLoading(false);
-        navigation("/");
+
+        if (response.data.user.role == "Admin") {
+          console.log(response.data.user.role);
+          navigation("/admin");
+        } else {
+          navigation("/");
+        }
       } else {
         setIsError(true);
         setLoading(false);
@@ -91,17 +85,6 @@ export const SignInOne = () => {
       setLoading(false);
     }
   };
-
-  //Function to handle checkbox changes for role selection
-  // const updateRole = (e) => {
-  //   const newRole = e.target.checked ? "ADMIN" : "USER";
-  //   setLoginFormData({
-  //     ...loginFormData,
-  //     role: newRole,
-  //   });
-  // };
-
-  // urvas code
 
   return (
     <section className="bg-cover bg-center min-h-screen">

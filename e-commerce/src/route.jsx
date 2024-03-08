@@ -20,6 +20,7 @@ import AddProduct from "./features/product/components/AddProduct";
 import ReturnPolicy from "./features/home/components/ReturnPolicy";
 import ResetPassword from "./features/auth/component/ResetPassword";
 import { ForgetPasswordMail } from "./features/auth/component/ForgetPasswordMail";
+import { Landing } from "./features/NewHome/container/Landing";
 // import { ProductCard } from "./components/ProductCard/ProductCard";
 
 const isAuthenticated = () => {
@@ -68,6 +69,7 @@ const router = createBrowserRouter(
         path="registration"
         element={isAuthenticated() ? <Navigate to="/" /> : <SignUpOne />}
       />
+      <Route path="hello" element={<Landing />} />
     </Route>
   )
 );
