@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { hostName } from "../../../shared/constant/GlobalHostName";
 
-const ProductListModal = ({ isOpen, onClose, children }) => {
+const ProductListModal = ({isOpen, onClose, children }) => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5); // Number of products per page
