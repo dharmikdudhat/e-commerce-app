@@ -11,24 +11,21 @@ import { AllExceptionsFilter } from './core/filters/all-exceptions.filters';
 import { LogEntity } from './Entities/logging.entity';
 import { LoggingInterceptor } from './modules/logging/logging.interceptor';
 import { EmailModule } from './mailer/mailer.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './modules/user/user.module';
 // import { AuthModule } from './modules/auth/auth.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { ProductModule } from './modules/product/product.module';
 import { LogModule } from './modules/logging/log.module';
+import { TypeOrmConfig } from './database/typrorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5530,
-      username: 'postgres',
-      password: '55305530',
-      database: 'typeorm_db',
-      entities: [User, ContactEntity, ProductEntity, LogEntity],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) =>
+        TypeOrmConfig.getOrmConfig(configService),
+      inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([User, LogEntity, ProductEntity, ContactEntity]),
     UserModule,
@@ -54,8 +51,4 @@ import { LogModule } from './modules/logging/log.module';
     },
   ],
 })
-export class AppModule {
-  /*  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(MulterMiddleware).forRoutes('*');
-  } */
-}
+export class AppModule {}

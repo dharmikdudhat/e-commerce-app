@@ -5,7 +5,7 @@
 // import  { useEffect, useState } from "react";
 // import { hostName } from "../../../ulits/GlobalHostName";
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 import { hostName } from "../../../shared/constant/GlobalHostName";
 import { useDispatch, useSelector } from "react-redux";
 import { sendUpdateProps } from "../../../store/authSlice";
@@ -27,33 +27,6 @@ const AddProductModel = ({
   const dispatch = useDispatch();
   const isUpdate = false;
 
-  // const API_CONFIG = isUpdate
-  //   ? {
-  //       api: `http://${hostName}:3000/product/${updateProductProps.id}`,
-  //       method: "PATCH",
-  //     }
-  //   : {
-  //       api: `http://${hostName}:3000/product/upload`,
-  //       method: "POST",
-  //     };
-
-  // Populate form fields with existing data if in update mode
-  // useEffect(() => {
-  //   if (isUpdate) {
-  //     formRef.current.name.value = updateProductProps.name;
-  //     formRef.current.description.value = updateProductProps.description;
-  //     formRef.current.price.value = updateProductProps.price;
-  //     formRef.current.quantity.value = updateProductProps.quantity;
-  //     // Handle file input separately if necessary
-  //   }
-  // }, [isUpdate, updateProductProps]);
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   // Dispatch an action to update the product in the Redux store
-  //   dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
-  // };
-
   const handleAddOrUpdate = () => {
     // Determine whether it's an update or add operation based on isUpdate
     const API_CONFIG = isUpdate
@@ -74,10 +47,10 @@ const AddProductModel = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Product added/updated successfully:", data);
-        // Optionally, you can update local state or Redux store with the new data
-        // dispatch(sendUpdateProps({ ...updateProductProps, [name]: value }));
-        // Close the modal or perform any other actions
+        if (!data.isError) {
+          console.log("Product added/updated successfully:", data);
+          navigate("/admin");
+        }
         closeAddProduct();
       })
       .catch((err) => {
