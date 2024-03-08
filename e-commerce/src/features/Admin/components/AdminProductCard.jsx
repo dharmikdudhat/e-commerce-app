@@ -12,7 +12,7 @@ import { NavLink } from "react-router-dom";
 import DeleteConfirmationModal from "../../../shared/components/DeleteConfirm";
 
 export function AdminProductCard(props) {
-  const [extended, setExtended] = useState(false);
+  // const [extended, setExtended] = useState(false);
   const [isOptionsVisible, setOptionsVisible] = React.useState(false);
   // const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,9 +53,9 @@ export function AdminProductCard(props) {
     props.onUpdate();
   };
 
-  const handleReadMore = () => {
-    setExtended(!extended);
-  };
+  // const handleReadMore = () => {
+  //   setExtended(!extended);
+  // };
 
   const handleCancel = () => {
     // Close the delete confirmation modal
@@ -75,7 +75,7 @@ export function AdminProductCard(props) {
         src={props.imagePath}
         alt="Filter"
         className="h-[220px] w-full rounded-md object-cover cursor-pointer"
-        onClick={handleReadMore}
+        // onClick={handleReadMore}
       />
       <div className="absolute top-0 right-0  rounded-full">
         <div className="toggle-options" onClick={toggleOptions}>
@@ -107,23 +107,21 @@ export function AdminProductCard(props) {
         )}
       </div>
       <div className="">
-        {extended && (
-          <div className="grid grid-rows-4">
-            <h1 className="text-lg font-semibold ">{props.name}</h1>
-            <p className="text-sm text-gray-800 overflow-hidden max-h-20">
-              Description : {props.description}
-            </p>
-            <h2 className="text-lg font-semibold flex text-cover">
-              {" "}
-              Price : <IndianRupee className="w-4 pt-2" />
-              {props.price}
-            </h2>
-            <div className="flex justify-start">
-              <CheckSquare className="size-5 pt-1 pr-1 ml-0 text-green-900" />{" "}
-              <label> InStock {props.quantity}</label>
-            </div>
+        <div className="grid grid-rows-4">
+          <h1 className="text-lg font-semibold ">{props.name}</h1>
+          <p className="text-sm text-gray-800 overflow-hidden max-h-20">
+            Description : {props.description}
+          </p>
+          <h2 className="text-lg font-semibold flex text-cover">
+            {" "}
+            Price : <IndianRupee className="w-4 pt-2" />
+            {props.price}
+          </h2>
+          <div className="flex justify-start">
+            <CheckSquare className="size-5 pt-1 pr-1 ml-0 text-green-900" />{" "}
+            <label> InStock {props.quantity}</label>
           </div>
-        )}
+        </div>
       </div>
       {/* Delete confirmation modal */}
       <DeleteConfirmationModal
