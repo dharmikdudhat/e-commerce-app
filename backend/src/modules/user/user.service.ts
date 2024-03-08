@@ -40,7 +40,7 @@ export class UserService {
         throw new ConflictException('User Already exists');
       }
 
-      const saltOrRounds = await bcrypt.genSalt();
+      const saltOrRounds = 10;
       const hashPassword = await bcrypt.hash(
         createUserDto.password,
         saltOrRounds,
@@ -192,7 +192,7 @@ export class UserService {
     console.log('The token: ', token);
     try {
       const user = await this.userRepository.findOneBy({ resetToken: token });
-      const salt = await bcrypt.genSalt();
+      const salt = 10;
       const hashPassword = await bcrypt.hash(password, salt);
       if (user) {
         await this.userRepository
