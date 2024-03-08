@@ -45,7 +45,10 @@ const router = createBrowserRouter(
         path="registration"
         element={isAuthenticated() ? <Navigate to="/" /> : <SignUpOne />}
       />
-      <Route path="contact" element={<Contact />} />
+      <Route
+        path="contact"
+        element={ <Contact />}
+      />
       <Route
         path="privacypolicy"
         element={<ProtectedRoute element={<PrivacyPolicy />} />}
