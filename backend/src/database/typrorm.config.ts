@@ -10,11 +10,11 @@ export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService) {
     return {
       type: 'postgres',
-      host: configService.get('DB_HOST'),
-      port: configService.get('DB_PORT'),
-      username: configService.get('DB_USERNAME'),
-      password: configService.get('DB_PASSWORD'),
-      database: configService.get('DB_DATABASE'),
+      host: configService.get<String>('DB_HOST'),
+      port: configService.get<Number>('DB_PORT'),
+      username: configService.get<String>('DB_USERNAME'),
+      password: configService.get<String>('DB_PASSWORD'),
+      database: configService.get<String>('DB_DATABASE'),
       entities: [User, ContactEntity, ProductEntity, LogEntity],
       synchronize: true,
     };
@@ -24,7 +24,7 @@ export default class TypeOrmConfig {
 export const typeOrmConfig: TypeOrmModuleAsyncOptions = {
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: '../../.env',
     }),
   ],
   useFactory: async (configService: ConfigService): Promise<any> => {
