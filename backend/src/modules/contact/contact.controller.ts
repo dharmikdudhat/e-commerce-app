@@ -11,7 +11,7 @@ export class ContactController {
   @Post('add')
   async create(
     @Body() createContactDto: CreateContactDto,
-  ): Promise<ContactEntity> {
+  ): Promise<any> {
     return this.contactService.create(createContactDto);
   }
 
